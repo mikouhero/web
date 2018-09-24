@@ -1,0 +1,180 @@
+{extend name="index/index" /}
+<!--###############################################################################################################-->
+<!--################################################# 单独 ########################################################-->
+<!--###############################################################################################################-->
+{block name="header"}
+<script src="<?= $js?>/pagination.js"></script>
+{/block}
+{block name="main"}
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            blog List
+            <small>
+                <i class="icon-double-angle-right"></i>
+                with selectable items(single &amp; multiple) and custom icons
+            </small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="alert alert-info">
+                <i class="icon-hand-right"></i>
+
+                Please note that demo server is not configured to save the changes, therefore you may get an error
+                message.
+                <button class="close" data-dismiss="alert">
+                    <i class="icon-remove"></i>
+                </button>
+
+            </div>
+            <div class='col-xs-12'>
+                <div class="form-group">
+                    <label>文章分类：</label>
+                    <select name="" id="category" @change="mchange()">
+                        <option value="">Chose</option>
+                        <option v-if="menuItem.name !='首页' " v-for="(menuItem,key) in menuList"
+                                :value="menuItem['id']">
+                            {{menuItem.name}}
+                        </option>
+                    </select>
+                    <select id="categorychild" v-show="child.length>0" @change="mchange()">
+                        <option value="">Choose</option>
+                        <option v-for="childItem in child" :value="childItem['id']">{{childItem.name}}</option>
+                    </select>
+                    <a style="margin-left:20px" href="/admin/blog/add"><i class="icon  icon-cloud-upload bigger-180"></i></a>
+                </div>
+                <div class="col-xs-2 input-group-s" style=" padding-left: 0;">
+
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="sample-table-2" class="table table-bordered text-center solidTab ">
+                    <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th>图片</th>
+                        <th class="hidden-480">分类</th>
+                        <th>
+                            <i class="icon-time bigger-110 hidden-480"></i>
+                            发布时间
+                        </th>
+                        <th class="hidden-480">推荐</th>
+
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr style='' v-for="(blogItem,key) in blogList">
+                        <td>
+                            <a href="#">{{blogItem.title}}</a>
+                        </td>
+                        <td><img :src="blogItem.pic"
+                                 style="height:40px;"></td>
+                        <td class="hidden-480">{{blogItem.category_name}}</td>
+                        <td>{{blogItem.create_time}}</td>
+
+                        <td class="hidden-480" v-show="blogItem.recommend == 1 ">
+                            <span class="label label-sm label-warning" >推荐</span>
+                        </td>
+                        <td class="hidden-480" v-show="blogItem.recommend != 1" >
+                            <span class="label label-sm label-warning" >不推荐</span>
+                        </td>
+                        <td>
+                            <div class="">
+                                <a class="blue" href="#" title="详细内容">
+                                    <i class="icon-zoom-in bigger-130"  data-toggle="modal" data-target="#layer" @click="tmp(key)"></i>
+                                </a>
+
+                                <a class="green" href="#" title="编辑">
+                                    <i class="icon-pencil bigger-130"  @click="edit(blogItem.id,key)"></i>
+                                </a>
+
+                                <a class="purple" href="#" title="添加标签">
+                                    <i class=" icon-bookmark  bigger-130"  data-toggle="modal" data-target="#tag" @click="tagtmp(key)"></i>
+                                </a>
+
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="box-footer clearfix">
+                    <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="layer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="gridSystemModalLabel">[blog details]</h2>
+                </div>
+                <div class="modal-body">
+                    <div v-html="this.div"></div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">close</button>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="tag">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="">[blog Tag]</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal" role="form">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="form-group">
+                            <div class="col-xs-1"><i class="icon  icon-check "></i></div>
+                            <div class="col-xs-9">
+                                <a href="javascript:void(0)"><span style="margin-right: 10px" class=" badge" :class="random[key%random.length]"  v-for="(tagItem,key) in hasTag"   @click="deleteTag(tagItem.id)">{{tagItem.name}}</span></a>
+
+                            </div><!-- /span -->
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="hr hr-18 hr-double dotted"></div>
+                            </div>
+
+                            <div class="col-xs-1"><i class="icon icon-check-empty  "></i></div>
+                            <div class="col-xs-9">
+                                <a href="javascript:void(0)"><span style="margin: 10px" class=" badge"   v-for="(tagItem,key) in nohasTag"   @click="assignTag(tagItem.id)">{{tagItem.name}}</span></a>
+                            </div><!-- /span -->
+                        </div>
+                        <!-- PAGE CONTENT ENDS -->
+                    </div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">close</button>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{/block}
+{block name="footer"}
+<script src="<?= $js?>/admin/blog.js"></script>
+
+{/block}

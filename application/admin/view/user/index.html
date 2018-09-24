@@ -1,0 +1,298 @@
+{extend name="index/index" /}
+<!--###############################################################################################################-->
+<!--################################################# 单独 ########################################################-->
+<!--###############################################################################################################-->
+{block name="header"}
+<script src="<?= $js?>/pagination.js"></script>
+<style>
+    [v-cloak] {
+        display: none !important;
+    }
+</style>
+{/block}
+{block name="main"}
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            blog List
+            <small>
+                <i class="icon-double-angle-right"></i>
+                with selectable items(single &amp; multiple) and custom icons
+            </small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="alert alert-info">
+                <i class="icon-hand-right"></i>
+
+                Please note that demo server is not configured to save the changes, therefore you may get an error
+                message.
+                <button class="close" data-dismiss="alert">
+                    <i class="icon-remove"></i>
+                </button>
+
+            </div>
+            <div class="col-xs-2">
+                <div class="form-group">
+                <span class="btn btn-success btn-sm tooltip-success" data-rel="tooltip" data-placement="top"
+                      title="添加用户" data-toggle="modal" data-target="#layer">添加</span>
+                </div>
+            </div>
+
+
+            <div class="table-responsive">
+                <table id="sample-table-2" class="table table-bordered  solidTab ">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>user_name</th>
+                        <th>mobile</th>
+                        <th>email</th>
+                        <th>role</th>
+                        <th class="hidden-480">状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(userItem,key) in userList" v-cloak>
+                        <td>{{userItem.id}}</td>
+                        <td>{{userItem.user_name}}</td>
+                        <td>{{userItem.mobile}}</td>
+                        <td>{{userItem.email}}</td>
+                        <td>
+                            <span style="margin: 5px" class=" badge" v-for="(roleItem,key) in userItem.role"   :class="random[key%random.length]" data-toggle="modal" data-target="#ban" @click="">{{roleItem.name}}</span>
+                        </td>
+                        <td class="hidden-480" v-if="userItem.status == 0">
+                            <span class="label label-sm label-warning ">禁用</span>
+                        </td>
+                        <td class="hidden-480" v-if="userItem.status == 1">
+                            <span class="label label-sm  label-success">启用</span>
+                        </td>
+
+                        <td>
+                            <div class="action-buttons">
+                                <a class="blue" >
+                                    <i class="icon-zoom-in bigger-130" @click="roleTmp(key)" data-toggle="modal" data-target="#role"></i>
+                                </a>
+
+                                <a class="green"  @click="editUserid(userItem.id,key)" data-toggle="modal" data-target="#edit">
+                                    <i class="icon-pencil bigger-130"></i>
+                                </a>
+
+                                <a class="red" >
+                                    <i class="icon-trash bigger-130" @click="delTmp(userItem.id,key)" data-toggle="modal" data-target="#delete"></i>
+                                </a>
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="box-footer clearfix">
+                    <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--新增模态框-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="layer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="gridSystemModalLabel">新增用户</h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5"
+                                       v-model="msg['user_name']">
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 密码 </label>
+
+                            <div class="col-sm-9">
+                                <input type="password" id="form-field-2" placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="msg['password']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 手机号 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="col-xs-10 col-sm-5" v-model="msg['mobile']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 邮箱 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="col-xs-10 col-sm-5" v-model="msg['email']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 状态 </label>
+                            <div class="col-sm-3">
+                                <label>
+                                    <input name="switch-field-1" class="ace ace-switch" type="checkbox"
+                                           v-model="msg['status']">
+                                    <span class="lbl" @click=""></span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="addUser">确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--编辑用户-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="">编辑用户</h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="form--1" placeholder="" class="col-xs-10 col-sm-5"
+                                       v-model="editmsg['user_name']">
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 手机号 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="col-xs-10 col-sm-5" v-model="editmsg['mobile']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 邮箱 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="col-xs-10 col-sm-5" v-model="editmsg['email']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 状态 </label>
+                            <div class="col-sm-3">
+                                <label>
+                                    <input name="switch-field-1" class="ace ace-switch" type="checkbox"
+                                           v-model="editmsg['status']">
+                                    <span class="lbl" @click=""></span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="editUser">保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--删除-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" >确定删除？</h2>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="delUser(delid)">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--role-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="role">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" >分配角色</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal" role="form">
+                            <!-- PAGE CONTENT BEGINS -->
+                        <div class="form-group">
+                            <div class="col-xs-1"><i class="icon  icon-check "></i></div>
+                            <div class="col-xs-9">
+                                <a href="javascript:void(0)"><span style="margin-right: 10px" class=" badge" :class="random[key%random.length]"  v-for="(perItem,key) in hasRole"    @click="deleteUserRole(perItem.id)">{{perItem.name}}</span></a>
+
+                            </div><!-- /span -->
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="hr hr-18 hr-double dotted"></div>
+                            </div>
+
+                            <div class="col-xs-1"><i class="icon icon-check-empty  "></i></div>
+                            <div class="col-xs-9">
+                                <a href="javascript:void(0)"><span style="margin: 10px" class=" badge"   v-for="(nohasRoleItem,key) in nohasRole"    @click="assignRole(nohasRoleItem.id)">{{nohasRoleItem.name}}</span></a>
+                            </div><!-- /span -->
+                        </div>
+                            <!-- PAGE CONTENT ENDS -->
+                    </div>
+
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">关闭</button>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="footer"}
+<script src="<?= $js?>/admin/user.js"></script>
+
+{/block}

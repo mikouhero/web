@@ -1,0 +1,101 @@
+{extend name="index/index" /}
+<!--###############################################################################################################-->
+<!--################################################# 单独 ########################################################-->
+<!--###############################################################################################################-->
+{block name="header"}
+<link rel="stylesheet" href="<?= $css ?>/editormd.min.css"/>
+{/block}
+{block name="main"}
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            发布blog
+            <small>
+                <i class="icon-double-angle-right"></i>
+                with selectable items(single &amp; multiple) and custom icons
+            </small>
+        </h1>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-8">
+            <div class="form-group  ">
+                <label for="title">文章标题:</label>
+                <input id="title" type="text" name="title" class="form-control"
+                       placeholder="我想起那天下午在夕阳下的奔跑,那是我逝去的青春" v-model="msg['title']" maxlength="40">
+            </div>
+        </div>
+
+        <div class="col-xs-12"></div>
+        <div class="col-xs-4">
+            <div class="form-group hd_title">
+                <label>图片：</label>
+                <div class="" id="preview" @click="choosefile('picture')">
+                    <img id="imghead" src="<?= $picture ?>/back.jpg" alt="">
+                </div>
+                <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="picture" fld="pic" name="pic"
+                       @change="base64('picture','imghead','result')" style="display:none;">
+                <textarea name="img" id="result" rows=30 cols=300 hidden></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>文章分类：</label>
+                <select name="" id="category" @change="mchange()">
+                    <option value="">Chose</option>
+                    <option v-if="menuItem.name !='首页' " v-for="(menuItem,key) in menuList" :value="menuItem['id']">
+                        {{menuItem.name}}
+                    </option>
+                </select>
+                <select id="categorychild" v-show="child.length>0" @change="mchange()">
+                    <option value="">Chose</option>
+                    <option v-for="childItem in child" :value="childItem['id']">{{childItem.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>是否推荐：</label>
+                <input type="checkbox" class="ace ace-switch ace-switch-5" v-model="msg['recommend']"/>
+                <span class="lbl"></span>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div id="test-editormd">
+                <textarea name='mackdown' style="display:none;" id="mackdown" v-model="msg['mackdown']">
+                </textarea>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-actions center">
+                <button type="button" class="btn btn-sm btn-success" @click="addBlog">
+                    立即发布
+                    <i class="icon-arrow-right icon-on-right bigger-110"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+{/block}
+{block name="footer"}
+
+<script src="<?= $js?>/admin/blog.js"></script>
+<script src="<?= $js ?>/editormd.js"></script>
+<script type="text/javascript">
+    var url = "<?= $js?>" + "/mack/";
+    var testEditor;
+
+    $(function () {
+        // You can custom @link base url.
+//        editormd.urls.atLinkBase = "https://github.com/";
+
+        testEditor = editormd("test-editormd", {
+            width: "100%",
+            height: 720,
+            toc: true,
+            //atLink    : false,    // disable @link
+            //emailLink : false,    // disable email address auto link
+            todoList: true,
+            path: url
+        });
+    });
+</script>
+{/block}

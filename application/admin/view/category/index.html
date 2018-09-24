@@ -1,0 +1,448 @@
+{extend name="index/index" /}
+<!--###############################################################################################################-->
+<!--################################################# 单独 ########################################################-->
+<!--###############################################################################################################-->
+{block name="header"}
+<link href="<?= $css ?>/treestyle.css" rel="stylesheet"/>
+
+<style>
+    .tree ul b {
+        margin: 0 5px;
+    }
+
+    .tree ul b :hover {
+        cursor: pointer
+    }
+    [v-cloak] {
+        display: none !important;
+    }
+</style>
+{/block}
+{block name="main"}
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Treeview
+            <small>
+                <i class="icon-double-angle-right"></i>
+                with selectable items(single &amp; multiple) and custom icons
+            </small>
+        </h1>
+    </div><!-- /.page-header -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="tree well">
+                <ul>
+                    <li v-for="(menuItem,key) in menuList" style="font-size: 20px" v-cloak>
+                        <span><i class="icon-folder-open"></i> {{menuItem.name}}     </span>
+                        <b class="blue md-trigger" data-toggle="modal" data-target="#layer"
+                           @click="addTemp(menuItem.id,menuItem.name)"><i
+                                class=" icon-cloud-upload  bigger-120"></i></b>
+                        <b class="green" data-toggle="modal" data-target="#edit" @click="editMenutmp(key,'tmp')"><i class="icon-edit bigger-120"></i></b>
+                        <!--<b class="red"><i class="icon-trash bigger-120"></i></b>-->
+                        <ul v-show="menuItem.child.length > 0">
+                            <li v-for=" (menuChildItem,k) in menuItem.child">
+                                <span ><i class="icon-leaf"></i> {{menuChildItem.name}}   </span>
+                                <!--<b  class="blue"><i class="  icon-cloud-upload   bigger-120"></i></b>-->
+                                <b class="green" data-toggle="modal" data-target="#edit" @click="editMenutmp(key,k)" ><i class="icon-edit bigger-120"></i></b>
+                                <b class="red" data-toggle="modal" data-target="#delete" @click="deleteId = menuChildItem['id']" ><i class="icon-trash bigger-120" ></i></b>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="tree well" v-show=''>
+                <ul>
+                    <li>
+                        <span><i class="icon-folder-open"></i> Parent</span> <a href="">Goes somewhere</a>
+                        <ul>
+                            <li>
+                                <span><i class="icon-minus-sign"></i> Child</span> <a href="">Goes somewhere</a>
+                                <ul>
+                                    <li>
+                                        <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span><i class="icon-minus-sign"></i> Child</span> <a href="">Goes somewhere</a>
+                                <ul>
+                                    <li>
+                                        <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
+                                    </li>
+                                    <li>
+                                        <span><i class="icon-minus-sign"></i> Grand Child</span> <a href="">Goes
+                                        somewhere</a>
+                                        <ul>
+                                            <li>
+                                                <span><i class="icon-minus-sign"></i> Great Grand Child</span> <a
+                                                    href="">Goes
+                                                somewhere</a>
+                                                <ul>
+                                                    <li>
+                                                        <span><i class="icon-leaf"></i> Great great Grand Child</span>
+                                                        <a href="">Goes
+                                                            somewhere</a>
+                                                    </li>
+                                                    <li>
+                                                        <span><i class="icon-leaf"></i> Great great Grand Child</span>
+                                                        <a href="">Goes
+                                                            somewhere</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <span><i class="icon-leaf"></i> Great Grand Child</span> <a href="">Goes
+                                                somewhere</a>
+                                            </li>
+                                            <li>
+                                                <span><i class="icon-leaf"></i> Great Grand Child</span> <a href="">Goes
+                                                somewhere</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span><i class="icon-folder-open"></i> Parent2</span> <a href="">Goes somewhere</a>
+                        <ul>
+                            <li>
+                                <span><i class="icon-leaf"></i> Child</span> <a href="">Goes somewhere</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="tree" v-show="">
+                <ul>
+                    <li>
+                        <span><i class="icon-calendar"></i> 2013, Week 2</span>
+                        <ul>
+                            <li>
+                    <span class="badge badge-success"><i
+                            class="icon-minus-sign"></i> Monday, January 7: 8.00 hours</span>
+                                <ul>
+                                    <li>
+                                        <a href=""><span><i class="icon-time"></i> 8.00</span> &ndash; Changed CSS to
+                                            accomodate...</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                    <span class="badge badge-success"><i
+                            class="icon-minus-sign"></i> Tuesday, January 8: 8.00 hours</span>
+                                <ul>
+                                    <li>
+                                        <span><i class="icon-time"></i> 6.00</span> &ndash; <a href="">Altered
+                                        code...</a>
+                                    </li>
+                                    <li>
+                                        <span><i class="icon-time"></i> 2.00</span> &ndash; <a href="">Simplified our
+                                        approach
+                                        to...</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                    <span class="badge badge-warning"><i
+                            class="icon-minus-sign"></i> Wednesday, January 9: 6.00 hours</span>
+                                <ul>
+                                    <li>
+                                        <a href=""><span><i class="icon-time"></i> 3.00</span> &ndash; Fixed bug caused
+                                            by...</a>
+                                    </li>
+                                    <li>
+                                        <a href=""><span><i class="icon-time"></i> 3.00</span> &ndash; Comitting latest
+                                            code to
+                                            Git...</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="badge badge-important"><i class="icon-minus-sign"></i> Wednesday, January 9: 4.00 hours</span>
+                                <ul>
+                                    <li>
+                                        <a href=""><span><i class="icon-time"></i> 2.00</span> &ndash; Create component
+                                            that...</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span><i class="icon-calendar"></i> 2013, Week 3</span>
+                        <ul>
+                            <li>
+                    <span class="badge badge-success"><i
+                            class="icon-minus-sign"></i> Monday, January 14: 8.00 hours</span>
+                                <ul>
+                                    <li>
+                                        <span><i class="icon-time"></i> 7.75</span> &ndash; <a href="">Writing
+                                        documentation...</a>
+                                    </li>
+                                    <li>
+                                        <span><i class="icon-time"></i> 0.25</span> &ndash; <a href="">Reverting code
+                                        back to...</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+
+    <!--新增模态框-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="layer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="gridSystemModalLabel">新增分类</h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group" v-show="addParentid>0">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 上级分类名 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="form-field-0" placeholder="" class="col-xs-10 col-sm-5"
+                                       v-model="addParentname" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 分类名 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5"
+                                       v-model="addName">
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 链接 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="form-field-2" placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="addUrl">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 排序 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="col-xs-10 col-sm-5" v-model="addSort">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 状态 </label>
+                            <div class="col-sm-3">
+                                <label>
+                                    <input name="switch-field-1" class="ace ace-switch" type="checkbox"
+                                           v-model="addStatus">
+                                    <span class="lbl" @click="editaddStatus"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="addMenu">确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--编辑模态框-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="">编辑分类</h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 分类名 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text"  class="col-xs-10 col-sm-5"
+                                       v-model="editMsg['name']">
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 链接 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text"
+                                       class="col-xs-10 col-sm-5" v-model="editMsg['url']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 排序 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="col-xs-10 col-sm-5" v-model="editMsg['sort']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 状态 </label>
+                            <div class="col-sm-3">
+                                <label>
+                                    <input name="switch-field-1" class="ace ace-switch" type="checkbox"
+                                           v-model="editMsg['status']">
+                                    <span class="lbl" @click="editaddStatus"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                    </form>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="editMenu">保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" >确定删除？</h2>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="deleteMenu(deleteId)">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /.page-content -->
+{/block}
+
+{block name="footer"}
+<script src="<?= $js ?>/admin/category.js"></script>
+<script type="text/javascript">
+    //延迟执行
+    setTimeout(func, "1000");
+
+    function func() {
+        $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+
+        $('.tree li.parent_li > span').on('click', function (e) {
+
+            var children = $(this).parent('li.parent_li').find(' > ul > li');
+
+            if (children.is(":visible")) {
+
+                children.hide('fast');
+
+                $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+
+            } else {
+
+                children.show('fast');
+
+                $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+
+            }
+
+            e.stopPropagation();
+
+        });
+    }
+
+</script>
+{/block}
+
+<td class=" ">
+    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+        <a class="blue" href="#">
+            <i class="icon-zoom-in bigger-130"></i>
+        </a>
+
+        <a class="green" href="#">
+            <i class="icon-pencil bigger-130"></i>
+        </a>
+
+        <a class="red" href="#">
+            <i class="icon-trash bigger-130"></i>
+        </a>
+    </div>
+
+    <div class="visible-xs visible-sm hidden-md hidden-lg">
+        <div class="inline position-relative">
+            <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-caret-down icon-only bigger-120"></i>
+            </button>
+
+            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+                <li>
+                    <a href="#" class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</td>
+<!--###############################################################################################################-->
+<!--################################################# 单独 ########################################################-->
+<!--###############################################################################################################-->
