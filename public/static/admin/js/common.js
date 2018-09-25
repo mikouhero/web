@@ -29,5 +29,13 @@ var ajaxUrl = {
     addPermission:adminUrl+"/permission/add",
     editPermission:adminUrl+"/permission/edit",
     delPermission:adminUrl+"/permission/delete",
-    login:adminUrl+"/login/dologin"
+    login:adminUrl+"/login/dologin",
+    getMemberList:adminUrl+"/member/getList",
+    addMember:adminUrl+"/member/insert",
+    editMember:adminUrl+"/member/update",
+    delMember:adminUrl+"/member/delete",
+    getCompanyList:adminUrl+"/company/getList",
+    addCompany:adminUrl+"/company/insert",
+    editCompany:adminUrl+"/company/update",
+    delCompany:adminUrl+"/company/delete",
 };

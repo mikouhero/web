@@ -72,7 +72,7 @@ box-shadow:0px 3px 5px rgba(0,0,0,0.2);
 
 }
 
-.headDiv .logo{display:block; background:url("../images/logo.png"/*tpa=http://www.olm.com.cn/style/images/logo.png*/) center no-repeat; width:136px; height:64px; position:absolute; left:90px; top:18px;}
+.headDiv .logo{display:block; background:url("../images/logo.png") center no-repeat; width:136px; height:64px; position:absolute; left:90px; top:18px;}
 
 .pageHead{position:relative;}
 
@@ -80,7 +80,7 @@ box-shadow:0px 3px 5px rgba(0,0,0,0.2);
 
 .topSearch .input1{width:100%; height:36px; line-height:36px; text-indent:15px; color:#bcbcbc; font-size:14px;}
 
-.topSearch .btn1{position:absolute; top:0px; right:0px; background:url("../images/btn1.png"/*tpa=http://www.olm.com.cn/style/images/btn1.png*/) center no-repeat; width:58px; height:36px;}
+.topSearch .btn1{position:absolute; top:0px; right:0px; background:url("../images/btn1.png") center no-repeat; width:58px; height:36px;}
 
 .topBtn{position:absolute; top:42px; right:91px;}
 
@@ -88,11 +88,11 @@ box-shadow:0px 3px 5px rgba(0,0,0,0.2);
 
 .topBtn a{display:block; width:34px; height:34px;}
 
-.topBtn .li_01 a{background:url("../images/img33_1.png"/*tpa=http://www.olm.com.cn/style/images/img33_1.png*/) center no-repeat;}
+.topBtn .li_01 a{background:url("../images/img33_1.png") center no-repeat;}
 
-.topBtn .li_02 a{background:url("../images/img33_2.png"/*tpa=http://www.olm.com.cn/style/images/img33_2.png*/) center no-repeat;}
+.topBtn .li_02 a{background:url("../images/img33_2.png") center no-repeat;}
 
-.topBtn .li_03 a{background:url("../images/img33_3.png"/*tpa=http://www.olm.com.cn/style/images/img33_3.png*/) center no-repeat;}
+.topBtn .li_03 a{background:url("../images/img33_3.png") center no-repeat;}
 
 .nav{position:absolute; left:263px; top:45px;}
 
@@ -256,7 +256,7 @@ transition:All 1s ease 0.5s;
 
 .pageBanner2 .more{width:148px; border-top:#00afff solid 2px;}
 
-.pageBanner2 .more a{display:inline-block; color:#FFF; font-size:14px; padding:0 25px 0 7px; height:70px; line-height:70px; background:url("../images/ico13.png"/*tpa=http://www.olm.com.cn/style/images/ico13.png*/) right center no-repeat;}
+.pageBanner2 .more a{display:inline-block; color:#FFF; font-size:14px; padding:0 25px 0 7px; height:70px; line-height:70px; background:url("../images/ico13.png") right center no-repeat;}
 
 .pageBanner2-1{padding:40px 15px;}
 
@@ -264,15 +264,15 @@ transition:All 1s ease 0.5s;
 
 
 
-.topA{display:block; background:url("../images/topA.png"/*tpa=http://www.olm.com.cn/style/images/topA.png*/) center no-repeat; width:53px; height:53px; position:fixed; z-index:20; bottom:100px; right:90px;}
+.topA{display:block; background:url("../images/topA.png") center no-repeat; width:53px; height:53px; position:fixed; z-index:20; bottom:100px; right:90px;}
 
 
 
 .pageNow2{height:88px; line-height:88px; position:relative; border-bottom:#c6c6c6 solid 1px; margin-bottom:45px;}
 
-.pageNow2 .back{display:inline-block; height:88px; font-size:16px; background:url("../images/nimg19.png"/*tpa=http://www.olm.com.cn/style/images/nimg19.png*/) left center no-repeat; padding-left:29px;}
+.pageNow2 .back{display:inline-block; height:88px; font-size:16px; background:url("../images/nimg19.png") left center no-repeat; padding-left:29px;}
 
-.pageNow2 div{position:absolute; top:0px; right:0px; height:88px; background:url("../images/nimg9.png"/*tpa=http://www.olm.com.cn/style/images/nimg9.png*/) left center no-repeat; padding-left:15px; font-size:14px;}
+.pageNow2 div{position:absolute; top:0px; right:0px; height:88px; background:url("../images/nimg9.png") left center no-repeat; padding-left:15px; font-size:14px;}
 
 .pageNow2 div a{color:#989a9c;}
 

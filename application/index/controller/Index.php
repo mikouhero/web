@@ -19,7 +19,13 @@ class Index extends Controller
             'css' => $css,
             'js' => $js,
             'img' => $img,
-            'picture' => $picture
+            'picture' => $picture,
+            'on1' =>'',
+            'on2' =>'',
+            'on3' =>'',
+            'on4' =>'',
+
+
         ));
     }
 
@@ -32,19 +38,35 @@ class Index extends Controller
     }
 
 
+    public function  product()
+    {
+        $this->assign(array(
+            'on1' => 'on',
+        ));
+        return view('index@index/product');
+    }
+    public function example()
+    {
+        $this->assign(array(
+            'on2' => 'on',
+        ));
+        return view('index@index/example');
+    }
+
     public function about()
     {
+        $this->assign(array(
+            'on3' => 'on',
+        ));
         return view('index@index/about');
     }
 
     public function connect()
     {
+        $this->assign(array(
+            'on4' => 'on',
+        ));
         return view('index@index/connect');
-    }
-
-    public function example()
-    {
-        return view('index@index/example');
     }
 
 }

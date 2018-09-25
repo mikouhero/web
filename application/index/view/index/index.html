@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
-    <title>东方龙马集团官网—全系列性能管理，大数据分析，数据库，中间件</title>
-    <meta name="keywords" content="数据库管理,交易性能管理,核心业务保障管理,网络性能管理,运营大数据分析"/>
+    <title>蜂悠科技网络管家</title>
+    <meta name="keywords" content="蜂悠科技网络管家"/>
     <meta name="description"
-          content="东方龙马始终关注企业的多维度需求，专注于数据库管理,交易性能管理,核心业务保障管理,网络性能管理,运营大数据分析等全系列性能管理，大数据分析，数据库，中间件服务。秉承&quot;专业专注，不断创新&quot;的服务理念，为用户提供最适合的专业化服务。"/>
+          content="蜂悠科技始终关注企业的多维度需求，专注于数据库管理,交易性能管理,核心业务保障管理,网络性能管理,运营大数据分析等全系列性能管理，大数据分析，数据库，中间件服务。秉承&quot;专业专注，不断创新&quot;的服务理念，为用户提供最适合的专业化服务。"/>
     <meta name="format-detection" content="telephone=no"/>
     <link href="<?= $css ?>/main.css" rel="stylesheet" type="text/css"/>
     <link href="<?= $css ?>/index.css"  rel="stylesheet"
@@ -47,81 +47,21 @@
         <div class="bg"></div>
         <ul>
             <li><a href="/" class="on">首页</a></li>
-            <li><a href="" >产品介绍</a></li>
-            <li><a href="" >成功案例</a></li>
-            <li><a href="" >公司简介</a></li>
-            <li><a href="" >联系我们</a></li>
+            <li><a href="/product" >产品介绍</a></li>
+            <li><a href="/example" >成功案例</a></li>
+            <li><a href="/about" >公司简介</a></li>
+            <li><a href="/connect" >联系我们</a></li>
         </ul>
     </div>
     <!--导航 end -->
-    <div class="topSearch">
-        <script language="javascript" type="text/javascript" src="<?= $js ?>/layer/layer.js"
-        ></script>
-        <form id="search" name="search_js1" method="post" action="http://www.olm.com.cn/e/search/">
-            <input type="hidden" name="show" value="title,smalltext,newstext,writer"/>
-            <input type="hidden" name="classid" value="6,7"/>
-            <input type="hidden" name='tempid' value='1'/>
-            <input type="text" class="input1 input_hover" value="请输入方案名称" title="请输入方案名称" name="keyboard">
-            <input type="button" class="btn1" onClick="searchSubmit()" value="">
-        </form>
-        <script type="text/javascript">
-            $("#search").keypress(function (e) {
-                if (e.which == 13) {
-                    searchSubmit();
-                    return false;
-                }
-            });
 
-            function searchSubmit() {
-                $("#search").ajaxSubmit({
-                    success: function (data) {
-                        data = eval('(' + data + ')');
-                        if (data.status == 'Faild') {
-                            layer.msg(data.message, function () {
-                            });
-                        } else {
-                            window.location.href = data.gotourl;
-                        }
-                    }
-                });
-            }
-        </script>
-    </div>
-    <style type="text/css">
-        /*.topBtn a.bds_weixin {*/
-        /*background: url("/img33_2.png" ) no-repeat;*/
-        /*}*/
-    </style>
     <!--分享部分-->
     <div class="topBtn bdsharebuttonbox">
         <ul>
-            <li class="li_01"><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a></li>
-            <li class="li_02"><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></li>
-            <li class="li_03"><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a></li>
+            <li class="li_01"><a title="用户登录" href="#" class="bds_tsina" data-cmd="tsina"></a></li>
         </ul>
     </div>
-    <script>
-        window._bd_share_config = {
-            "common": {
-                "bdSnsKey": {},
-                "bdMini": "2",
-                "bdMiniList": false,
-                // "bdText": '自定义分享内容',
-                // "bdDesc": '自定义分享摘要',
-                // "bdUrl": '自定义分享url地址',
-                // "bdPic": '自定义分享图片',
-                "bdStyle": "1",
-                "bdSize": "16"
-            },
-            "share": {
-                "bdSize": 16,
-                "bdCustomStyle": "/"
-            }
-        }
 
-        //以下为js加载部分
-        with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
-    </script>
     <!--分享end -->
 </div>
 <!-- 导航 -->
@@ -139,26 +79,16 @@
 </ul>
 <div id="dowebok">
     <div class="section">
-        <div class="indexPart1">
-            <div class="slick"
-                 style="background:url(/d/file/2016-09-23/51f75efa016ab028775e9cde10af2004.jpg) center; background-size:cover;">
-                <!--         <div class="box">
-                          <div class="line"></div>
-                          <div class="name"><div>全系列性能管理专家</div><em>Full Series Performance Management</em></div>
-                          <p>为用户提供端到端应用性能管理、中间件数据库性能管理、交易性能管理和网络性能管理等全方位性能管理解决方案。</p>
-                          <div class="btn"><a href="/l,9,0.html">了解详情</a><a href="/l,21,0.html" class="a1 inline">联系我们</a></div>
-                        </div> -->
-            </div>
-        </div>
+
         <!--介绍列表-->
         <div class="indexPart1List listHover">
             <ul>
                 <li class="li_01">
-                    <div class="imgDiv"><a href="l,9,0.html" >
+                    <div class="imgDiv"><a href="" >
                         <img src="<?= $img ?>/img390_1.jpg"
                         ></a></div>
                     <div class="box">
-                        <div class="name"><a href="l,9,0.html" ><全系列性能管理></全系列性能管理></a>
+                        <div class="name"><a href="" ><全系列性能管理></全系列性能管理></a>
                         </div>
                         <div class="msg"><a href="javascript:;">Full Series Performance Management</a></div>
                         <div class="btn"><a href="javascript:;">APM</a>|<a href="javascript:;">BPM</a>|<a
@@ -166,37 +96,34 @@
                     </div>
                 </li>
                 <li class="li_02">
-                    <div class="imgDiv"><a href="l,8,0.html" ><img
+                    <div class="imgDiv"><a href="" ><img
                             src="<?= $img ?>/img390_2.jpg"
                     ></a></div>
-                    <div class="img"><a href="l,8,0.html" ><img
+                    <div class="img"><a href="" ><img
                             src="<?= $img ?>/img150_1.png"
                     ></a></div>
                 </li>
                 <li class="li_03">
-                    <div class="imgDiv"><a href="l,10,0.html" ><img
+                    <div class="imgDiv"><a href="" ><img
                             src="<?= $img ?>/img390_3.jpg"
                     ></a></div>
                     <div class="box">
-                        <div class="name"><a href="l,10,0.html" >大数据</a></div>
+                        <div class="name"><a href="" >大数据</a></div>
                         <div class="msg"><a href="javascript:;">Big Data</a></div>
                         <div class="btn"><a href="javascript:;">大数据采集</a>|<a href="javascript:;">大数据分析</a>|<a
                                 href="javascript:;">大数据应用</a></div>
                     </div>
                 </li>
                 <li class="li_04">
-                    <div class="imgDiv"><a href="l,9,0.html" ><img
-                            src="<?= $img ?>/img390_4.jpg"></a></div>
-                    <div class="img"><a href="l,9,0.html" ><img
-                            src="<?= $img ?>/img150_2.png"
+                    <div class="imgDiv"><a href="" ><img src="<?= $img ?>/img390_4.jpg"></a></div>
+                    <div class="img"><a href="l,9,0.html" ><img src="<?= $img ?>/img150_2.png"
                     ></a></div>
                 </li>
                 <li class="li_05">
-                    <div class="imgDiv"><a href="l,8,0.html" ><img
-                            src="<?= $img ?>/img390_5.jpg"
+                    <div class="imgDiv"><a href="" ><img src="<?= $img ?>/img390_5.jpg"
                     ></a></div>
                     <div class="box">
-                        <div class="name"><a href="l,8,0.html" >数据库/中间件</a>
+                        <div class="name"><a href="" >数据库/中间件</a>
                         </div>
                         <div class="msg"><a href="javascript:;">DataBase/Middleware</a></div>
                         <div class="btn"><a href="javascript:;">技术交流</a>|<a href="javascript:;">产品部署</a>|<a
@@ -205,10 +132,10 @@
                     </div>
                 </li>
                 <li class="li_06">
-                    <div class="imgDiv"><a href="l,10,0.html" ><img
+                    <div class="imgDiv"><a href="" ><img
                             src="<?= $img ?>/img390_6.jpg"
                     ></a></div>
-                    <div class="img"><a href="l,10,0.html" ><img
+                    <div class="img"><a href="" ><img
                             src="<?= $img ?>/img150_3.png"
                     ></a></div>
                 </li>
@@ -217,7 +144,7 @@
         </div>
         <!--end-->
     </div>
-    <div class="section indexPart2" style="background:url(http://ocntrf3t3.bkt.clouddn.com/style/images/img1920_2.jpg) center;">
+    <div class="section indexPart2" style="background:url(<?= $img ?>/img1920_2.jpg) center;">
         <div class="box">
             <div class="wal">
                 <div class="indexTitle">
@@ -233,8 +160,7 @@
                 <div class="msg"><span>专业专注</span><em>不断创新</em></div>
                 <div class="list listHover">
                     <ul>
-                        <li class="li_01" onclick="location.href='l,8,0.html'/*tpa=http://www.olm.com.cn/l,8,0.html*/"
-                            style="cursor:pointer">
+                        <li class="li_01" style="cursor:pointer">
                             <div class="listDiv">
                                 <div class="imgDiv">
                                     <img src="<?= $img ?>/1a5de83b81b0de20bf61376a62a9791e.png">
@@ -244,11 +170,10 @@
                                     Data full Life<br/>
                                     Cycle service solutions
                                 </div>
-                                <a href="l,8,0.html"  class="btn"></a>
+                                <a href=""  class="btn"></a>
                             </div>
                         </li>
-                        <li class="li_02" onclick="location.href='l,9,0.html'/*tpa=http://www.olm.com.cn/l,9,0.html*/"
-                            style="cursor:pointer">
+                        <li class="li_02" style="cursor:pointer">
                             <div class="listDiv">
                                 <div class="imgDiv">
                                     <img src="<?= $img ?>/50563657fe257fec2e14627e1409d2fc.png">
@@ -258,24 +183,21 @@
                                     Full Series Performance<br/>
                                     Management Solutions
                                 </div>
-                                <a href="l,9,0.html"  class="btn"></a>
+                                <a href=""  class="btn"></a>
                             </div>
                         </li>
-                        <li class="li_03" onclick="location.href='l,10,0.html'/*tpa=http://www.olm.com.cn/l,10,0.html*/"
-                            style="cursor:pointer">
+                        <li class="li_03" style="cursor:pointer">
                             <div class="listDiv">
                                 <div class="imgDiv">
                                     <img src="<?= $img ?>/9f2294cc8d73d7c0a33e1d6b535d900c.png">
-                                    <img
-                                            src="<?= $img ?>/069717c1e4a7b99c75d43a929b449c76.png"
-
-                                            class="img2"></div>
+                                    <img src="<?= $img ?>/069717c1e4a7b99c75d43a929b449c76.png" class="img2">
+                                </div>
                                 <div class="name">
                                     <div>大数据分析解决方案</div>
                                     Big data<br/>
                                     Analysis solution
                                 </div>
-                                <a href="l,10,0.html"  class="btn"></a>
+                                <a href=""  class="btn"></a>
                             </div>
                         </li>
                     </ul>
@@ -285,7 +207,7 @@
         </div>
     </div>
     <div class="section indexPart3"
-         style="background:url(http://ocntrf3t3.bkt.clouddn.com/style/images/img1920_3.jpg) center;">
+         style="background:url(<?= $img ?>/img1920_3.jpg) center;">
         <div class="box">
             <div class="wal">
                 <div class="indexTitle">
@@ -299,28 +221,28 @@
                 <div class="list listHover">
                     <ul>
                         <li class="li_01">
-                            <div class="imgDiv"><img src="d/file/2016-08-18/d55126dec00e12c1fd3f9e0fc06f0f86.png"
+                            <div class="imgDiv"><img src="<?= $img ?>/d55126dec00e12c1fd3f9e0fc06f0f86.png"
                             >
                             </div>
                             <div class="name">工程师团队</div>
                             <p>拥有一支工程师、高级工程师到技术顾问的完善技术团队，技术团队达到70人以上</p>
                         </li>
                         <li class="li_02">
-                            <div class="imgDiv"><img src="d/file/2016-08-18/b37914d5cb50ed66c20b72eac33fbcd1.png"
+                            <div class="imgDiv"><img src="<?= $img ?>/b37914d5cb50ed66c20b72eac33fbcd1.png"
                             >
                             </div>
                             <div class="name">自主研发</div>
                             <p>拥有一支专业的研发队伍，针对企业及互联网+研发新一代的应用性能管理软件，并申请了国家的认证</p>
                         </li>
                         <li class="li_03">
-                            <div class="imgDiv"><img src="d/file/2016-08-18/1574f74b64f8dfd381352da40c635f02.png"
+                            <div class="imgDiv"><img src="<?= $img ?>/1574f74b64f8dfd381352da40c635f02.png"
                             >
                             </div>
                             <div class="name">服务体系</div>
                             <p>为用户提供规范而高效的整体服务体系：运维规范、运维基线、服务标准、技术文档</p>
                         </li>
                         <li class="li_04">
-                            <div class="imgDiv"><img src="d/file/2016-08-18/d97ada8c10875d614db482f45496219f.png"
+                            <div class="imgDiv"><img src="<?= $img ?>/d97ada8c10875d614db482f45496219f.png"
                             >
                             </div>
                             <div class="name">客户基础</div>
@@ -332,7 +254,7 @@
         </div>
     </div>
     <div class="section indexPart4"
-         style="background:url(http://ocntrf3t3.bkt.clouddn.com/style/images/img1920_4.jpg) center;">
+         style="background:url(<?= $img ?>/img1920_4.jpg) center;">
         <div class="box">
             <div class="wal">
                 <div class="indexTitle">
@@ -357,73 +279,20 @@
                     <ul class="tabContent">
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/6a99dd98bc13d0182be1eabe5357155a.png"
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
+                            ></em></a>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div><a href="javascript:void(0);"><em><img
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
                             ></em></a>
                             </div>
                         </li>
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/bd3f0e323c6abfbea9ec90aa313684ae.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/b722636cf2f5e972d79f8d02b86e083f.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/cfd5d70800ae340a9d6e62c7dc184185.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/320509826dc63475ed14816cc7de42b0.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/0f91972d7ff4bd60d9a85848d201747b.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/79738aaeb153e74a7785686898a6382f.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/0c4ba4de7f2ffa34f2966d8192f387e1.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/c2e649870f3e1fea9d99a8e8efcbe4ee.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/3834adcd71d2a256b8f7f5a0c5440768.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/2f8153a96b548d266642240617a741c3.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/57450be014040b70bf836b1d0a1f083d.png"
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
                             ></em></a>
                             </div>
                         </li>
@@ -431,278 +300,105 @@
                     <ul class="tabContent">
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/93450c5ad21a50bc9bf72a287fd4b350.png"
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
+                            ></em></a>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div><a href="javascript:void(0);"><em><img
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
                             ></em></a>
                             </div>
                         </li>
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/6e34d4e48792ca06ae2028fcfdb643fd.png"
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
                             ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/d361c58be6921b186bc92786f8016967.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/2d5f8a8b4a86f0e67f4a543477b8f149.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/584c0b83a6377e4753b65cbb976b3449.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/9cd5498a02c7c62bf62b4acb959cf5d1.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/02cd5138964d3a604e8b162570b7b0bc.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/f2d2a15a31dab08ea09022399e2899fc.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-29/dc30b21de855f54e8108674a460813cf.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/2fff55670d2982196ed058d30d0ab29e.png"
-                            ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/ca535d656f42e7b0578dbf69d918798b.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/010a3dec0e48f659361e0409c3b80cfa.png"></em></a>
                             </div>
                         </li>
                     </ul>
                     <ul class="tabContent">
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/0b53d059c27766dfafda6438300cbd5d.png"
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
+                            ></em></a>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div><a href="javascript:void(0);"><em><img
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
                             ></em></a>
                             </div>
                         </li>
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/c9f473ff737013b36d64e5e71701236f.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/4a5d9ffc9ffe7b971751995229c7e147.png"></em></a>
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
+                            ></em></a>
                             </div>
                         </li>
                     </ul>
                     <ul class="tabContent">
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/4b6f8eb9ab5c97bcef0a4932bce7507a.png"></em></a>
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
+                            ></em></a>
                             </div>
                         </li>
+
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/053a7e0f8a34616ecb55aea77780860c.png"
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
                             ></em></a>
                             </div>
                         </li>
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/2cd81c4d6e437a813d40b2dd4c1ee667.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/9d57daad68210ce0dc46fec18b24806a.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/9a9f679902bbbb517f0c0551b9ebcc53.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/1b9c81a103a9f10b04b559d44fcb293f.png"
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
                             ></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-29/be26a6836b8d30e0c669c03db92904a9.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/a80d13b4174a36bbab4eef6d81c964a5.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-29/64453388177a8318fe70a74f7f16a7bb.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-29/f3b3afe2f8d1e8ffa93d85683b66665a.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-29/87eeb4eeb870a3d8c2cc416e2b3b8520.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/f5260d30dc37f357c70c657f02ad41a2.png"></em></a>
                             </div>
                         </li>
                     </ul>
                     <ul class="tabContent">
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/a1dd67f45eb89ac9f67a9d1243009ced.png"></em></a>
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
+                            ></em></a>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div><a href="javascript:void(0);"><em><img
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
+                            ></em></a>
                             </div>
                         </li>
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/79f8a9b63dd72d7a88875e7e794719e3.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/202d009e472fa65aba7b86171120c917.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/bbab391d8876584bcaf0f056329e1374.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/265bfe66177a3879421a4556f3c9798a.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/fe4c35bfd6a44320f223a1c68ae76853.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/10b33a39b628fec39755a39e994aab42.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/472d97b99e54e06d81e012c21ab7f0de.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/d8359f418ead66a323a656c016179434.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/a80acfca0659b2abd7bdf90ba95b031d.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/01f6429c8093af3629f340db63ffc830.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/f607b92c853dad9046ecff76510472cd.png"></em></a>
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
+                            ></em></a>
                             </div>
                         </li>
                     </ul>
                     <ul class="tabContent">
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-29/5bf8aa072b7034fac2d9426803be6053.png"></em></a>
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
+                            ></em></a>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div><a href="javascript:void(0);"><em><img
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
+                            ></em></a>
                             </div>
                         </li>
                         <li>
                             <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/35813270caaa29f9afb339758bc657e6.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-29/196ea31880d7b25bec6e13af95855711.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/e00714a06a3e66fb07535c09b784d009.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/cac48763a6796cd78e12e566bac21b37.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-29/b84e4a4be51e5ba0c0cb9a3c8f5089a0.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/3141d05e3666bfc843934c712f7c3675.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-29/905cc6cafb50d76397bda9814196e016.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/50fd6e7c7c7c0412f13d8932aa382ace.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/b36d78d54f7481ea7a35484c22d67b74.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/3ea012675a2c049c74f6cf3a6e636db9.png"></em></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div><a href="javascript:void(0);"><em><img
-                                    src="d/file/2016-08-22/b8486a3b1fb3369de3eeb32493a74cd2.png"></em></a>
+                                    src="<?= $img ?>/6a99dd98bc13d0182be1eabe5357155a.png"
+                            ></em></a>
                             </div>
                         </li>
                     </ul>
@@ -712,14 +408,14 @@
         </div>
     </div>
     <div class="section indexPart5"
-         style="background:url(http://ocntrf3t3.bkt.clouddn.com/style/images/img1920_5.png) center;">
+         style="background:url(<?= $img ?>/img1920_5.png) center;">
         <div class="bbox"></div>
         <div class="box">
             <div class="list2">
                 <ul>
                     <li class="li_01">
-                        <h2 style="background-image:url(/d/file/2016-08-19/719bbbe751268041781e2c9ff812b6fc.png);">
-                            北京总部</h2>
+                        <h2 style="background-image:url(<?= $img ?>/1cacb49794ad5af00b89d95f019529c7.png);">
+                            上海总部</h2>
                         <dl>
                             <dd class="dd_01">010-5907 0906</dd>
                             <dd class="dd_02">010-5907 0608</dd>
@@ -727,47 +423,6 @@
                             <dd class="dd_04">北京市朝阳区朝外大街甲6号万通中心D座301室</dd>
                         </dl>
                     </li>
-                    <li class="li_02">
-                        <h2 style="background-image:url(/d/file/2016-08-19/1cacb49794ad5af00b89d95f019529c7.png);">
-                            上海公司</h2>
-                        <dl>
-                            <dd class="dd_01">021-3253 2870</dd>
-                            <dd class="dd_02">021-3253 2870</dd>
-                            <dd class="dd_03">200070</dd>
-                            <dd class="dd_04">上海市闸北区恒丰路568号恒汇国际大厦1901室</dd>
-                        </dl>
-                    </li>
-                    <li class="li_03">
-                        <h2 style="background-image:url(/d/file/2016-08-19/a405ea4399abdee388f9474c091b2a81.png);">
-                            广州公司</h2>
-                        <dl>
-                            <dd class="dd_01">020-3828 4800</dd>
-                            <dd class="dd_02">020-3828 4800</dd>
-                            <dd class="dd_03">510620</dd>
-                            <dd class="dd_04">广州市体育东路138号金利来数码大厦2902-03室</dd>
-                        </dl>
-                    </li>
-                    <li class="li_04">
-                        <h2 style="background-image:url(/d/file/2016-08-19/8c835490dd468ebbe885ce87e99167ac.png);">
-                            成都公司</h2>
-                        <dl>
-                            <dd class="dd_01">028-8519 9238</dd>
-                            <dd class="dd_02">028-8519 9238</dd>
-                            <dd class="dd_03">610041</dd>
-                            <dd class="dd_04">成都市高新区创业路16号火炬大厦B座7层</dd>
-                        </dl>
-                    </li>
-                    <li class="li_05">
-                        <h2 style="background-image:url(/d/file/2016-08-19/1cacb49794ad5af00b89d95f019529c7.png);">
-                            北京安码龙科技有限公司</h2>
-                        <dl>
-                            <dd class="dd_01">021-5476 0508</dd>
-                            <dd class="dd_02">021-5476 0509</dd>
-                            <dd class="dd_03">200070</dd>
-                            <dd class="dd_04">上海市闵行区吴中路1799号万象城A座601室</dd>
-                        </dl>
-                    </li>
-
                 </ul>
             </div>
             <div class="fl">
@@ -776,63 +431,29 @@
                     Beijing Orient LegendMaker Software Development Co., Ltd.
                 </div>
                 <div class="ewm">
-                    <ul>
-                        <li>
-                            <div class="code"><img src="d/file/2016-08-24/42be2a8f45e8b983c6e990df24ca2da6.jpg"
-                            >
-                            </div>
-                            官方微博
-                        </li>
-                        <li>
-                            <div class="code"><img src="d/file/2016-08-24/133642e63d71f49e731d799c8f11e72e.jpg"
-                            >
-                            </div>
-                            官方微信
-                        </li>
-                    </ul>
+
                 </div>
                 <div class="list">
                     <ul>
                         <li class="li_01">
                             <div class="name2"><a href="l,1,0.html" >解决方案</a>
                             </div>
-                            <dl>
-                                <dd><a href="l,8,0.html" >数据生命周期服务解决方案</a></dd>
-                                <dd><a href="l,9,0.html" >全系列性能管理解决方案</a></dd>
-                                <dd><a href="l,10,0.html" >大数据分析解决方案</a></dd>
-                            </dl>
-                            <div class="name2"><a href="l,3,0.html" >成功案例</a>
-                            </div>
+
                         </li>
                         <li class="li_02">
                             <div class="name2"><a href="l,2,0.html" >安码龙</a>
                             </div>
-                            <dl>
-                                <dd><a href="l,2,0.html#/0" >简介</a></dd>
-                                <dd><a href="l,2,0.html#/1" >产品</a></dd>
-                                <dd><a href="l,2,0.html#/2">优势</a></dd>
-                                <dd><a href="l,2,0.html#/3" >联系</a></dd>
-                            </dl>
+
                         </li>
                         <li class="li_03">
                             <div class="name2"><a href="l,4,0.html" >新闻中心</a>
                             </div>
-                            <dl>
-                                <dd><a href="l,6,0.html" >公司动态</a></dd>
-                                <dd><a href="l,7,0.html" >行业资讯</a></dd>
-                            </dl>
+
                         </li>
                         <li class="li_04">
                             <div class="name2"><a href="l,5,0.html" >关于我们</a>
                             </div>
-                            <dl>
-                                <dd><a href="" >公司简介</a></dd>
-                                <dd><a href="" >产品介绍</a></dd>
-                                <dd><a href="" ></a></dd>
-                                <dd><a href="" >公司历史</a></dd>
-                                <dd><a href="" >诚聘英才</a></dd>
-                                <dd><a href="">联系我们</a></dd>
-                            </dl>
+
                         </li>
                     </ul>
                 </div>
@@ -840,33 +461,15 @@
             </div>
             <div class="fr">
                 <ul>
-                    <li class="li_01">
-                        <i></i><em></em>
-                        <a href="javascript:void(0);">北京总部</a>
-                        <div class="yuan yuan-1"></div>
-                        <div class="yuan yuan-2"></div>
-                        <div class="yuan yuan-3"></div>
-                        <div class="box1">
-                            <h2 style="background-image:url(/d/file/2016-08-19/719bbbe751268041781e2c9ff812b6fc.png);">
-                                北京总部</h2>
-                            <dl>
-                                <dd class="dd_01">010-5907 0906</dd>
-                                <dd class="dd_02">010-5907 0608</dd>
-                                <dd class="dd_03">100020</dd>
-                                <dd class="dd_04">北京市朝阳区朝外大街甲6号万通中心D座301室</dd>
-                            </dl>
-                        </div>
-                    </li>
                     <li class="li_02">
                         <i></i><em></em>
                         <a href="javascript:void(0);">上海公司</a>
-                        <a href="javascript:void(0);" class="a1">安码龙</a>
                         <div class="yuan yuan-3"></div>
                         <div class="yuan yuan-4"></div>
                         <div class="yuan yuan-1"></div>
                         <div class="yuan yuan-2"></div>
                         <div class="box1">
-                            <h2 style="background-image:url(/d/file/2016-08-19/1cacb49794ad5af00b89d95f019529c7.png);">
+                            <h2 style="background-image:url(<?= $img ?>/1cacb49794ad5af00b89d95f019529c7.png);">
                                 上海公司</h2>
                             <dl>
                                 <dd class="dd_01">021-3253 2870</dd>
@@ -875,51 +478,8 @@
                                 <dd class="dd_04">上海市闸北区恒丰路568号恒汇国际大厦1901室</dd>
                             </dl>
                         </div>
-                        <div class="box1 box2">
-                            <h2 style="background-image:url(/d/file/2016-08-19/1cacb49794ad5af00b89d95f019529c7.png);">
-                                北京安码龙科技有限公司</h2>
-                            <dl>
-                                <dd class="dd_01">021-5476 0508</dd>
-                                <dd class="dd_02">021-5476 0509</dd>
-                                <dd class="dd_03">200070</dd>
-                                <dd class="dd_04">上海市闵行区吴中路1799号万象城A座601室</dd>
-                            </dl>
-                        </div>
                     </li>
-                    <li class="li_03">
-                        <i></i><em></em>
-                        <a href="javascript:void(0);">广州公司</a>
-                        <div class="yuan yuan-1"></div>
-                        <div class="yuan yuan-2"></div>
-                        <div class="yuan yuan-3"></div>
-                        <div class="box1">
-                            <h2 style="background-image:url(/d/file/2016-08-19/a405ea4399abdee388f9474c091b2a81.png);">
-                                广州公司</h2>
-                            <dl>
-                                <dd class="dd_01">020-3828 4800</dd>
-                                <dd class="dd_02">020-3828 4800</dd>
-                                <dd class="dd_03">510620</dd>
-                                <dd class="dd_04">广州市体育东路138号金利来数码大厦2902-03室</dd>
-                            </dl>
-                        </div>
-                    </li>
-                    <li class="li_04">
-                        <i></i><em></em>
-                        <a href="javascript:void(0);">成都公司</a>
-                        <div class="yuan yuan-1"></div>
-                        <div class="yuan yuan-2"></div>
-                        <div class="yuan yuan-3"></div>
-                        <div class="box1">
-                            <h2 style="background-image:url(/d/file/2016-08-19/8c835490dd468ebbe885ce87e99167ac.png);">
-                                成都公司</h2>
-                            <dl>
-                                <dd class="dd_01">028-8519 9238</dd>
-                                <dd class="dd_02">028-8519 9238</dd>
-                                <dd class="dd_03">610041</dd>
-                                <dd class="dd_04">成都市高新区创业路16号火炬大厦B座7层</dd>
-                            </dl>
-                        </div>
-                    </li>
+
                 </ul>
             </div>
             <div class="h10"></div>
@@ -932,19 +492,18 @@
 
 <div class="footDiv">
     <div class="wal">
-        <a href="index.htm" tppabs="http://www.olm.com.cn/" class="logo"><img src="style/images/logo1.png"
-                                                                              tppabs="http://www.olm.com.cn/style/images/logo1.png"></a>
+        <a href="index.htm" class="logo"><img src="<?= $img ?>/logo1.png"></a>
         <div class="msg">Copyright&nbsp;1998-2016&nbsp;版权所有<em>&nbsp;北京东方龙马软件发展有限公司&nbsp;京ICP备09044093号</em></div>
     </div>
     <div class="bfoot">
-        <div class="wal"><img src="style/images/logo2.png" tppabs="http://www.olm.com.cn/style/images/logo2.png"></div>
+        <div class="wal"><img src="<?= $img ?>/logo2.png" ></div>
     </div>
     <div style="display:none">
         <script>
             var _hmt = _hmt || [];
             (function () {
                 var hm = document.createElement("script");
-                hm.src = "../hm.baidu.com/hm.js-ad5a48b3b3545386e5679d24074a3300"/*tpa=http://hm.baidu.com/hm.js?ad5a48b3b3545386e5679d24074a3300*/;
+                hm.src = "http://hm.baidu.com/hm.js-ad5a48b3b3545386e5679d24074a3300";
                 var s = document.getElementsByTagName("script")[0];
                 s.parentNode.insertBefore(hm, s);
             })();

@@ -39,7 +39,7 @@ class User extends Base
         $current_page = $data['current_page'];
         $pagesize = 10;
         $start = ($current_page - 1) * $pagesize;
-        $list = Db::name('user')->field('id,user_name,mobile,email,status')->limit($start, $pagesize)->select();
+        $list = Db::name('user')->field('id,user_name,mobile,name,status')->limit($start, $pagesize)->select();
         $newList = $this->getUserRole($list);
         $roleList = $this->getAllRole();
         $count = Db::name('user')->count();
@@ -56,7 +56,7 @@ class User extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['user_name']) || empty($data['user_name']) || !isset($data['password']) || empty($data['password']) || !isset($data['mobile']) || empty($data['mobile']) || !isset($data['email']) || empty($data['email']) || !isset($data['status'])) {
+        if (!isset($data['user_name']) || empty($data['user_name']) || !isset($data['name']) || empty($data['name']) || !isset($data['password']) || empty($data['password']) || !isset($data['mobile']) || empty($data['mobile']) ||  !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
@@ -64,9 +64,7 @@ class User extends Base
             $this->ajaxReturnMsg(202, '手机号格式错误', '');
         }
 
-        if (!preg_match('/^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$/', $data['email'])) {
-            $this->ajaxReturnMsg(202, 'email格式错误', '');
-        }
+
 
         // 判断用户是否存在
         if (Db::name('user')->where('user_name', $data['user_name'])->count()) {
@@ -77,10 +75,7 @@ class User extends Base
         if (Db::name('user')->where('mobile', $data['mobile'])->count()) {
             $this->ajaxReturnMsg(202, '手机号已存在', '');
         }
-        //判断邮箱是否存在
-        if (Db::name('user')->where('email', $data['email'])->count()) {
-            $this->ajaxReturnMsg(202, '邮箱已存在', '');
-        }
+
         //加密
         $param = $data;
         $param['password'] = md5($data['password']);
@@ -97,7 +92,7 @@ class User extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['user_name']) || empty($data['user_name']) || !isset($data['mobile']) || empty($data['mobile']) || !isset($data['email']) || empty($data['email']) || !isset($data['status'])) {
+        if (!isset($data['user_name']) || empty($data['user_name']) || !isset($data['name']) || empty($data['name']) || !isset($data['mobile']) || empty($data['mobile']) ||  !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
@@ -105,9 +100,6 @@ class User extends Base
             $this->ajaxReturnMsg(202, '手机号格式错误', '');
         }
 
-        if (!preg_match('/^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$/', $data['email'])) {
-            $this->ajaxReturnMsg(202, 'email格式错误', '');
-        }
 
         // 判断用户是否存在
         if (Db::name('user')->where('id', '<>', $data['id'])->where('user_name', $data['user_name'])->count()) {
@@ -118,10 +110,7 @@ class User extends Base
         if (Db::name('user')->where('id', '<>', $data['id'])->where('mobile', $data['mobile'])->count()) {
             $this->ajaxReturnMsg(202, '手机号已存在', '');
         }
-        //判断邮箱是否存在
-        if (Db::name('user')->where('id', '<>', $data['id'])->where('email', $data['email'])->count()) {
-            $this->ajaxReturnMsg(202, '邮箱已存在', '');
-        }
+
         $param = $data;
         Db::name('user')->where('id', $data['id'])->update($param);
         $this->ajaxReturnMsg(200, 'success', '');

@@ -1,5 +1,132 @@
 [
     {
+        "name": "gmars/tp5-nestedsets",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/gmars/tp5-nestedsets.git",
+            "reference": "2955cee8068f5518afee0c75f034b0e3440f7cc7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/gmars/tp5-nestedsets/zipball/2955cee8068f5518afee0c75f034b0e3440f7cc7",
+            "reference": "2955cee8068f5518afee0c75f034b0e3440f7cc7",
+            "shasum": ""
+        },
+        "time": "2018-05-17T02:27:20+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "gmars\\nestedsets\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "weiyongqiang",
+                "email": "hayixia606@163.com"
+            }
+        ],
+        "description": "此扩展是thinkPHP5的nestendsets的扩展。能够方便的在项目中来管理有层级关系的数据结构。该扩展在算法上部分参考了Willfred di Vampo的nestedsets，实现了数据的插入，移动，删除，遍历等功能。"
+    },
+    {
+        "name": "gmars/tp5-rbac",
+        "version": "v1.3.1",
+        "version_normalized": "1.3.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/gmars/tp5-rbac.git",
+            "reference": "1147a8b510caa905ac88ddca3d8278b8e25696fd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/gmars/tp5-rbac/zipball/1147a8b510caa905ac88ddca3d8278b8e25696fd",
+            "reference": "1147a8b510caa905ac88ddca3d8278b8e25696fd",
+            "shasum": ""
+        },
+        "require": {
+            "gmars/tp5-nestedsets": "dev-master",
+            "topthink/think-migration": "*"
+        },
+        "time": "2018-08-16T07:49:36+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "gmars\\rbac\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "weiyongqiang",
+                "email": "hayixia606@163.com"
+            }
+        ],
+        "description": "这个扩展是基于thinkPHP5框架的RBAC权限验证的扩展。使用本扩展能够快速的将RBAC权限控制器模块引入到自己的系统中。原则上本模块适合于任何PHP框架但是由于使用了thinkPHP5的特性所以使用composer安装到其他框架时需要做相应的修改。模块所需要的扩展库可以通过thinkPHP5的migration来做数据迁移。"
+    },
+    {
+        "name": "topthink/framework",
+        "version": "v5.0.21",
+        "version_normalized": "5.0.21.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/top-think/framework.git",
+            "reference": "ab826da071a7a47116a7f1d01f72228d6bcf212a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/top-think/framework/zipball/ab826da071a7a47116a7f1d01f72228d6bcf212a",
+            "reference": "ab826da071a7a47116a7f1d01f72228d6bcf212a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "topthink/think-installer": "~1.0"
+        },
+        "require-dev": {
+            "johnkary/phpunit-speedtrap": "^1.0",
+            "mikey179/vfsstream": "~1.6",
+            "phpdocumentor/reflection-docblock": "^2.0",
+            "phploc/phploc": "2.*",
+            "phpunit/phpunit": "4.8.*",
+            "sebastian/phpcpd": "2.*"
+        },
+        "time": "2018-09-04T09:18:48+00:00",
+        "type": "think-framework",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "think\\": "library/think"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "liu21st",
+                "email": "liu21st@gmail.com"
+            }
+        ],
+        "description": "the new thinkphp framework",
+        "homepage": "http://thinkphp.cn/",
+        "keywords": [
+            "framework",
+            "orm",
+            "thinkphp"
+        ]
+    },
+    {
         "name": "topthink/think-installer",
         "version": "v1.0.12",
         "version_normalized": "1.0.12.0",
@@ -43,112 +170,24 @@
         ]
     },
     {
-        "name": "topthink/framework",
-        "version": "v5.0.20",
-        "version_normalized": "5.0.20.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/top-think/framework.git",
-            "reference": "e20f6e8cadbbc6e246a0c121c89bfd278f30c76b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/top-think/framework/zipball/e20f6e8cadbbc6e246a0c121c89bfd278f30c76b",
-            "reference": "e20f6e8cadbbc6e246a0c121c89bfd278f30c76b",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.0",
-            "topthink/think-installer": "~1.0"
-        },
-        "require-dev": {
-            "johnkary/phpunit-speedtrap": "^1.0",
-            "mikey179/vfsstream": "~1.6",
-            "phpdocumentor/reflection-docblock": "^2.0",
-            "phploc/phploc": "2.*",
-            "phpunit/phpunit": "4.8.*",
-            "sebastian/phpcpd": "2.*"
-        },
-        "time": "2018-05-11T08:02:47+00:00",
-        "type": "think-framework",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "think\\": "library/think"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache-2.0"
-        ],
-        "authors": [
-            {
-                "name": "liu21st",
-                "email": "liu21st@gmail.com"
-            }
-        ],
-        "description": "the new thinkphp framework",
-        "homepage": "http://thinkphp.cn/",
-        "keywords": [
-            "framework",
-            "orm",
-            "thinkphp"
-        ]
-    },
-    {
-        "name": "gmars/tp5-nestedsets",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/gmars/tp5-nestedsets.git",
-            "reference": "2955cee8068f5518afee0c75f034b0e3440f7cc7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/gmars/tp5-nestedsets/zipball/2955cee8068f5518afee0c75f034b0e3440f7cc7",
-            "reference": "2955cee8068f5518afee0c75f034b0e3440f7cc7",
-            "shasum": ""
-        },
-        "time": "2018-05-17T02:27:20+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "gmars\\nestedsets\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "weiyongqiang",
-                "email": "hayixia606@163.com"
-            }
-        ],
-        "description": "此扩展是thinkPHP5的nestendsets的扩展。能够方便的在项目中来管理有层级关系的数据结构。该扩展在算法上部分参考了Willfred di Vampo的nestedsets，实现了数据的插入，移动，删除，遍历等功能。"
-    },
-    {
         "name": "topthink/think-migration",
-        "version": "v1.1.1",
-        "version_normalized": "1.1.1.0",
+        "version": "v2.0.2",
+        "version_normalized": "2.0.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/top-think/think-migration.git",
-            "reference": "8e489f8d38a39876690c0e00fcf9a54ae92c4d3d"
+            "reference": "debc818a4e3b3baff2f7295f1e693653c5ebd02e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/top-think/think-migration/zipball/8e489f8d38a39876690c0e00fcf9a54ae92c4d3d",
-            "reference": "8e489f8d38a39876690c0e00fcf9a54ae92c4d3d",
+            "url": "https://api.github.com/repos/top-think/think-migration/zipball/debc818a4e3b3baff2f7295f1e693653c5ebd02e",
+            "reference": "debc818a4e3b3baff2f7295f1e693653c5ebd02e",
             "shasum": ""
         },
         "require-dev": {
-            "topthink/framework": "^5.0"
+            "topthink/framework": "5.1.x-dev"
         },
-        "time": "2017-03-31T06:33:23+00:00",
+        "time": "2017-10-23T06:22:42+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -170,44 +209,5 @@
                 "email": "448901948@qq.com"
             }
         ]
-    },
-    {
-        "name": "gmars/tp5-rbac",
-        "version": "v1.3",
-        "version_normalized": "1.3.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/gmars/tp5-rbac.git",
-            "reference": "8c08cd5a758276a80a2951907fc67e7878a91ddd"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/gmars/tp5-rbac/zipball/8c08cd5a758276a80a2951907fc67e7878a91ddd",
-            "reference": "8c08cd5a758276a80a2951907fc67e7878a91ddd",
-            "shasum": ""
-        },
-        "require": {
-            "gmars/tp5-nestedsets": "dev-master",
-            "topthink/think-migration": "*"
-        },
-        "time": "2018-06-27T08:55:39+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "gmars\\rbac\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "weiyongqiang",
-                "email": "hayixia606@163.com"
-            }
-        ],
-        "description": "这个扩展是基于thinkPHP5框架的RBAC权限验证的扩展。使用本扩展能够快速的将RBAC权限控制器模块引入到自己的系统中。原则上本模块适合于任何PHP框架但是由于使用了thinkPHP5的特性所以使用composer安装到其他框架时需要做相应的修改。模块所需要的扩展库可以通过thinkPHP5的migration来做数据迁移。"
     }
 ]

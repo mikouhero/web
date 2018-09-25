@@ -12,7 +12,11 @@
 use think\Route;
 
 Route::get('/', 'index/Index/index');
-Route::get('/blog/:id', 'index/Index/blog','',['ext'=>'html']);
+Route::get('/about', 'index/Index/about','',['ext'=>'html']);
+Route::get('/connect', 'index/Index/connect','',['ext'=>'html']);
+Route::get('/example', 'index/Index/example','',['ext'=>'html']);
+Route::get('/product', 'index/Index/product','',['ext'=>'html']);
+
 
 //return [
 //    '__pattern__' => [
