@@ -38,4 +38,8 @@ var ajaxUrl = {
     addCompany:adminUrl+"/company/insert",
     editCompany:adminUrl+"/company/update",
     delCompany:adminUrl+"/company/delete",
+    getBuildingList:adminUrl+"/building/getList",
+    addBuilding:adminUrl+"/building/insert",
+    editBuilding:adminUrl+"/building/update",
+    delBuilding:adminUrl+"/building/delete",
 };

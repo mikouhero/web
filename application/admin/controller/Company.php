@@ -28,12 +28,8 @@ class Company extends Base
         $pagesize = 10;
         $start = ($current_page - 1) * $pagesize;
         $condition['p1.id'] = ['>','0'];
-        if(isset($data['cid']) && !empty($data['cid'])){
-            $condition['p1.cid'] = [ '=', $data['cid']];
-        }
-
-        if(isset($data['user']) && !empty($data['user'])){
-            $condition['p1.user'] = [ '=', $data['user']];
+        if(isset($data['code']) && !empty($data['code'])){
+            $condition['p1.code'] = [ '=', $data['code']];
         }
 
         $list = Db::name('company')
@@ -42,6 +38,10 @@ class Company extends Base
             ->where($condition)
             ->limit($start, $pagesize)
             ->select();
+        foreach ($list as $k => $v){
+            $account = Db::name('cid_account')->where('cid',$v['id'])->select();
+            $list[$k]['account'] = $account;
+         }
         $count = Db::name('company')->alias('p1')->where($condition)->count();
         $res = array(
             'companyList' => $list,
@@ -55,48 +55,84 @@ class Company extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        echo "<pre>";
-        var_dump($data);
-        if (!isset($data['user']) || empty($data['user']) || !isset($data['cid']) || empty($data['cid']) || !isset($data['password']) || empty($data['password'])  ||  !isset($data['status'])) {
+        if(isset($data['id']) && !empty($data['id'])){
+            if (! Db::name('company')->where('id', $data['id'])->count()) {
+                $this->ajaxReturnMsg(202, '网络错误', '');
+            }
+            if (!isset($data['account']) || empty($data['account'])) {
+                $this->ajaxReturnMsg(201, '参数错误', '');
+            }
+            $param = array(
+                'cid' => $data['id'],
+                'account' => $data['account']
+            );
+            Db::name('cid_account')->insert($param);
+            $this->ajaxReturnMsg(200, 'success', '');
+        }
+        if (!isset($data['code']) || empty($data['code']) || !isset($data['name']) || empty($data['name']) || !isset($data['address']) || empty($data['address'])  || !isset($data['contact']) || empty($data['contact'])|| !isset($data['phone']) || empty($data['phone'])  ||  !isset($data['license_icon']) || empty($data['license_icon'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
         // 判断用户是否存在
-        if (Db::name('member')->where('user', $data['user'])->count()) {
-            $this->ajaxReturnMsg(202, '用户名已存在', '');
+        if (Db::name('company')->where('code', $data['code'])->count()) {
+            $this->ajaxReturnMsg(202, '编号已存在', '');
         }
 
-        //加密
-        $param = $data;
-        $param['password'] = md5($data['password']);
-        $param['create_time'] = date("Y-m-d H:i:s");
+        $img = base64_image_content($data['license_icon'], 'upload/license');
+        if (!$img) {
+            $this->ajaxReturnMsg(203, '上传失败', '');
+        }
+        $img= config('base_url') . $img;
 
-        $id = Db::name('member')->insertGetId($param);
-        $this->ajaxReturnMsg(200, 'success', $id);
+        //加密
+        $param = array(
+            'code' =>$data['code'],
+            'name' =>$data['name'],
+            'address' =>$data['address'],
+            'contact' =>$data['contact'],
+            'phone' =>$data['phone'],
+            'license_icon' =>$img,
+
+        );
+
+        $id = Db::name('company')->insert($param);
+        $this->ajaxReturnMsg(200, 'success', '');
 
     }
 
     public function update(Request $request)
     {
-
         $input = $request->post();
         $data = json_decode($input['msg'], true);
-        if (!isset($data['id']) || empty($data['id']) || !isset($data['user']) || empty($data['user']) || !isset($data['cid']) || empty($data['cid']) ||   !isset($data['status'])) {
+        if (!isset($data['code']) || empty($data['code']) || !isset($data['name']) || empty($data['name']) || !isset($data['address']) || empty($data['address'])  || !isset($data['contact']) || empty($data['contact'])|| !isset($data['phone']) || empty($data['phone']) ) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
-
         // 判断用户是否存在
-        if (Db::name('member')->where('id', '<>', $data['id'])->where('user', $data['user'])->count()) {
-            $this->ajaxReturnMsg(202, '用户名已存在', '');
+        if (Db::name('company')->where('id', '<>', $data['id'])->where('code', $data['code'])->count()) {
+            $this->ajaxReturnMsg(202, '编号已经存在', '');
         }
-
         $param = array(
-            'user' => $data['user'],
-            'cid' => $data['cid'],
-            'status' => $data['status'],
+            'code' => $data['code'],
+            'name' => $data['name'],
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'contact' => $data['contact'],
         );
-        Db::name('member')->where('id', $data['id'])->update($param);
+        if ($data['newpic']) {
+            $img = base64_image_content($data['newpic'], 'upload/license');
+            if (!$img) {
+                $this->ajaxReturnMsg(202, '上传失败', '');
+            }
+            $param['license_icon'] = config('base_url') . $img;
+            // 删除原来的图片
+            $len = strlen(Request::instance()->domain());
+            $path = substr($data['license_icon'], $len + 1); // 图片路径
+            if (file_exists($path)) {
+                unlink($path);
+            }
+        }
+        Db::name('company')->where('id', $data['id'])->update($param);
         $this->ajaxReturnMsg(200, 'success', '');
 
     }
@@ -107,11 +143,11 @@ class Company extends Base
         if (!isset($data['id']) || empty($data['id'])) {
             $this->ajaxReturnMsg(201, '缺少参数', '');
         }
-        $falg = Db::name('member')->where('id', $data['id'])->count();
+        $falg = Db::name('company')->where('id', $data['id'])->count();
         if (!$falg) {
             $this->ajaxReturnMsg(201, '网络错误', '');
         }
-        $flag = Db::name('member')->where('id',$data['id'])->delete();
+        $flag = Db::name('company')->where('id',$data['id'])->delete();
         if (!$flag) $this->ajaxReturnMsg(202, '', '');
         $this->ajaxReturnMsg(200, 'success', '');
     }

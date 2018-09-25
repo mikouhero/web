@@ -9,16 +9,15 @@ vm = new Vue({
         editmsg: {},
         delid: '',
         delkey: '',
-        s_cid :'',
-        s_user:'',
-
+        s_code :'',
+        add_id:'',
+        account:'',
     },
     methods: {
         getCompanyList: function () {
             this.$http.post(ajaxUrl.getCompanyList, {
                 current_page: this.pageNo,
-                user:this.s_user,
-                cid:this.s_cid,
+                code:this.s_code,
             }, {
                 emulateJSON: true
             }).then(function (res) {
@@ -45,6 +44,7 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
+               this.msg={};
                this.getCompanyList();
 
             }, function (res) {
@@ -71,14 +71,15 @@ vm = new Vue({
                 // img_area.innerHTML = '<div class="sitetip">图片img标签展示：</div><img src="'+this.result+'" alt=""/>';
             };
         },
-
-        editUserid: function (id, key) {
+        editCompanyid: function (id, key) {
             this.editid = id;
-            this.editmsg = this.memberList[key];
+            this.editmsg = this.companyList[key];
         },
-        editMember: function () {
-            this.editmsg['status'] = Number(this.editmsg['status']);
-            this.$http.post(ajaxUrl.editMember, {
+        editCompany: function () {
+            var pic = $('#result1').val();
+
+            this.editmsg['newpic'] = pic;
+            this.$http.post(ajaxUrl.editCompany, {
                 msg: JSON.stringify(this.editmsg)
             }, {
                 emulateJSON: true
@@ -95,12 +96,32 @@ vm = new Vue({
                 alert("程序崩掉了");
             });
         },
+        accounttmp: function (id, key) {
+            this.add_id = id;
+        },
+        addAccount:function () {
+            this.$http.post(ajaxUrl.addCompany, {
+                'msg': JSON.stringify({'id':this.add_id,'account':this.account})
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.msg={};
+                this.getCompanyList();
+
+            }, function (res) {
+                alert("程序崩掉了");
+            });
+        },
         delTmp: function (id, key) {
             this.delid = id;
             this.delkey = key;
         },
-        delMember: function (id) {
-            this.$http.post(ajaxUrl.delMember, {
+        delCompany: function (id) {
+            this.$http.post(ajaxUrl.delCompany, {
                 id: id
             }, {
                 emulateJSON: true

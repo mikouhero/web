@@ -38,12 +38,12 @@
                 <div class="row ">
 
                     <div class="col-xs-2 input-group-s" >
-                        <input type="text" class="form-control" style=" width: 200px;"  placeholder="请输入账号"v-model="s_user">
+                        <input type="text" class="form-control" style=" width: 200px;"  placeholder="请输入编号"v-model="s_code">
                     </div>
 
                     <div class="col-xs-1">
                         <div class="form-group">
-                             <span class="btn btn-primary btn-sm " @click = "getMemberList()">搜索</span>
+                             <span class="btn btn-primary btn-sm " @click = "getCompanyList()">搜索</span>
                         </div>
                     </div>
 
@@ -66,6 +66,7 @@
                         <th>公司地址</th>
                         <th>联系人</th>
                         <th>联系方式</th>
+                        <th>公司账户</th>
                         <th>营业执照</th>
                         <th>操作</th>
                     </tr>
@@ -78,18 +79,26 @@
                         <td>{{item.address}}</td>
                         <td>{{item.contact}}</td>
                         <td>{{item.phone}}</td>
-
+                        <td>
+                            <ul>
+                                <li v-for="i in item.account">{{i.account}}</li>
+                            </ul>
+                        </td>
                         <td><img :src="item.license_icon" style="height:40px;"></td>
 
                         <td>
                             <div class="action-buttons">
 
-                                <a class="green"  @click="editUserid(userItem.id,key)" data-toggle="modal" data-target="#edit">
+                                <a class="green"  @click="editCompanyid(item.id,key)" data-toggle="modal" data-target="#edit">
                                     <i class="icon-pencil bigger-130"></i>
                                 </a>
 
+                                <a class="blue"  @click="accounttmp(item.id,key)" data-toggle="modal" data-target="#layer2">
+                                    <i class="icon-zoom-in bigger-130"></i>
+                                </a>
+
                                 <a class="red" >
-                                    <i class="icon-trash bigger-130" @click="delTmp(userItem.id,key)" data-toggle="modal" data-target="#delete"></i>
+                                    <i class="icon-trash bigger-130" @click="delTmp(item.id,key)" data-toggle="modal" data-target="#delete"></i>
                                 </a>
                             </div>
 
@@ -194,49 +203,73 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
-                    <h2 class="modal-title" id="">编辑用户</h2>
+                    <h2 class="modal-title" id="">编辑公司</h2>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" role="form">
 
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名 </label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 公司编号 </label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="form--1" placeholder="" class="col-xs-10 col-sm-5"
-                                       v-model="editmsg['user']">
+                                <input type="text"   class="col-xs-10 col-sm-5"
+                                       v-model="editmsg['code']">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 公司名称 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                       v-model="editmsg['name']">
                             </div>
                         </div>
 
                         <div class="space-4"></div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 所属公司 </label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 公司地址 </label>
 
                             <div class="col-sm-9">
-                                <select name="type" fld="type" class=" col-sm-5" v-model="editmsg['cid']">
-                                    <option value="" disabled>请选择公司</option>
-                                    <option v-for="item in companyList" :value="item.id">{{item.name}}</option>
-                                </select>
+                                <input type="text"
+                                       class="col-xs-10 col-sm-5" v-model="editmsg['address']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
                             </div>
                         </div>
-
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 状态 </label>
-                            <div class="col-sm-3">
-                                <label>
-                                    <input name="switch-field-1" class="ace ace-switch" type="checkbox"
-                                           v-model="editmsg['status']">
-                                    <span class="lbl" @click=""></span>
-                                </label>
+                            <label class="col-sm-3 control-label no-padding-right" > 公司联系人 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="editmsg['contact']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" > 联系方式 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="editmsg['phone']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label no-padding-right" >营业执照：</label>
+                            <div class="" id="preview1" @click="choosefile('picture1')">
+                                <img id="imghead1" :src="editmsg['license_icon']"  width="300px">
+                            </div>
+                            <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="picture1" fld="pic" name="pic"
+                                   @change="base64('picture1','imghead1','result1')" style="display:none;">
+                            <textarea name="img" id="result1" rows=30 cols=300 hidden></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer text-right">
                     <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
-                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="editMember">保存
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="editCompany">保存
                     </button>
                 </div>
             </div>
@@ -254,7 +287,7 @@
                 </div>
                 <div class="modal-footer text-right">
                     <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
-                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="delMember(delid)">确定
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="delCompany(delid)">确定
                     </button>
                 </div>
             </div>
@@ -262,6 +295,40 @@
     </div>
     <!--role-->
 
+    <!--新增模态框-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="layer2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="">新增公司账号</h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 账号 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="" placeholder="" class="col-xs-10 col-sm-5"
+                                       v-model="account">
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="addAccount">确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {/block}
 {block name="footer"}
