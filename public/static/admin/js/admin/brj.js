@@ -9,8 +9,16 @@ vm = new Vue({
         editmsg: {},
         delid: '',
         delkey: '',
-        s_isp :'',
-        s_name:'',
+        s_brj :'',
+        s_type:'',
+        s_cid:'',
+        s_bid:'',
+        s_speed:'',
+        s_contact:'',
+        s_phone:'',
+        s_status:'',
+        s_time:'',
+        s_out:'',
         typeList :{},
         speedList :[{id:1,name:'10M'},{id:2,name:'20M'},{id:3,name:'50M'},{id:4,name:'100M'},{id:5,name:'200M'}],
         bus_status :[{id:0,name:'潜在'},{id:1,name:'正式'},{id:2,name:'过期'}],
@@ -21,8 +29,17 @@ vm = new Vue({
         getList: function () {
             this.$http.post(ajaxUrl.getBrjList, {
                 current_page: this.pageNo,
-                isp:this.s_isp,
-                name:this.s_name,
+                s_brj:this.s_brj,
+                s_type:this.s_type,
+                s_cid:this.s_cid,
+                s_bid:this.s_bid,
+                s_speed:this.s_speed,
+                s_contact:this.s_contact,
+                s_phone:this.s_phone,
+                s_status:this.s_status,
+                s_time:this.s_time,
+                s_out:this.s_out,
+
             }, {
                 emulateJSON: true
             }).then(function (res) {

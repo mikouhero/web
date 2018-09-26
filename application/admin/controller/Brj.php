@@ -27,15 +27,48 @@ class Brj extends Base
         $current_page = $data['current_page'];
         $pagesize = 10;
         $start = ($current_page - 1) * $pagesize;
-        $condition['p1.id'] = ['>','0'];
-        if(isset($data['isp']) && !empty($data['isp'])){
-            $condition['p1.isp'] = [ '=', $data['isp']];
+        $condition['p1.deleted'] = ['=','0'];
+        if(isset($data['s_brj']) && !empty($data['s_brj'])){
+            $condition['p1.brj'] = [ '=', $data['s_brj']];
         }
 
-        if(isset($data['name']) && !empty($data['name'])){
-            $condition['p1.isp_sales'] = [ '=', $data['name']];
+        if(isset($data['s_type']) && !empty($data['s_type'])){
+            $condition['p1.type'] = [ '=', $data['s_type']];
         }
 
+        if(isset($data['s_cid']) && !empty($data['s_cid'])){
+            $condition['p1.cid'] = [ '=', $data['s_cid']];
+        }
+        if(isset($data['s_bid']) && !empty($data['s_bid'])){
+            $condition['p1.bid'] = [ '=', $data['s_bid']];
+        }
+
+        if(isset($data['s_speed']) && !empty($data['s_speed'])){
+            $condition['p1.speed'] = [ '=', $data['s_speed']];
+        }
+        if(isset($data['s_contact']) && !empty($data['s_contact'])){
+            $condition['p1.contact'] = [ '=', $data['s_contact']];
+        }
+
+        if(isset($data['s_phone']) && !empty($data['s_phone'])){
+            $condition['p1.phone'] = [ '=', $data['s_phone']];
+        }
+
+        if(isset($data['s_status']) && !empty($data['s_status'])){
+            $condition['p1.status'] = [ '=', $data['s_status']];
+        }
+        if(isset($data['s_out']) && !empty($data['s_out'])){
+            if($data['s_out'] == 1){
+                $condition['p1.end_time'] = ['>=',date('Y-m-d')];
+            }
+            if($data['s_out'] == 2){
+                $condition['p1.end_time'] = ['<',date('Y-m-d')];
+            }
+        }
+
+        if(isset($data['s_time']) && !empty($data['s_time'])){
+            $condition['p1.end_time'] = array([ '>=', date("Y-m-d")],[ '<=', date("Y-m-d",strtotime('+'.$data['s_time'].'days'))]);
+        }
         $list = Db::name('brj')
             ->alias('p1')
             ->field('p1.id,p1.cid,p2.name as company_name ,p1.brj,p1.address,p1.type,p1.speed,p1.s_price,p1.contact,p1.phone,p1.status,DATE_FORMAT(p1.start_time,"%Y-%m-%d") as start_time,DATE_FORMAT(p1.end_time,"%Y-%m-%d") as end_time,DATE_FORMAT(p1.teardown,"%Y-%m-%d") teardown,p3.port,p3.ip,p3.account,p3.password,p4.name as building,p1.bid')
@@ -43,9 +76,9 @@ class Brj extends Base
             ->join('brj_op p3','p3.brj_id = p1.id','left')
             ->join('building p4','p4.id = p1.bid','left')
             ->where($condition)
+            ->order('id','desc')
             ->limit($start, $pagesize)
             ->select();
-
         $typeList = Db::name('service_type')->field('id,name,status')->select();
         $companyList = Db::name('company')->field('id,name')->select();
         $buildingList = Db::name('building')->field('id,name')->select();
@@ -103,7 +136,6 @@ class Brj extends Base
                 'port'  => $data['port'],
                 'ip'   => $data['ip'],
                 'account'   => $data['account'],
-
                 'password' =>$data['password'],
             );
 
@@ -170,7 +202,7 @@ class Brj extends Base
             $this->ajaxReturnMsg(200, 'success', '');
         }catch (\Exception $e){
             Db::rollback();
-            $this->ajaxReturnMsg(204, '添加失败', '');
+            $this->ajaxReturnMsg(204, '更新失败', '');
 
         }
 
@@ -182,11 +214,15 @@ class Brj extends Base
         if (!isset($data['id']) || empty($data['id'])) {
             $this->ajaxReturnMsg(201, '缺少参数', '');
         }
-        $falg = Db::name('channel')->where('id', $data['id'])->count();
+        $falg = Db::name('brj')->where('id', $data['id'])->count();
         if (!$falg) {
             $this->ajaxReturnMsg(201, '网络错误', '');
         }
-        $flag = Db::name('channel')->where('id',$data['id'])->delete();
+        $param = array(
+            'deleted' =>1,
+            'delete_time' => date("Y-m-d H:i:s")
+        );
+        $flag = Db::name('brj')->where('id',$data['id'])->update($param);
         if (!$flag) $this->ajaxReturnMsg(202, '', '');
         $this->ajaxReturnMsg(200, 'success', '');
     }
