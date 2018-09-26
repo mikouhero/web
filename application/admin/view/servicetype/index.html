@@ -14,7 +14,7 @@
 <div class="page-content">
     <div class="page-header">
         <h1>
-            运营商列表
+            类型列表
             <small>
                 <i class="icon-double-angle-right"></i>
                 with selectable items(single &amp; multiple) and custom icons
@@ -38,14 +38,7 @@
                 <div class="row ">
 
                     <div class="col-xs-2 input-group-s" >
-                        <input type="text" class="form-control" style=" width: 200px;"  placeholder="请输入联系人"v-model="s_name">
-                    </div>
-
-                    <div class="col-xs-2 input-group-s">
-                        <select  class="form-control "  v-model="s_isp">
-                            <option value="">请选择运营商公司</option>
-                            <option v-for="item in threelist" :value="item.id">{{item.name}}</option>
-                        </select>
+                        <input type="text" class="form-control" style=" width: 200px;"  placeholder="请输入类型"v-model="s_name">
                     </div>
 
                     <div class="col-xs-1">
@@ -68,29 +61,31 @@
                     <thead>
                     <tr>
                         <th>id</th>
-                        <th>所属运营商</th>
-                        <th>运营商客户经理</th>
-                        <th>联系方式</th>
-                        <th>添加时间</th>
+                        <th>类型名</th>
+                        <th>状态</th>
+                        <th>创建时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="(item,key) in List" v-cloak>
                         <td>{{item.id}}</td>
-                        <td v-if="item.isp == 1">中国移动</td>
-                        <td v-if="item.isp == 2">中国联通</td>
-                        <td v-if="item.isp == 3">中国电信</td>
-                        <td>{{item.isp_sales}}</td>
-                        <td>{{item.phone}}</td>
+                        <td>{{item.name}}</td>
+                        <td v-show="item.status == 1">
+                            <span class="label label-sm  label-success">启用</span>
+                        </td>
+                        <td v-show="item.status != 1">
+                            <span class="label label-sm label-warning ">禁用</span>
+                        </td>
+
                         <td>{{item.create_time}}</td>
+
                         <td>
                             <div class="action-buttons">
 
                                 <a class="green"  @click="edittmpid(item.id,key)" data-toggle="modal" data-target="#edit">
                                     <i class="icon-pencil bigger-130"></i>
                                 </a>
-
 
                                 <a class="red" >
                                     <i class="icon-trash bigger-130" @click="delTmp(item.id,key)" data-toggle="modal" data-target="#delete"></i>
@@ -118,41 +113,29 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
-                    <h2 class="modal-title" id="gridSystemModalLabel">新增渠道</h2>
+                    <h2 class="modal-title" id="gridSystemModalLabel">新增类型</h2>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" role="form">
 
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" >所属运营商 </label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 类型名 </label>
 
                             <div class="col-sm-9">
-                                <select class="col-xs-10 col-sm-5"  v-model="msg['isp']">
-                                    <option value="" disabled>请选择运营商公司</option>
-                                    <option v-for="item in threelist" :value="item.id">{{item.name}}</option>
-                                </select>
+                                <input type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5"
+                                       v-model="msg['name']">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 运营商联系人 </label>
-
-                            <div class="col-sm-9">
-                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
-                                       v-model="msg['isp_sales']">
-                            </div>
-                        </div>
-
-                        <div class="space-4"></div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 电话 </label>
-
-                            <div class="col-sm-9">
-                                <input type="text" id="form-field-2" placeholder=""
-                                       class="col-xs-10 col-sm-5" v-model="msg['phone']">
-                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            <label class="col-sm-3 control-label no-padding-right" > 状态 </label>
+                            <div class="col-sm-3">
+                                <label>
+                                    <input name="switch-field-1" class="ace ace-switch" type="checkbox"
+                                           v-model="msg['status']">
+                                    <span class="lbl" @click=""></span>
+                                </label>
                             </div>
                         </div>
 
@@ -174,43 +157,34 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
-                    <h2 class="modal-title" id="">编辑渠道</h2>
+                    <h2 class="modal-title" >编辑类型</h2>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" role="form">
 
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" > 所属运营商 </label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 类型名 </label>
 
                             <div class="col-sm-9">
-                                <select name="type" fld="type" class="col-xs-10 col-sm-5"  v-model="editmsg['isp']">
-                                    <option value="">请选择运营商公司</option>
-                                    <option v-for="item in threelist" :value="item.id">{{item.name}}</option>
-                                </select>
+                                <input type="text"   class="col-xs-10 col-sm-5"
+                                       v-model="editmsg['name']">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 运营商联系人</label>
+                            <label class="col-sm-3 control-label no-padding-right" > 状态 </label>
 
-                            <div class="col-sm-9">
-                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
-                                       v-model="editmsg['isp_sales']">
+                            <div class="col-sm-3">
+                                <label>
+                                    <input name="switch-field-1" class="ace ace-switch" type="checkbox"
+                                           v-model="editmsg['status']">
+                                    <span class="lbl" @click=""></span>
+                                </label>
                             </div>
                         </div>
 
-                        <div class="space-4"></div>
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" > 联系方式 </label>
-
-                            <div class="col-sm-9">
-                                <input type="text"  placeholder=""
-                                       class="col-xs-10 col-sm-5" v-model="editmsg['phone']">
-                                <span class="help-inline col-xs-12 col-sm-7"></span>
-                            </div>
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer text-right">
@@ -229,7 +203,7 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
-                    <h2 class="modal-title" >确定删除？</h2>
+                    <h2 class="modal-title" >确定禁用？</h2>
                 </div>
                 <div class="modal-footer text-right">
                     <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
@@ -239,12 +213,10 @@
             </div>
         </div>
     </div>
-    <!--role-->
-
 
 </div>
 {/block}
 {block name="footer"}
-<script src="<?= $js?>/admin/isp.js"></script>
+<script src="<?= $js?>/admin/servicetype.js"></script>
 
 {/block}
