@@ -42,4 +42,8 @@ var ajaxUrl = {
     addBuilding:adminUrl+"/building/insert",
     editBuilding:adminUrl+"/building/update",
     delBuilding:adminUrl+"/building/delete",
+    getIspList:adminUrl+"/isp/getList",
+    addIsp:adminUrl+"/isp/insert",
+    editIsp:adminUrl+"/isp/update",
+    delIsp:adminUrl+"/isp/delete",
 };
