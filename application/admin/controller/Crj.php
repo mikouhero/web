@@ -51,10 +51,10 @@ class Crj extends Base
         }
         if (isset($data['s_out']) && !empty($data['s_out'])) {
             if ($data['s_out'] == 1) {
-                $condition['p1.end_time'] = ['>=', date('Y-m-d')];
+                $condition['p1.end_time'] = array(['<>',null],['>=', date('Y-m-d')]);
             }
             if ($data['s_out'] == 2) {
-                $condition['p1.end_time'] = ['<', date('Y-m-d')];
+                $condition['p1.end_time'] = array(['<>',null],['<', date('Y-m-d')]);
             }
         }
 
@@ -124,7 +124,17 @@ class Crj extends Base
         if (!isset($data['cid']) || empty($data['cid']) || !isset($data['crj']) || empty($data['crj']) || !isset($data['address']) || empty($data['address']) || !isset($data['isp']) || empty($data['isp']) || !isset($data['method']) || empty($data['method']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['price']) || empty($data['price']) || !isset($data['demand']) || empty($data['demand']) || !isset($data['isp_manager']) || empty($data['isp_manager']) || !isset($data['sales']) || empty($data['sales']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
+        if(empty($data['end_time'])){
+            $data['end_time'] = NUll;
+        }
 
+        if(empty($data['start_time'])){
+            $data['start_time'] = NUll;
+        }
+
+        if(empty($data['teardown'])){
+            $data['teardown'] = NUll;
+        }
 
         if (Db::name('crj')->where('crj', $data['crj'])->count()) {
             $this->ajaxReturnMsg(203, '业务编号已经存在', '');
@@ -188,7 +198,17 @@ class Crj extends Base
         if (!isset($data['id']) || empty($data['id']) || !isset($data['cid']) || empty($data['cid']) || !isset($data['crj']) || empty($data['crj']) || !isset($data['address']) || empty($data['address']) || !isset($data['isp']) || empty($data['isp']) || !isset($data['method']) || empty($data['method']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['price']) || empty($data['price']) || !isset($data['demand']) || empty($data['demand']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
+        if(empty($data['end_time'])){
+            $data['end_time'] = NUll;
+        }
 
+        if(empty($data['start_time'])){
+            $data['start_time'] = NUll;
+        }
+
+        if(empty($data['teardown'])){
+            $data['teardown'] = NUll;
+        }
 
         // 判断用户是否存在
         if (Db::name('crj')->where('id', '<>', $data['id'])->where('crj', $data['crj'])->count()) {
