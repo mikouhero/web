@@ -48,12 +48,17 @@ var ajaxUrl = {
     editBrj:adminUrl+"/brj/update",         // brj
     delBrj:adminUrl+"/brj/delete",
 
+    getCrjList:adminUrl+"/crj/getList",
+    addCrj:adminUrl+"/crj/insert",
+    editCrj:adminUrl+"/crj/update",         // crj
+    delCrj:adminUrl+"/crj/delete",
+
     getServicetypeList:adminUrl+"/servicetype/getList",
     addServicetype:adminUrl+"/servicetype/insert",
     editServicetype:adminUrl+"/servicetype/update",         //type
     delServicetype:adminUrl+"/servicetype/delete",
 
-    getPersonList:adminUrl+"/person/getList",
+    getPersonList:adminUrl+"/person/getList",   // person
     editPerson:adminUrl+"/person/update",
 
 };

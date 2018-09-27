@@ -11,8 +11,7 @@ vm = new Vue({
         delkey: '',
         s_isp :'',
         s_name:'',
-        threelist :[{'id':1,'name':'中国移动'},{'id':2,'name':'中国联通'},{'id':3,'name':'中国电信'}]
-
+        threelist :[{'id':1,'name':'中国移动'},{'id':2,'name':'中国联通'},{'id':3,'name':'中国电信'}],
     },
     methods: {
         getList: function () {

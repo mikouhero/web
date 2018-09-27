@@ -9,33 +9,29 @@ vm = new Vue({
         editmsg: {},
         delid: '',
         delkey: '',
-        s_brj :'',
-        s_type:'',
+        s_crj :'',
+        s_isp:'',
         s_cid:'',
-        s_bid:'',
         s_speed:'',
-        s_contact:'',
-        s_phone:'',
         s_status:'',
         s_time:'',
         s_out:'',
         typeList :{},
         speedList :[{id:1,name:'10M'},{id:2,name:'20M'},{id:3,name:'50M'},{id:4,name:'100M'},{id:5,name:'200M'}],
         bus_status :[{id:1,name:'潜在'},{id:2,name:'正式'},{id:3,name:'过期'}],
+        threelist :[{'id':1,'name':'中国移动'},{'id':2,'name':'中国联通'},{'id':3,'name':'中国电信'}],
+        methodlist :[{'id':1,'name':'微信'},{'id':2,'name':'支付宝'},{'id':3,'name':'银联'},{'id':4,'name':'现金'},{'id':5,'name':'其他'}],
         companyList:{},
         buildingList:{},
     },
     methods: {
         getList: function () {
-            this.$http.post(ajaxUrl.getBrjList, {
+            this.$http.post(ajaxUrl.getCrjList, {
                 current_page: this.pageNo,
-                s_brj:this.s_brj,
-                s_type:this.s_type,
+                s_crj:this.s_crj,
+                s_isp:this.s_isp,
                 s_cid:this.s_cid,
-                s_bid:this.s_bid,
                 s_speed:this.s_speed,
-                s_contact:this.s_contact,
-                s_phone:this.s_phone,
                 s_status:this.s_status,
                 s_time:this.s_time,
                 s_out:this.s_out,
@@ -64,7 +60,7 @@ vm = new Vue({
             this.msg['end_time'] = end;
             this.msg['teardown'] = teardown;
 
-            this.$http.post(ajaxUrl.addBrj, {
+            this.$http.post(ajaxUrl.addCrj, {
                 'msg': JSON.stringify(this.msg)
             }, {
                 emulateJSON: true
@@ -95,7 +91,7 @@ vm = new Vue({
             this.editmsg['start_time'] = start;
             this.editmsg['end_time'] = end;
             this.editmsg['teardown'] = teardown;
-            this.$http.post(ajaxUrl.editBrj, {
+            this.$http.post(ajaxUrl.editCrj, {
                 msg: JSON.stringify(this.editmsg)
             }, {
                 emulateJSON: true
@@ -118,7 +114,7 @@ vm = new Vue({
             this.delkey = key;
         },
         del: function (id) {
-            this.$http.post(ajaxUrl.delBrj, {
+            this.$http.post(ajaxUrl.delCrj, {
                 id: id
             }, {
                 emulateJSON: true
