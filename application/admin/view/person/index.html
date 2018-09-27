@@ -1,0 +1,227 @@
+{extend name="index/index" /}
+<!--###############################################################################################################-->
+<!--################################################# 单独 ########################################################-->
+<!--###############################################################################################################-->
+{block name="header"}
+<script src="<?= $js?>/pagination.js"></script>
+<style>
+    [v-cloak] {
+        display: none !important;
+    }
+</style>
+{/block}
+{block name="main"}
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            User Profile Page
+            <small>
+                <i class="icon-double-angle-right"></i>
+                3 styles with inline editable feature
+            </small>
+        </h1>
+    </div><!-- /.page-header -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+
+            <div class="clearfix">
+                <div class="pull-left alert alert-success no-margin">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <i class="icon-remove"></i>
+                    </button>
+
+                    <i class="icon-umbrella bigger-120 blue"></i>
+                    Click on the image below or on profile fields to edit them ...
+                </div>
+
+            </div>
+
+            <div class="hr dotted"></div>
+
+            <div>
+                <div id="user-profile-1" class="user-profile row">
+                    <div class="col-xs-12 col-sm-3 center">
+                        <div>
+                            <span class="profile-picture">
+                                <img id="avatar" class="editable img-responsive" alt="Alex's Avatar"
+                                     src="<?= $picture ?>/profile-pic.jpg"/>
+                            </span>
+
+                            <div class="space-4"></div>
+
+                            <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+                                <div class="inline position-relative">
+                                    <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon-circle light-green middle"></i>
+                                        &nbsp;
+                                        <span class="white">{{user['user']}}</span>
+                                    </a>
+
+                                    <ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
+                                        <li class="dropdown-header"> Change Status</li>
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="icon-circle green"></i>
+                                                &nbsp;
+                                                <span class="green">Available</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="icon-circle red"></i>
+                                                &nbsp;
+                                                <span class="red">Busy</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="icon-circle grey"></i>
+                                                &nbsp;
+                                                <span class="grey">Invisible</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="center">
+
+
+                            <span class="btn btn-app btn-sm btn-pink no-hover" data-rel="tooltip" data-placement="top"
+                                   data-toggle="modal" data-target="#layer">
+                                <span class="line-height-1 bigger-100"> 修改密码 </span>
+
+                                <br/>
+                                <span class="line-height-1 smaller-90"> Projects </span>
+                            </span>
+
+
+                        </div>
+
+                        <div class="space-12"></div>
+
+                        <div class="profile-user-info profile-user-info-striped">
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Username</div>
+
+                                <div class="profile-info-value">
+                                    <span class="editable" id="username">{{user['user']}}</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Location</div>
+
+                                <div class="profile-info-value">
+                                    <i class="icon-map-marker light-orange bigger-110"></i>
+                                    <span class="editable" id="country">{{user['ip']}}</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Phone</div>
+
+                                <div class="profile-info-value">
+                                    <span class="editable" id="phone">{{user['phone']}}</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Joined</div>
+
+                                <div class="profile-info-value">
+                                    <span class="editable" id="signup">{{user['create_time']}}</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Last Online</div>
+
+                                <div class="profile-info-value">
+                                    <span class="editable" id="login">{{user['last_login_time']}}</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> About Me</div>
+
+                                <div class="profile-info-value">
+                                    <span class="editable" id="about">  About Me  </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="layer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="gridSystemModalLabel">修改密码</h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" > 旧密码 </label>
+
+                            <div class="col-sm-9">
+                                <input type="password"  placeholder=""  v-model="msg['old']"
+                                       class="col-xs-10 col-sm-5" >
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" > 新密码 </label>
+
+                            <div class="col-sm-9">
+                                <input type="password"  placeholder="" v-model="msg['new']"
+                                       class="col-xs-10 col-sm-5" >
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" > 确认密码 </label>
+
+                            <div class="col-sm-9">
+                                <input type="password"  placeholder=""  v-model="msg['renew']"
+                                       class="col-xs-10 col-sm-5" >
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="edit()">确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /.page-content -->
+{/block}
+{block name="footer"}
+<script src="<?= $js?>/admin/person.js"></script>
+
+{/block}

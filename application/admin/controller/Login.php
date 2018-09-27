@@ -86,8 +86,9 @@ class Login extends Controller
             Cookie::set('pwd', md5($data['password']), 7 * 24 * 3600);
         }
         // 4 存session
-        Session::set('manger_user', array('id' => $user['id'], 'user_name' => $user['user_name']));
+        Session::set('manger_user', array('id' => $user['id'],'last_login_time'=>$user['last_login_time'], 'user_name' => $user['user_name']));
 
+        Db::name('user')->where('id',$user['id'])->update(array('last_login_time'=>date("Y-m-d H:i:s")));
         //5.记录登录日志
 
         $param = array();

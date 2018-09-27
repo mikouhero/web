@@ -52,4 +52,8 @@ var ajaxUrl = {
     addServicetype:adminUrl+"/servicetype/insert",
     editServicetype:adminUrl+"/servicetype/update",         //type
     delServicetype:adminUrl+"/servicetype/delete",
+
+    getPersonList:adminUrl+"/person/getList",
+    editPerson:adminUrl+"/person/update",
+
 };

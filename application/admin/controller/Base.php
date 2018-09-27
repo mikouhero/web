@@ -28,34 +28,37 @@ class Base extends Controller
             'css' => $css,
             'js' => $js,
             'img' => $img,
-            'picture' => $picture
+            'picture' => $picture,
+            'user_name' => Session::get('manger_user.user_name')
         ));
 
         //权限过滤
-//         Session::set('manger_user',array('id'=>1,'user_name'=>'admin'));
-//         if (isset(Session::get('manger_user')['link']) && empty(Session::get('manger_user')['link'])) {
-//             $this->redirect("/admin/login/doCookie");
-//             die;
-//         };
-//         if (!$user_msg = Session::get('manger_user')) {
-//             $this->redirect('/admin/login');
-//         }
-//         $request = \think\Request::instance();
-//         $path = $request->url();
-//         if (substr_count($path, '/') < 3) {
-//             $path = $path . '/index';;
-//         };
-//         if ($user_msg['id'] != 1 || $user_msg['user_name'] != 'admin') {
-//             $rbac = new Rbac();
-//             $rbac->cachePermission($user_msg['id']);
-//             if (!$rbac->can($path)) {
-//                 //判断 无需认证的操作
-//                 if (!in_array($request->action(), config('rbac.NOT_AUTH_ACTION'))) {
-//                     $this->ajaxReturnMsg('100', '无权限操作', '');
-//                     exit;
-//                 }
-//             }
-//         }
+         if (isset(Session::get('manger_user')['link']) && empty(Session::get('manger_user')['link'])) {
+             $this->redirect("/admin/login/doCookie");
+             die;
+         };
+         $request = \think\Request::instance();
+         if (!$user_msg = Session::get('manger_user')) {
+             if($request->post()){
+                 $this->ajaxReturnMsg('105', '请重新登录', '');
+             }
+             $this->redirect('/admin/login');
+         }
+         $path = $request->url();
+         if (substr_count($path, '/') < 3) {
+             $path = $path . '/index';;
+         };
+         if ($user_msg['id'] != 1 || $user_msg['user_name'] != 'admin') {
+             $rbac = new Rbac();
+             $rbac->cachePermission($user_msg['id']);
+             if (!$rbac->can($path)) {
+                 //判断 无需认证的操作
+                 if (!in_array($request->action(), config('rbac.NOT_AUTH_ACTION'))) {
+                     $this->ajaxReturnMsg('100', '无权限操作', '');
+                     exit;
+                 }
+             }
+         }
     }
 
 
