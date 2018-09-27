@@ -63,6 +63,13 @@
                         </select>
                     </div>
 
+                    <div class="col-xs-2 input-group-s">
+                        <select  class="form-control "  v-model="s_isp_manager">
+                            <option value="">请选择运营商经理</option>
+                            <option v-for="item in ispList" :value="item.id">{{item.isp_sales}}</option>
+                        </select>
+                    </div>
+
                 </div>
                 <div class="row" style="margin-top: 20px">
 
@@ -143,8 +150,6 @@
                         <td v-show="item.isp == t.id" v-for="t in threelist">{{t.name}}</td>
                         <td>{{item.isp_sales}}</td>
                         <td>{{item.sales}}</td>
-
-                        <td>{{item.demand}}</td>
                         <td>{{item.demand}}</td>
                         <td>{{item.actual}}</td>
                         <td v-show="item.speed == s.id" v-for="s in speedList">{{s.name}}</td>
@@ -212,15 +217,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 业务编号 </label>
+                            <label class="col-sm-3 control-label no-padding-right" > 业务编号 </label>
                             <div class="col-sm-9">
-                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
-                                       v-model="msg['crj']">
+                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="msg['crj']">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 安装地址 </label>
+                            <label class="col-sm-3 control-label no-padding-right" > 安装地址 </label>
                             <div class="col-sm-9">
                                 <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
                                        v-model="msg['address']">
@@ -232,9 +236,27 @@
 
                             <div class="col-sm-9">
                                 <select class="col-xs-10 col-sm-5"  v-model="msg['isp']">
-                                    <option value="" disabled>请选择业务类型</option>
+                                    <option value="" disabled>请选择运营商</option>
                                     <option v-for="item in threelist " :value="item.id">{{item.name}}</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" >运营商经理</label>
+
+                            <div class="col-sm-9">
+                                <select class="col-xs-10 col-sm-5"  v-model="msg['isp_manager']">
+                                    <option value="" disabled>请选择运营商经理</option>
+                                    <option v-for="item in ispList " :value="item.id">{{item.isp_sales}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" >业务员 </label>
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="msg['sales']">
                             </div>
                         </div>
 

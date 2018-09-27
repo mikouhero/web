@@ -16,6 +16,7 @@ vm = new Vue({
         s_status:'',
         s_time:'',
         s_out:'',
+        s_isp_manager:'',
         typeList :{},
         speedList :[{id:1,name:'10M'},{id:2,name:'20M'},{id:3,name:'50M'},{id:4,name:'100M'},{id:5,name:'200M'}],
         bus_status :[{id:1,name:'潜在'},{id:2,name:'正式'},{id:3,name:'过期'}],
@@ -23,6 +24,7 @@ vm = new Vue({
         methodlist :[{'id':1,'name':'微信'},{'id':2,'name':'支付宝'},{'id':3,'name':'银联'},{'id':4,'name':'现金'},{'id':5,'name':'其他'}],
         companyList:{},
         buildingList:{},
+        ispList:{},
     },
     methods: {
         getList: function () {
@@ -35,6 +37,7 @@ vm = new Vue({
                 s_status:this.s_status,
                 s_time:this.s_time,
                 s_out:this.s_out,
+                s_isp_manager:this.s_isp_manager,
 
             }, {
                 emulateJSON: true
@@ -47,6 +50,7 @@ vm = new Vue({
                 this.typeList = res.data.data['typeList'];
                 this.companyList = res.data.data['companyList'];
                 this.buildingList = res.data.data['buildingList'];
+                this.ispList = res.data.data['ispList'];
                 this.pages = res.data.data['count'];
             }, function (res) {
                 alert("程序崩掉了");

@@ -46,6 +46,9 @@ class Crj extends Base
             $condition['p1.status'] = ['=', $data['s_status']];
         }
 
+        if (isset($data['s_isp_manager']) && !empty($data['s_isp_manager'])) {
+            $condition['p5.id'] = ['=', $data['s_isp_manager']];
+        }
         if (isset($data['s_out']) && !empty($data['s_out'])) {
             if ($data['s_out'] == 1) {
                 $condition['p1.end_time'] = ['>=', date('Y-m-d')];
@@ -75,7 +78,7 @@ class Crj extends Base
                      p1.speed,
                      DATE_FORMAT(p1.start_time,"%Y-%m-%d") as start_time,
                      DATE_FORMAT(p1.end_time,"%Y-%m-%d") as end_time,
-                     DATE_FORMAT(p1.teardown,"%Y-%m-%d") teardown,
+                     DATE_FORMAT(p1.teardown,"%Y-%m-%d") as teardown,
                      p3.port,
                      p3.ip,
                      p3.account,
@@ -96,13 +99,18 @@ class Crj extends Base
         $typeList = Db::name('service_type')->field('id,name,status')->select();
         $companyList = Db::name('company')->field('id,name')->select();
         $buildingList = Db::name('building')->field('id,name')->select();
-
-        $count = Db::name('crj')->alias('p1')->where($condition)->count();
+        $ispList = Db::name('channel')->field('id,isp_sales')->select();
+        $count = Db::name('crj')->alias('p1')
+            ->join('company p2', 'p2.id = p1.cid', 'left')
+            ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
+            ->join('b_crj_s p4','p4.crj_id = p1.id','left')
+            ->join('channel p5','p5.id = p4.isp_manager','left')->where($condition)->count();
         $res = array(
             'list' => $list,
             'typeList' => $typeList,
             'companyList' => $companyList,
             'buildingList' => $buildingList,
+            'ispList' => $ispList,
             'count' => ceil($count / $pagesize)
         );
         $this->ajaxReturnMsg(200, 'success', $res);
@@ -113,18 +121,17 @@ class Crj extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['cid']) || empty($data['cid']) || !isset($data['crj']) || empty($data['crj']) || !isset($data['address']) || empty($data['address']) || !isset($data['isp']) || empty($data['isp']) || !isset($data['method']) || empty($data['method']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['price']) || empty($data['price']) || !isset($data['demand']) || empty($data['demand']) || !isset($data['status'])) {
+        if (!isset($data['cid']) || empty($data['cid']) || !isset($data['crj']) || empty($data['crj']) || !isset($data['address']) || empty($data['address']) || !isset($data['isp']) || empty($data['isp']) || !isset($data['method']) || empty($data['method']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['price']) || empty($data['price']) || !isset($data['demand']) || empty($data['demand']) || !isset($data['isp_manager']) || empty($data['isp_manager']) || !isset($data['sales']) || empty($data['sales']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
 
-        // 判断用户是否存在
         if (Db::name('crj')->where('crj', $data['crj'])->count()) {
             $this->ajaxReturnMsg(203, '业务编号已经存在', '');
         }
 
-//        Db::startTrans();
-//        try{
+       Db::startTrans();
+       try{
         $param = array(
             'cid' => $data['cid'],
             'crj' => $data['crj'],
@@ -152,15 +159,23 @@ class Crj extends Base
             'password' => $data['password'],
         );
 
-        Db::name('crj_op')->insertGetId($param2);
+        Db::name('crj_op')->insert($param2);
 
-//            Db::commit();
+        $param3 = array(
+            'crj_id' => $crj_id,
+            'isp_manager'=> $data['isp_manager'],
+            'sales' =>$data['sales']
+        );
+
+        Db::name('b_crj_s')->insert($param3);
+
+        Db::commit();
         $this->ajaxReturnMsg(200, 'success', '');
-//        }catch (\Exception $e){
-////            Db::rollback();
-//            $this->ajaxReturnMsg(204, '添加失败', '');
-//
-//        }
+       }catch (\Exception $e){
+           Db::rollback();
+           $this->ajaxReturnMsg(204, '添加失败', '');
+
+       }
 
 
     }
