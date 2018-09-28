@@ -123,6 +123,11 @@ class User extends Base
         if (!isset($data['id']) || empty($data['id'])) {
             $this->ajaxReturnMsg(201, '缺少参数', '');
         }
+
+        if($data['user_id'] == 1){
+            $this->ajaxReturnMsg(201, '不允许删除', '');
+        }
+
         $falg = Db::name('user')->where('id', $data['id'])->count();
         if (!$falg) {
             $this->ajaxReturnMsg(201, '网络错误', '');
@@ -139,6 +144,7 @@ class User extends Base
         if (!isset($data['user_id']) || empty($data['user_id']) || !isset($data['role_id']) || empty($data['role_id'])) {
             $this->ajaxReturnMsg(201, '缺少参数', '');
         }
+
         $falg = Db::name('user_role')->where('user_id', $data['user_id'])->where('role_id', $data['role_id'])->count();
         if ($falg) {
             $this->ajaxReturnMsg(201, '网络错误', '');

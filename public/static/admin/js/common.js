@@ -48,6 +48,11 @@ var ajaxUrl = {
     editBrj:adminUrl+"/brj/update",         // brj
     delBrj:adminUrl+"/brj/delete",
 
+    getBrjopList:adminUrl+"/brjop/getList",
+    addBrjop:adminUrl+"/brjop/insert",
+    editBrjop:adminUrl+"/brjop/update",         // brjop
+    delBrjop:adminUrl+"/brjop/delete",
+
     getCrjList:adminUrl+"/crj/getList",
     addCrj:adminUrl+"/crj/insert",
     editCrj:adminUrl+"/crj/update",         // crj

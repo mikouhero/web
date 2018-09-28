@@ -13,11 +13,11 @@ use think\Db;
 use think\Request;
 
 
-class Brj extends Base
+class Brjop extends Base
 {
     public function index()
     {
-        return view("admin@brj/index");
+        return view("admin@brjop/index");
     }
 
     public function getList(Request $request)
@@ -75,32 +75,32 @@ class Brj extends Base
             p2.name as company_name ,
             p1.brj,p1.address,
             p1.type,
-            p1.speed,
-            p1.s_price,
-            p1.contact,
-            p1.phone,
-            p1.status,
-            DATE_FORMAT(p1.start_time,"%Y-%m-%d") as start_time,
-            DATE_FORMAT(p1.end_time,"%Y-%m-%d") as end_time,
-            DATE_FORMAT(p1.teardown,"%Y-%m-%d") teardown,
-            p4.name as building,
-            p1.bid')
+            p3.port,
+            p3.ip,
+            p3.account,
+            p3.password
+            ')
             ->join('company p2', 'p2.id = p1.cid', 'left')
-            ->join('building p4', 'p4.id = p1.bid', 'left')
+            ->join('brj_op p3', 'p3.brj_id = p1.id', 'left')
             ->where($condition)
             ->order('id', 'desc')
             ->limit($start, $pagesize)
             ->select();
         $typeList = Db::name('service_type')->field('id,name,status')->select();
         $companyList = Db::name('company')->field('id,name')->select();
-        $buildingList = Db::name('building')->field('id,name')->select();
-
+        $brjList = Db::name('brj')
+                    -> alias('p1')
+                    ->field('p1.id,p1.brj')
+                    ->join('brj_op p2','p1.id = p2.brj_id','left')
+                    ->where('p2.brj_id is null')
+                    ->where('p1.deleted',0)
+                    ->select();
         $count = Db::name('brj')->alias('p1')->where($condition)->count();
         $res = array(
             'list' => $list,
             'typeList' => $typeList,
+            'brjList'  => $brjList,
             'companyList' => $companyList,
-            'buildingList' => $buildingList,
             'count' => ceil($count / $pagesize)
         );
         $this->ajaxReturnMsg(200, 'success', $res);
@@ -111,49 +111,27 @@ class Brj extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['cid']) || empty($data['cid']) || !isset($data['brj']) || empty($data['brj']) || !isset($data['address']) || empty($data['address']) || !isset($data['type']) || empty($data['type']) || !isset($data['speed']) || empty($data['speed']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['contact']) || empty($data['contact']) || !isset($data['phone']) || empty($data['phone']) || !isset($data['status'])) {
+        if (!isset($data['brj_id']) || empty($data['brj_id']) || !isset($data['port']) || empty($data['port']) || !isset($data['ip']) || empty($data['ip']) || !isset($data['account']) || empty($data['account']) || !isset($data['password']) || empty($data['password'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
-        if(empty($data['end_time'])){
-            $data['end_time'] = NUll;
-        }
-
-        if(empty($data['start_time'])){
-            $data['start_time'] = NUll;
-        }
-
-        if(empty($data['teardown'])){
-            $data['teardown'] = NUll;
-        }
-
-        if (!preg_match('/^1[3456789]{1}\d{9}$/', $data['phone'])) {
-            $this->ajaxReturnMsg(202, '手机号格式错误', '');
-        }
-
         // 判断用户是否存在
-        if (Db::name('brj')->where('brj', $data['brj'])->count()) {
-            $this->ajaxReturnMsg(203, '业务编号已经存在', '');
+        if (Db::name('brj_op')->where('brj_id', $data['brj_id'])->where('deleted',0)->count()) {
+            $this->ajaxReturnMsg(203, '该编号的运维信息已存在', '');
         }
 
         Db::startTrans();
         try {
-            $param = array(
-                'cid' => $data['cid'],
-                'brj' => $data['brj'],
-                'type' => $data['type'],
-                'address' => $data['address'],
-                'speed' => $data['speed'],
-                's_price' => $data['s_price'],
-                'contact' => $data['contact'],
-                'phone' => $data['phone'],
-                'start_time' => $data['start_time'],
-                'end_time' => $data['end_time'],
-                'status' => $data['status'],
-                'teardown' => $data['teardown'],
-                'bid' => $data['bid'],
+
+            $param2 = array(
+                'brj_id' => $data['brj_id'],
+                'port' => $data['port'],
+                'ip' => $data['ip'],
+                'account' => $data['account'],
+                'password' => $data['password'],
             );
-            Db::name('brj')->insertGetId($param);
+
+            Db::name('brj_op')->insertGetId($param2);
 
             Db::commit();
             $this->ajaxReturnMsg(200, 'success', '');
@@ -171,49 +149,27 @@ class Brj extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['id']) || empty($data['id']) || !isset($data['cid']) || empty($data['cid']) || !isset($data['brj']) || empty($data['brj']) || !isset($data['address']) || empty($data['address']) || !isset($data['type']) || empty($data['type']) || !isset($data['speed']) || empty($data['speed']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['contact']) || empty($data['contact']) || !isset($data['phone']) || empty($data['phone']) || !isset($data['status'])) {
+        if (!isset($data['id']) || empty($data['id']) || !isset($data['brj_id']) || empty($data['brj_id']) || !isset($data['port']) || empty($data['port']) || !isset($data['ip']) || empty($data['ip']) || !isset($data['account']) || empty($data['account']) || !isset($data['password']) || empty($data['password'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
-        if(empty($data['end_time'])){
-            $data['end_time'] = NUll;
-        }
-
-        if(empty($data['start_time'])){
-            $data['start_time'] = NUll;
-        }
-
-        if(empty($data['teardown'])){
-            $data['teardown'] = NUll;
-        }
-
-        if (!preg_match('/^1[3456789]{1}\d{9}$/', $data['phone'])) {
-            $this->ajaxReturnMsg(202, '手机号格式错误', '');
-        }
 
         // 判断用户是否存在
-        if (Db::name('brj')->where('id', '<>', $data['id'])->where('brj', $data['brj'])->count()) {
+        if (Db::name('brj')->where('id', '<>', $data['id'])->where('brj', $data['brj'])->where('deleted',0)->count()) {
             $this->ajaxReturnMsg(203, '业务编号已经存在', '');
         }
 
         Db::startTrans();
         try {
-            $param = array(
-                'cid' => $data['cid'],
-                'brj' => $data['brj'],
-                'type' => $data['type'],
-                'address' => $data['address'],
-                'speed' => $data['speed'],
-                's_price' => $data['s_price'],
-                'contact' => $data['contact'],
-                'phone' => $data['phone'],
-                'start_time' => $data['start_time'],
-                'end_time' => $data['end_time'],
-                'status' => $data['status'],
-                'teardown' => $data['teardown'],
-                'bid' => $data['bid'],
+
+            $param2 = array(
+                'port' => $data['port'],
+                'ip' => $data['ip'],
+                'account' => $data['account'],
+                'password' => $data['password'],
             );
-            Db::name('brj')->where('id', $data['id'])->update($param);
+
+            Db::name('brj_op')->where('id', $data['id'])->update($param2);
 
             Db::commit();
             $this->ajaxReturnMsg(200, 'success', '');
