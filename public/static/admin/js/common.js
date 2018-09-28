@@ -58,6 +58,12 @@ var ajaxUrl = {
     editCrj:adminUrl+"/crj/update",         // crj
     delCrj:adminUrl+"/crj/delete",
 
+    getCrjopList:adminUrl+"/crjop/getList",
+    addCrjop:adminUrl+"/crjop/insert",
+    editCrjop:adminUrl+"/crjop/update",         // crjop
+    delCrjop:adminUrl+"/crjop/delete",
+
+
     getServicetypeList:adminUrl+"/servicetype/getList",
     addServicetype:adminUrl+"/servicetype/insert",
     editServicetype:adminUrl+"/servicetype/update",         //type

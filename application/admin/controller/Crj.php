@@ -79,17 +79,12 @@ class Crj extends Base
                      DATE_FORMAT(p1.start_time,"%Y-%m-%d") as start_time,
                      DATE_FORMAT(p1.end_time,"%Y-%m-%d") as end_time,
                      DATE_FORMAT(p1.teardown,"%Y-%m-%d") as teardown,
-                     p3.port,
-                     p3.ip,
-                     p3.account,
-                     p3.password,
                      p4.sales,
-                     p5.isp_sales
+                     p5.isp_sales,
+                     p4.isp_manager
                      '
-
                     )
             ->join('company p2', 'p2.id = p1.cid', 'left')
-            ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
             ->join('b_crj_s p4','p4.crj_id = p1.id','left')
             ->join('channel p5','p5.id = p4.isp_manager','left')
             ->where($condition)
@@ -161,15 +156,7 @@ class Crj extends Base
         );
         $crj_id = Db::name('crj')->insertGetId($param);
 
-        $param2 = array(
-            'crj_id' => $crj_id,
-            'port' => $data['port'],
-            'ip' => $data['ip'],
-            'account' => $data['account'],
-            'password' => $data['password'],
-        );
 
-        Db::name('crj_op')->insert($param2);
 
         $param3 = array(
             'crj_id' => $crj_id,
@@ -235,14 +222,13 @@ class Crj extends Base
             );
             Db::name('crj')->where('id', $data['id'])->update($param);
 
-            $param2 = array(
-                'port' => $data['port'],
-                'ip' => $data['ip'],
-                'account' => $data['account'],
-                'password' => $data['password'],
+
+            $param3 = array(
+                'isp_manager'=> $data['isp_manager'],
+                'sales' =>$data['sales']
             );
 
-            Db::name('crj_op')->where('crj_id', $data['id'])->update($param2);
+            Db::name('b_crj_s')->where('crj_id',$data['id'])->where('deleted',0)->update($param3);
 
             Db::commit();
             $this->ajaxReturnMsg(200, 'success', '');
@@ -268,7 +254,10 @@ class Crj extends Base
             'deleted' => 1,
             'delete_time' => date("Y-m-d H:i:s")
         );
-        $flag = Db::name('crj')->where('id', $data['id'])->update($param);
+        Db::name('crj')->where('id', $data['id'])->update($param);
+
+        $flag = Db::name('b_crj_s')->where('crj_id', $data['id'])->update($param);
+
         if (!$flag) $this->ajaxReturnMsg(202, '', '');
         $this->ajaxReturnMsg(200, 'success', '');
     }
