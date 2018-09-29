@@ -129,7 +129,71 @@ class Center extends  Controller
             'on4' => 'ddCur',
         ));
         return view('index@center/order');
+    }
 
+    public function getOrder(Request $request)
+    {
+        $data = $request->post();
+        $current_page = $data['current_page'];
+        $pagesize = 10;
+        $start = ($current_page - 1) * $pagesize;
+
+        $condition['p1.deleted'] = ['=', '0'];
+        if (isset($data['s_brj']) && !empty($data['s_brj'])) {
+            $condition['p1.brj'] = ['=', $data['s_brj']];
+        }
+
+        if (isset($data['s_type']) && !empty($data['s_type'])) {
+            $condition['p1.type'] = ['=', $data['s_type']];
+        }
+
+        if (isset($data['s_cid']) && !empty($data['s_cid'])) {
+            $condition['p1.cid'] = ['=', $data['s_cid']];
+        }
+        if (isset($data['s_bid']) && !empty($data['s_bid'])) {
+            $condition['p1.bid'] = ['=', $data['s_bid']];
+        }
+
+        if (isset($data['s_speed']) && !empty($data['s_speed'])) {
+            $condition['p1.speed'] = ['=', $data['s_speed']];
+        }
+        if (isset($data['s_contact']) && !empty($data['s_contact'])) {
+            $condition['p1.contact'] = ['=', $data['s_contact']];
+        }
+
+        if (isset($data['s_phone']) && !empty($data['s_phone'])) {
+            $condition['p1.phone'] = ['=', $data['s_phone']];
+        }
+
+        $list = Db::name('member')
+            ->alias('p1')
+            ->field('
+            p3.brj,
+            p3.type,
+            p4.name as type_name,
+            p3.speed,
+            p3.status,
+            p3.contact,
+            p3.address')
+            ->join('company p2', 'p2.id = p1.cid', 'left')
+            ->join('brj p3' ,'p3.cid = p2.id','left')
+            ->join('service_type p4','p4.id = p3.type' ,'left')
+            ->where($condition)
+            ->order('p3.id', 'desc')
+            ->limit($start, $pagesize)
+            ->select();
+        $count =  Db::name('member')
+            ->alias('p1')
+            ->join('company p2', 'p2.id = p1.cid', 'left')
+            ->join('brj p3' ,'p3.cid = p2.id','left')
+            ->where($condition)
+            ->order('p3.id', 'desc')
+            ->count();;
+        $data = array(
+            'list' => $list,
+            'count' => ceil($count / $pagesize)
+        );
+        $this->ajaxReturnMsg(200,'success',$data);
     }
 
     public function note()
