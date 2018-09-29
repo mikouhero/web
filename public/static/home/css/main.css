@@ -188,11 +188,11 @@ transition:All 1s ease 0.5s;
 
 .pageFoot a{color:#FFF;}
 
-.pageFoot .wal{min-height:300px; position:relative;}
+.pageFoot .wal{min-height:152px; position:relative;}
 
 .pageFoot .tel{text-align:center; font-size:15px; line-height:28px; position:absolute; left:0px; top:0px; width:290px;}
 
-.pageFoot .tel .img{padding:50px 0 25px 0; position:relative; left:15px;}
+.pageFoot .tel .img{padding:25px 0 25px 0; position:relative; left:15px;}
 
 .pageFoot .tel h2{font-size:22px;}
 

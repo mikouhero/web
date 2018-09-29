@@ -23,7 +23,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in  msg">
+            <tr v-for="item in  msg" v-cloak>
                 <td>{{item.login_name}}</td>
                 <td>{{item.login_time}}</td>
                 <td><strong>{{item.service_ip}}</strong></td>

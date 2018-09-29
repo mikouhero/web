@@ -9,6 +9,7 @@
          text-align: center;
             padding: 10px;
         }
+      
     </style>
     {/block}
 
@@ -28,13 +29,13 @@
 
                 <div class="col-xs-2 input-group-s">
                     <select  class="form-control "  v-model="s_type">
-                        <option value="">业务状态</option>
-                        <option v-for="item in bus_status" :value="item.id">{{item.name}}</option>
+                        <option value="">业务类型</option>
+                        <option v-for="item in typelist" :value="item.id">{{item.name}}</option>
                     </select>
                 </div>
                 <div class="col-xs-2 input-group-s">
                     <select  class="form-control "  v-model="s_speed">
-                        <option value="" disabled>带宽</option>
+                        <option value="" >带宽</option>
                         <option v-for="item in speedList" :value="item.id">{{item.name}}</option>
                     </select>
                 </div>
@@ -63,14 +64,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in msg">
+            <tr v-for="item in msg" v-cloak>
                 <td>{{item.brj}}</td>
                 <td>{{item.type_name}}</td>
-                <td>{{item.speed}}</td>
-                <td>{{item.status}}</td>
+                <td v-show="item.speed == s.id" v-for="s in speedList">{{s.name}}</td>
+                <td v-show="item.status == b.id" v-for="b in bus_status">{{b.name}}</td>
                 <td>{{item.contact}}</td>
                 <td>{{item.address}} </td>
-                <td><a>查看</a></td>
+                <td>{{item.start_time}}</td>
             </tr>
             </tbody>
         </table>

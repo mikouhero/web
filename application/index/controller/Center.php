@@ -40,7 +40,7 @@ class Center extends  Controller
             if($request->post()){
                 $this->ajaxReturnMsg('105', '请重新登录', '');
             }
-            $this->redirect('/');
+            $this->redirect('/index/person/login');
         }
     }
 
@@ -140,29 +140,23 @@ class Center extends  Controller
 
         $condition['p1.deleted'] = ['=', '0'];
         if (isset($data['s_brj']) && !empty($data['s_brj'])) {
-            $condition['p1.brj'] = ['=', $data['s_brj']];
+            $condition['p3.brj'] = ['=', $data['s_brj']];
         }
 
         if (isset($data['s_type']) && !empty($data['s_type'])) {
-            $condition['p1.type'] = ['=', $data['s_type']];
+            $condition['p3.type'] = ['=', $data['s_type']];
         }
 
-        if (isset($data['s_cid']) && !empty($data['s_cid'])) {
-            $condition['p1.cid'] = ['=', $data['s_cid']];
-        }
-        if (isset($data['s_bid']) && !empty($data['s_bid'])) {
-            $condition['p1.bid'] = ['=', $data['s_bid']];
-        }
 
         if (isset($data['s_speed']) && !empty($data['s_speed'])) {
-            $condition['p1.speed'] = ['=', $data['s_speed']];
+            $condition['p3.speed'] = ['=', $data['s_speed']];
         }
         if (isset($data['s_contact']) && !empty($data['s_contact'])) {
-            $condition['p1.contact'] = ['=', $data['s_contact']];
+            $condition['p3.contact'] = ['=', $data['s_contact']];
         }
 
-        if (isset($data['s_phone']) && !empty($data['s_phone'])) {
-            $condition['p1.phone'] = ['=', $data['s_phone']];
+        if (isset($data['s_time']) && !empty($data['s_time'])) {
+            $condition['p3.start_time'] = ['>=', $data['s_time']];
         }
 
         $list = Db::name('member')
@@ -174,7 +168,8 @@ class Center extends  Controller
             p3.speed,
             p3.status,
             p3.contact,
-            p3.address')
+            p3.address,
+            p3.start_time')
             ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('brj p3' ,'p3.cid = p2.id','left')
             ->join('service_type p4','p4.id = p3.type' ,'left')
@@ -188,9 +183,11 @@ class Center extends  Controller
             ->join('brj p3' ,'p3.cid = p2.id','left')
             ->where($condition)
             ->order('p3.id', 'desc')
-            ->count();;
+            ->count();
+        $typeList = Db::name('service_type')->field('id,name,status')->select();
         $data = array(
             'list' => $list,
+            'typelist'=>$typeList,
             'count' => ceil($count / $pagesize)
         );
         $this->ajaxReturnMsg(200,'success',$data);

@@ -11,6 +11,7 @@ vm = new Vue({
         s_type:'',
         speedList :[{id:1,name:'10M'},{id:2,name:'20M'},{id:3,name:'50M'},{id:4,name:'100M'},{id:5,name:'200M'}],
         bus_status :[{id:1,name:'潜在'},{id:2,name:'正式'},{id:3,name:'过期'}],
+        typelist:{}
 
     },
     methods: {
@@ -21,7 +22,8 @@ vm = new Vue({
                 s_speed:this.s_speed,
                 s_contact:this.s_contact,
                 s_status:this.s_status,
-                s_time:$('#s_time').val()
+                s_time:$('#s_time').val(),
+                s_type:this.s_type
             }, {
                 emulateJSON: true
             }).then(function (res) {
@@ -31,6 +33,8 @@ vm = new Vue({
                 }
                 this.msg = res.data.data['list'];
                 this.pages = res.data.data['count'];
+                this.typelist = res.data.data['typelist'];
+                
             }, function (res) {
                 alert("程序崩掉了");
             });
