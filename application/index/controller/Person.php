@@ -49,7 +49,7 @@ class Person extends  Controller
             $this->ajaxReturnMsg(201, '用户名或密码没有输入', '');
         }
         //1 用户是否存在
-        $user = Db::name('member')->where('user', $data['user'])->find();
+        $user = Db::name('member')->where('user', $data['user'])->where('deleted',0)->find();
         if (!$user) {
             $this->ajaxReturnMsg(201, '用户不存在', '');
         }

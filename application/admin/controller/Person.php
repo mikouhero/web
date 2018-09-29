@@ -25,7 +25,7 @@ class Person extends Base
         $data = Db::name('user')->where('id',$user_msg['id'])->find();
         $res = array();
         $res['ip'] = \think\Request::instance()->ip();;//登录ip地址
-        $res['last_login_time'] = $this->formatDate($user_msg['last_login_time']);
+        $res['last_login_time'] = formatDate($user_msg['last_login_time']);
         $res['user'] = $data['user_name'];
         $res['phone'] = $data['mobile'];
         $res['create_time'] = $data['create_time'];
@@ -62,27 +62,4 @@ class Person extends Base
         die;
     }
 
-    private function formatDate($datetime=''){
-        if(empty($datetime)) return '';
-        $now_time = time();                                           //此刻时间
-        $today_time = strtotime(date("Y-m-d"));                       //今天零点
-        $yesday_time = strtotime(date("Y-m-d",strtotime("-1 day")));  //昨天零点
-        $publish_time = strtotime($datetime);                         //发布时间
-
-        if($publish_time < $yesday_time){
-            $result = date('n月j日',$publish_time);
-        }elseif($publish_time >= $yesday_time && $publish_time < $today_time){
-            $result = '昨天 '.date('G:i',$publish_time);
-        }else{
-            $diff_time = $now_time - $publish_time;
-            if($diff_time < 60){
-                $result = "1分钟前";
-            }elseif($diff_time>=60 && $diff_time <3600){
-                $result = floor($diff_time/60)."分钟前";
-            }else{
-                $result = floor($diff_time/3600)."小时前";
-            }
-        }
-        return $result;
-    }
 }

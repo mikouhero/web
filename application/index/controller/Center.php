@@ -9,7 +9,9 @@ namespace app\index\controller;
 
 
 use think\Controller;
+use think\Request;
 use think\Session;
+use think\Db;
 
 class Center extends  Controller
 {
@@ -30,6 +32,7 @@ class Center extends  Controller
             'on2' =>'',
             'on3' =>'',
             'on4' =>'',
+            'on5' =>''
         ));
 
         $request = \think\Request::instance();
@@ -43,28 +46,62 @@ class Center extends  Controller
 
     public function index()
     {
+        $this->assign(array(
+            'on1' => 'ddCur',
+        ));
         return view('index@center/index');
     }
 
+    public function getUser()
+    {
+       $user = Session::get('member_user');
+       $data = Db::name('member')->alias('p1')
+           ->field('p1.user,p1.cid,p2.name')
+           ->join('company p2','p1.cid = p2.id','left')
+           ->where('p1.id',$user['id'])
+           ->where('p1.status',1)
+           ->where('p1.deleted',0)
+           ->where('p2.deleted',0)
+           ->find();
+       if(empty($data)){
+           $this->ajaxReturnMsg(105,'重新登录','');
+       }
+       $data['last_login_time'] = formatDate($user['last_login_time']);
+        $data['ip'] = Request::instance()->ip();;//登录ip地址
+       $this->ajaxReturnMsg(200,'success',$data);
+
+    }
     public function pwd()
     {
+        $this->assign(array(
+            'on2' => 'ddCur',
+        ));
         return view('index@center/pwd');
 
     }
 
     public function log()
     {
+        $this->assign(array(
+            'on3' => 'ddCur',
+        ));
         return view('index@center/log');
     }
 
     public function order()
     {
+        $this->assign(array(
+            'on4' => 'ddCur',
+        ));
         return view('index@center/order');
 
     }
 
     public function note()
     {
+        $this->assign(array(
+            'on5' => 'ddCur',
+        ));
         return view('index@center/note');
 
     }

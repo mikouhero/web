@@ -26,16 +26,16 @@
 <div class="vipBox">
     <div class="vipLeft">
         <h2 class="headImg"><img src="images/vipImg.jpg" width="183" height="169"/></h2>
-        <h3 class="vipName">测试webqin</h3>
+        <h3 class="vipName"></h3>
         <dl class="vipNav">
             <dt class="vip_1 vipCur">买家中心</dt>
-            <dd><a href="/index/center/order">我的订单</a></dd>
+            <dd class="<?= $on4 ?>"><a href="/index/center/order" >我的订单</a></dd>
             <dt class="vip_2">账户设置</dt>
-            <dd class="ddCur"><a href="/index/center/index">个人信息</a></dd>
-            <dd><a href="/index/center/pwd">密码修改</a></dd>
-            <dd><a href="/index/center/log">历史登录</a></dd>
+            <dd class="<?= $on1 ?>"><a href="/index/center/index">个人信息</a></dd>
+            <dd class="<?= $on2 ?>"><a href="/index/center/pwd" >密码修改</a></dd>
+            <dd class="<?= $on3 ?>"><a href="/index/center/log" >历史登录</a></dd>
             <dt class="vip_3">客户服务</dt>
-            <dd><a href="/index/center/note">在线留言</a></dd>
+            <dd class="<?= $on5 ?>"><a href="/index/center/note" >在线留言</a></dd>
         </dl><!--vipNav/-->
     </div><!--vipLeft/-->
     {block name="main"}
@@ -45,25 +45,25 @@
         <form action="#" class="registerform">
             <table class="grzx" width="705" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td width="90"><span>*</span>公司名称：</td>
-                    <td width="430"> 大公司
+                    <td width="90"><span>*</span><strong>公司名称：</strong></td>
+                    <td width="430"> {{msg['name']}}
                     </td>
                 </tr>
 
                 <tr>
-                    <td>&nbsp;&nbsp;登录名：</td>
-                    <td>艺术家</td>
+                    <td>&nbsp;<span>*</span><strong>登录名：</strong></td>
+                    <td>{{msg.user}}</td>
                 </tr>
 
                 <tr>
-                    <td>&nbsp;&nbsp;登录IP：</td>
-                    <td>艺术家</td>
+                    <td>&nbsp;<span>*</span><strong>登录IP：</strong></td>
+                    <td>{{msg.ip}}</td>
                 </tr>
 
 
                 <tr>
-                    <td>&nbsp;&nbsp;上次登录：</td>
-                    <td>艺术家</td>
+                    <td>&nbsp;<span>*</span><strong>上次登录：</strong></td>
+                    <td>{{msg.last_login_time}}</td>
                 </tr>
 
             </table>
@@ -106,11 +106,11 @@
     </div><!--footers/-->
 </div><!--footBox/-->
 <div class="footer" style="text-align:left;">
-
     <span>&copy; 2014 Unqezi 使用前必读 沪ICP备 12007626号-1</span>
 </div><!--footer/-->
 
     {block name="footer"}
+    <script src="/static/home/js/center/index.js"></script>
     {/block}
 </body>
 </html>
