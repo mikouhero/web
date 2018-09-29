@@ -2,6 +2,9 @@
 {block name="header"}
 <link rel="stylesheet" media="screen" href="<?= $css ?>/style.css">
 <link rel="stylesheet" type="text/css" href="<?= $css ?>/reset.css"/>
+<script src="<?= $js ?>/vue.js"></script>
+<script src="<?= $js ?>/vue-resource.js"></script>
+
 {/block}
 
 {{extend name="index/about" /}}
@@ -14,18 +17,18 @@
 			<div class="login-center clearfix">
 				<div class="login-center-img"><img src="<?= $img ?>/name.png"/></div>
 				<div class="login-center-input">
-					<input type="text" name="" value="" placeholder="请输入您的用户名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的用户名'"/>
+					<input type="text"  v-model="name" placeholder="请输入您的用户名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的用户名'"/>
 					<div class="login-center-input-text">用户名</div>
 				</div>
 			</div>
 			<div class="login-center clearfix">
 				<div class="login-center-img"><img src="<?= $img ?>/password.png"/></div>
 				<div class="login-center-input">
-					<input type="password" name=""value="" placeholder="请输入您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'"/>
+					<input type="password"  v-model="pwd" placeholder="请输入您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'"/>
 					<div class="login-center-input-text">密码</div>
 				</div>
 			</div>
-			<div class="login-button">
+			<div class="login-button" @click="login">
 				登录
 			</div>
 		</div>
@@ -74,4 +77,6 @@
 				},5000)
 		}
 </script>
+<script src="<?= $js ?>/person/login.js"></script>
+
 {/block}
