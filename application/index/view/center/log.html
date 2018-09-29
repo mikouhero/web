@@ -1,6 +1,14 @@
 
     {{extend name="center/index" /}}
     {block name="header"}
+    <script src="/static/home/js/pagination.js"></script>
+
+    <style>
+        .ordercenter th{
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
     {/block}
 
     {block name="main"}
@@ -8,43 +16,31 @@
         <h2 class="vipTitle">历史登录</h2>
         <table class="vip-dingzhi">
             <thead>
-            <tr>
+            <tr class="ordercenter">
                 <th>用户名</th>
                 <th>时间</th>
                 <th>IP地址</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>user</td>
-                <td>2014年6月23日11:32:17</td>
-                <td><a href="success.html"><strong>127.0.0.1</strong></a></td>
+            <tr v-for="item in  msg">
+                <td>{{item.login_name}}</td>
+                <td>{{item.login_time}}</td>
+                <td><strong>{{item.service_ip}}</strong></td>
             </tr>
-            <tr>
-                <td>user</td>
-                <td>2014年6月23日11:32:17</td>
-                <td><a href="success.html"><strong>127.0.0.1</strong></a></td>
-            </tr>
-            <tr>
-                <td>user</td>
-                <td>2014年6月23日11:32:17</td>
-                <td><a href="success.html"><strong>127.0.0.1</strong></a></td>
-            </tr>
-            <tr>
-                <td>user</td>
-                <td>2014年6月23日11:32:17</td>
-                <td><a href="success.html"><strong>127.0.0.1</strong></a></td>
-            </tr>
-            <tr>
-                <td>user</td>
-                <td>2014年6月23日11:32:17</td>
-                <td><a href="success.html"><strong>127.0.0.1</strong></a></td>
-            </tr>
+
             </tbody>
+
         </table>
+        <div class="row">
+            <div class="box-footer clearfix">
+                <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+            </div>
+        </div>
     </div>
     {/block}
 
 
     {block name="footer"}
+    <script src="/static/home/js/center/log.js"></script>
     {/block}

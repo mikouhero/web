@@ -97,7 +97,6 @@ class Center extends  Controller
         Session::delete('member_user');
         $this->ajaxReturnMsg(200,'success','');
 
-
     }
 
     public function log()
@@ -106,6 +105,22 @@ class Center extends  Controller
             'on3' => 'ddCur',
         ));
         return view('index@center/log');
+    }
+
+    public function getlog(Request $request)
+    {
+        $data = $request->post();
+        $current_page = $data['current_page'];
+        $pagesize = 10;
+        $start = ($current_page - 1) * $pagesize;
+        $list = Db::name('login_log')->field('login_name,login_time,service_ip')->where('login_name',Session::get('member_user.user'))->where('source',1)->limit($start, $pagesize)->order('id','desc')->select();
+        $count = Db::name('login_log')->where('login_name',Session::get('member_user.user'))->where('source',1)->count();
+        $data = array(
+            'list' => $list,
+            'count' => ceil($count / $pagesize)
+        );
+        $this->ajaxReturnMsg(200,'success',$data);
+
     }
 
     public function order()
