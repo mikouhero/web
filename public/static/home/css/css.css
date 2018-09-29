@@ -61,7 +61,7 @@ filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Colo
 /*footBox*/
 .footBox{width:100%; background:#222222;height:170px;padding:15px 0;margin:65px 0 10px 0;font-family:"微软雅黑";}
 .footersLeft{width:250px;float:left;}
-.footers{width:980px;margin:0 auto;}
+.footers{width:1226px;margin:0 auto;}
 .ftphone{height:40px;line-height:40px;color:#989898;font-size:28px;padding-left:10px;  font-weight:400; letter-spacing:2px;}
 .ftKe{font-size:14px;color:#A4ABA4;line-height:30px;margin-top:10px;padding-left:10px;}
 .ftKe span{font-size:12px;}
@@ -110,7 +110,7 @@ filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Colo
 .topNav li.kefus{padding:0;width:60px;}
 
 /*mid*/
-.mid{width:980px;margin:0 auto;position:relative;}
+.mid{width:1226px;margin:0 auto;position:relative;}
 .mid .logo{width:304px;}
 .subBox{width:400px;height:32px; position:absolute;left:320px;top:30px;}
 .subBox2{width:400px;height:32px; position:relative;}
@@ -233,7 +233,7 @@ orderList{width:100%;}
 .zhifu{padding:10px 0 10px 50px;line-height:40px;}
 
 /*vipBox*/
-.vipBox{width:980px;margin:10px auto;font-family:"微软雅黑";}
+.vipBox{width:1226px;margin:10px auto;font-family:"微软雅黑";}
 .vipLeft{width:190px;float:left;}
 .headImg{ text-align:center;}
 .vipName{padding:10px 0; text-align:center;line-height:20px;font-size:14px;}
@@ -244,7 +244,7 @@ orderList{width:100%;}
 .vipNav dd a{color:#333;}
 .vipNav dd a:hover,.vipNav dd.ddCur a{color:#F4730E;}
 
-.vipRight{width:745px;border:#EAEAEA 1px solid;border-left:2px solid #EAEAEA;float:right;padding:20px;}
+.vipRight{width:1000px;border:#EAEAEA 1px solid;border-left:2px solid #EAEAEA;float:right;padding:20px;}
 .vipTitle{height:45px;line-height:45px;border-bottom:#DEDEDE 1px solid;font-size:22px;color:#666;}
 
 /*grzx*/

@@ -1,14 +1,52 @@
 
     {{extend name="center/index" /}}
     {block name="header"}
+
+    <script src="/static/home/plugins/My97DatePicker/WdatePicker.js"></script>
+    <script src="/static/home/js/pagination.js"></script>
+    <style>
+        .ordercenter th{
+         text-align: center;
+            padding: 10px;
+        }
+    </style>
     {/block}
 
     {block name="main"}
-    <div class="vipRight">
-        <h2 class="vipTitle">订单列表</h2>
+    <div class="vipRight" >
+        <h2 class="vipTitle" style="  margin-top: 0;">订单列表</h2>
+        <div id='SearchForm'>
+            <div class="row ">
+                <div class="col-xs-2 input-group-s" >
+                    <input type="text" class="form-control"   placeholder="业务编号" v-model="s_brj">
+                </div>
+
+                <div class="col-xs-2 input-group-s" >
+                    <input type="text" class="form-control"   placeholder="联系人" v-model="s_contact">
+                </div>
+
+
+                <div class="col-xs-2 input-group-s">
+                    <select  class="form-control "  v-model="s_speed">
+                        <option value="">状态</option>
+                        <option v-for="item in speedList" :value="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+
+                <div class="col-xs-3 input-group-s" >
+                    <input type="text" class="form-control"   placeholder="开通时间" v-model="s_contact" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" >
+                </div>
+
+                <div class="col-xs-1">
+                    <div class="form-group">
+                        <span class="btn btn-primary btn-sm " @click = "getList()">搜索</span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <table class="vip-dingzhi">
             <thead>
-            <tr>
+            <tr class="ordercenter">
                 <th>订单编号</th>
                 <th>业务类型</th>
                 <th>带宽</th>
@@ -21,34 +59,70 @@
             <tbody>
             <tr>
                 <td>user</td>
-                <td>2014年6月23日11:32:17</td>
-                <td><a href="success.html"><strong>127.0.0.1</strong></a></td>
+                <td>类型1</td>
+                <td>20M</td>
+                <td>正常</td>
+                <td>张三</td>
+                <td>1haolou </td>
+                <td><a href="vipXiaofei.html">查看</a></td>
             </tr>
             <tr>
                 <td>user</td>
-                <td>2014年6月23日11:32:17</td>
-                <td><a href="success.html"><strong>127.0.0.1</strong></a></td>
+                <td>类型1</td>
+                <td>20M</td>
+                <td>正常</td>
+                <td>张三</td>
+                <td>1haolou </td>
+                <td><a href="vipXiaofei.html">查看</a></td>
             </tr>
             <tr>
                 <td>user</td>
-                <td>2014年6月23日11:32:17</td>
-                <td><a href="success.html"><strong>127.0.0.1</strong></a></td>
-            </tr>
-            <tr>
+                <td>类型1</td>
+                <td>20M</td>
+                <td>正常</td>
+                <td>张三</td>
+                <td>1haolou </td>
+                <td><a href="vipXiaofei.html">查看</a></td>
+            </tr><tr>
                 <td>user</td>
-                <td>2014年6月23日11:32:17</td>
-                <td><a href="success.html"><strong>127.0.0.1</strong></a></td>
-            </tr>
-            <tr>
+                <td>类型1</td>
+                <td>20M</td>
+                <td>正常</td>
+                <td>张三</td>
+                <td>1haolou </td>
+                <td><a href="vipXiaofei.html">查看</a></td>
+            </tr><tr>
                 <td>user</td>
-                <td>2014年6月23日11:32:17</td>
-                <td><a href="success.html"><strong>127.0.0.1</strong></a></td>
+                <td>类型1</td>
+                <td>20M</td>
+                <td>正常</td>
+                <td>张三</td>
+                <td>1haolou </td>
+                <td><a href="vipXiaofei.html">查看</a></td>
+            </tr><tr>
+                <td>user</td>
+                <td>类型1</td>
+                <td>20M</td>
+                <td>正常</td>
+                <td>张三</td>
+                <td>1haolou </td>
+                <td><a href="vipXiaofei.html">查看</a></td>
             </tr>
+
+
+
+
             </tbody>
         </table>
+        <div class="row">
+            <div class="box-footer clearfix">
+                <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+            </div>
+        </div>
     </div>
 
     {/block}
     
     {block name="footer"}
+    <script src="/static/home/js/center/order.js"></script>
     {/block}
