@@ -6,25 +6,24 @@
     {block name="main"}
     <div class="vipRight">
         <h2 class="vipTitle">修改密码</h2>
-        <form  class="registerform">
             <table class="grzx" width="705" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td width="90">旧密码：</td>
-                    <td width="430"><input type="text" class="text inputxt"></td>
+                    <td width="430"><input type="password" class="text inputxt" v-model="old"></td>
                 </tr>
                 <tr>
                     <td>新密码：</td>
-                    <td><input type="text" class="text inputxt" ></td>
+                    <td><input type="password" class="text inputxt"  v-model="newpwd" ></td>
                 </tr>
 
                 <tr>
                     <td>确认密码：</td>
-                    <td><input type="text" class="text inputxt" ></td>
+                    <td><input type="password" class="text inputxt" v-model="renew" ></td>
                 </tr>
 
                 <tr>
                     <td>&nbsp;</td>
-                    <td><button style="
+                    <td><button  @click="update" style="
                     border-radius: 3px;border: 1px solid transparent;
                      cursor: pointer;-webkit-appearance: button;
                      padding: 6px 12px;
@@ -39,9 +38,9 @@
                 ">修改</button></td>
                 </tr>
             </table>
-        </form>
     </div>
     {/block}
     
     {block name="footer"}
+    <script src="/static/home/js/center/pwd.js"></script>
     {/block}

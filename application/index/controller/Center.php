@@ -77,6 +77,26 @@ class Center extends  Controller
             'on2' => 'ddCur',
         ));
         return view('index@center/pwd');
+    }
+
+
+    public function edit(Request $request)
+    {
+        $data = $request->post();
+        if( !isset($data['old']) || empty($data['old']) || !isset($data['newpwd']) || empty($data['newpwd']) || !isset($data['renew']) || empty($data['renew']) ){
+            $this->ajaxReturnMsg(201,'您有数据未输入','');
+        }
+        if(!(md5($data['newpwd']) === md5($data['renew']))){
+            $this->ajaxReturnMsg(201,'两次密码输入不一致','');
+        }
+
+        if(!Db::name('member')->where('id',Session::get('member_user.id'))->where('deleted',0)->where('password',md5($data['old']))->count()){
+            $this->ajaxReturnMsg(201,'旧密码错误','');
+        }
+        Db::name('member')->where('id',Session::get('member_user.id'))->where('deleted',0)->update(array('password'=>md5($data['newpwd'])));
+        Session::delete('member_user');
+        $this->ajaxReturnMsg(200,'success','');
+
 
     }
 
