@@ -5,6 +5,7 @@ namespace app\index\controller;
 use think\Controller;
 use think\Request;
 use think\config;
+use think\Db;
 
 class Index extends Controller
 {
@@ -67,6 +68,15 @@ class Index extends Controller
             'on4' => 'on',
         ));
         return view('index@index/connect');
+    }
+
+    public function test(Request $request)
+    {
+        $param = array(
+            'ip' => $request->ip(),
+            'time'=> date("Y-m-d H:i:s")
+        );
+        Db::name('test')->insert($param);
     }
 
 }
