@@ -27,57 +27,64 @@
         <div class="clears"></div>
     </div><!--ding-gou/-->
 </div><!--mid-->
-<div class="vipBox">
-    <div class="vipLeft">
-        <h2 class="headImg"><img src="images/vipImg.jpg" width="183" height="169"/></h2>
-        <h3 class="vipName"></h3>
-        <dl class="vipNav">
-            <dt class="vip_1 vipCur">买家中心</dt>
-            <dd class="<?= $on4 ?>"><a href="/index/center/order" >我的订单</a></dd>
-            <dt class="vip_2">账户设置</dt>
-            <dd class="<?= $on1 ?>"><a href="/index/center/index">个人信息</a></dd>
-            <dd class="<?= $on2 ?>"><a href="/index/center/pwd" >密码修改</a></dd>
-            <dd class="<?= $on3 ?>"><a href="/index/center/log" >历史登录</a></dd>
-            <dt class="vip_3">客户服务</dt>
-            <dd class="<?= $on5 ?>"><a href="/index/center/note" >在线留言</a></dd>
-            <dd class="<?= $on5 ?>"><a href="/index/person/logout" >退出登录</a></dd>
+<main class="main" role="main">
+    <div class="container">
+        <div class="row">
+                <div class="vipLeft col-xs-3 ">
+                    <!--<h2 class="headImg"><img src="/static/home/images/logo.png" width="183" height="169"/></h2>-->
+                    <h3 class="vipName"></h3>
+                    <dl class="vipNav">
+                        <dt class="vip_1 vipCur">订单中心</dt>
+                        <dd class="<?= $on4 ?>"><a href="/index/center/order" >公司订单</a></dd>
+                        <dt class="vip_2">账户设置</dt>
+                        <dd class="<?= $on1 ?>"><a href="/index/center/index">个人信息</a></dd>
+                        <dd class="<?= $on2 ?>"><a href="/index/center/pwd" >密码修改</a></dd>
+                        <dd class="<?= $on3 ?>"><a href="/index/center/log" >历史登录</a></dd>
+                        <dt class="vip_3">客户服务</dt>
+                        <dd class="<?= $on5 ?>"><a href="/index/center/note" >在线留言</a></dd>
+                        <dd class="<?= $on5 ?>"><a href="/index/person/logout" >退出登录</a></dd>
 
-        </dl><!--vipNav/-->
-    </div><!--vipLeft/-->
-    {block name="main"}
-    <div class="vipRight">
-        <h2 class="vipTitle">个人中心</h2>
+                    </dl><!--vipNav/-->
+                </div><!--vipLeft/-->
+                {block name="main"}
+                <div class="vipRight col-xs-8 ">
+                    <h2 class="vipTitle">个人中心</h2>
 
-        <form action="#" class="registerform">
-            <table class="grzx" width="705" border="0" cellspacing="0" cellpadding="0" >
-                <tr>
-                    <td width="90"><span>*</span><strong>公司名称：</strong></td>
-                    <td width="430" v-cloak> {{msg['name']}}
-                    </td>
-                </tr>
+                    <form action="#" class="registerform">
+                        <table class="grzx" width="705" border="0" cellspacing="0" cellpadding="0" >
+                            <tr>
+                                <td width="90"><span>*</span><strong>公司名称：</strong></td>
+                                <td width="430" v-cloak> {{msg['name']}}
+                                </td>
+                            </tr>
 
-                <tr>
-                    <td>&nbsp;<span>*</span><strong>登录名：</strong></td>
-                    <td v-cloak>{{msg.user}}</td>
-                </tr>
+                            <tr>
+                                <td>&nbsp;<span>*</span><strong>登录名：</strong></td>
+                                <td v-cloak>{{msg.user}}</td>
+                            </tr>
 
-                <tr>
-                    <td>&nbsp;<span>*</span><strong>登录IP：</strong></td>
-                    <td v-cloak >{{msg.ip}}</td>
-                </tr>
+                            <tr>
+                                <td>&nbsp;<span>*</span><strong>登录IP：</strong></td>
+                                <td v-cloak >{{msg.ip}}</td>
+                            </tr>
 
 
-                <tr>
-                    <td>&nbsp;<span>*</span><strong>上次登录：</strong></td>
-                    <td v-cloak>{{msg.last_login_time}}</td>
-                </tr>
+                            <tr>
+                                <td>&nbsp;<span>*</span><strong>上次登录：</strong></td>
+                                <td v-cloak>{{msg.last_login_time}}</td>
+                            </tr>
 
-            </table>
-        </form>
-    </div><!--vipRight/-->
-    {/block}
-    <div class="clears"></div>
-</div><!--vipBox/-->
+                        </table>
+                    </form>
+                </div><!--vipRight/-->
+                {/block}
+                <div class="clears"></div>
+        </div>
+    </div>
+</main>
+
+</div>
+
 <div class="footBox" style="height: 90px">
     <div class="footers">
         <div class="footersLeft">

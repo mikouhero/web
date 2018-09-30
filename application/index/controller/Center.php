@@ -199,6 +199,31 @@ class Center extends  Controller
             'on5' => 'ddCur',
         ));
         return view('index@center/note');
+    }
+
+    public  function  sendnote(Request $request)
+    {
+        $data = $request->post();
+        if(!isset($data['msg']) || empty($data['msg'])){
+            $this->ajaxReturnMsg(201,'内容不能为空',$data);
+        }
+
+        $where['ip'] = ['=',$request->ip()];
+        $where['create_time'] =['>=',date('Y-m-d')];
+
+        $num = Db::name('note')->where($where)->count();
+        if($num > 2){
+            $this->ajaxReturnMsg(201,'今日留言超过限制',$data);
+        }
+        $param = array(
+            'name' => Session::get('member_user.user'),
+            'content' => $data['msg'],
+            'ip' => $request->ip(),
+            'create_time' => date("Y-m-d H:i:s")
+        );
+        Db::name('note')->insert($param);
+
+        $this->ajaxReturnMsg(200,'success',$data);
 
     }
 

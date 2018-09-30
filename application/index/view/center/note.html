@@ -4,13 +4,12 @@
     {/block}
 
     {block name="main"}
-    <div class="vipRight">
+    <div class="vipRight col-xs-8">
         <h2 class="vipTitle">在线留言</h2>
-        <form class="registerform">
             <table class="grzx" width="705" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>&nbsp;留言：</td>
-                    <td><textarea placeholder="请在这里输入您的的意见。" altercss="gray" class="gray" name="msg"  datatype="*"value=""></textarea></td>
+                    <td><textarea placeholder="请在这里输入您的的意见。" v-model="msg"></textarea></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -26,12 +25,12 @@
                     text-align: center;
                     white-space: nowrap;
                     vertical-align: middle;
-                ">提交</button></td>
+                " @click="send">提交</button></td>
                 </tr>
             </table>
-        </form>
     </div>
     {/block}
 
     {block name="footer"}
+    <script src="/static/home/js/center/note.js"></script>
     {/block}
