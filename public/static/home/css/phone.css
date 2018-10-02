@@ -80,7 +80,7 @@ border-radius:10px;
 
 .indexPart1 .slick-current .box{/*left:15px; margin-top:-200px;*/ left:50%; margin:-150px 0 0 -150px;}
 
-.indexPart1List{transform:scale(1);-webkit-transform:scale(1);-moz-transform:scale(1);-o-transform:scale(1);-ms-transform:scale(1); margin-top:-120px; margin-left:-225px; width:450px;}
+.indexPart1List{transform:scale(1);-webkit-transform:scale(1);-moz-transform:scale(1);-o-transform:scale(1);-ms-transform:scale(1); margin-top:-120px; margin-left:-225px; ;}
 .indexPart1List li{opacity:1; filter:alpha(opacity=1); top:0px;}
 .indexPart1List .box{top:42px;}
 .indexPart1List .name{font-size:16px; line-height:26px;}

@@ -38,7 +38,7 @@
 
 
 .indexPart1List{position:absolute; z-index:10; left:50%; top:50%; margin-left:-585px; width:1170px; /*margin-top:-340px;*/ margin-top:-278px;}
-.indexPart1List li{float:left; width:33.333%; min-height:50px; position:relative; color:#FFF; opacity:0; filter:alpha(opacity=0); top:50px;}
+.indexPart1List li{float:left; width:32.333%; min-height:50px; position:relative; color:#FFF; opacity:0; filter:alpha(opacity=0); top:50px;}
 .indexPart1List a{color:#FFF;}
 .indexPart1List .imgDiv{width:100%; overflow:hidden; position:relative;}
 .indexPart1List .imgDiv img{width:100%;}

@@ -11,6 +11,9 @@
           content="蜂悠科技始终关注企业的多维度需求，专注于数据库管理,交易性能管理,核心业务保障管理,网络性能管理,运营大数据分析等全系列性能管理，大数据分析，数据库，中间件服务。秉承&quot;专业专注，不断创新&quot;的服务理念，为用户提供最适合的专业化服务。"/>
     <meta name="format-detection" content="telephone=no"/>
     <link rel="icon" type="image/x-icon" href="favicon.png"/>
+    <link rel="stylesheet" href="/static/home/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/home/css/bootstrap-responsive.min.css">
+
     <link href="<?= $css ?>/main.css" rel="stylesheet" type="text/css"/>
     <link href="<?= $css ?>/index.css"  rel="stylesheet"
           type="text/css"/>
@@ -33,7 +36,13 @@
     <link href="<?= $css ?>/slick.css" rel="stylesheet" type="text/css"/>
     <script src="<?= $js ?>/slick.js" ></script>
     <script src="<?= $js ?>/jquery.fullPage.min.js"></script>
+
     {block name="header"}
+    <style>
+        .ace-thumbnails
+        {list-style:none;margin:0;padding:0}
+        .ace-thumbnails>li{float:left;display:block;position:relative;overflow:hidden;margin:1px;border:1px solid #333}.ace-thumbnails>li>:first-child{display:block;position:relative}
+    </style>
     {/block}
 </head>
 <!--头部分 end-->
@@ -75,14 +84,14 @@
     <li data-menuanchor="page5"><a href="#page5"></a></li>
 </ul>
 <div id="dowebok">
-    <div class="section">
 
+    <div class="section row">
         <!--介绍列表-->
-        <div class="indexPart1List listHover">
-            <ul>
+        <div class="indexPart1List listHover row-fluid">
+            <ul class="ace-thumbnails">
                 <li class="li_01">
                     <div class="imgDiv"><a href="" >
-                        <img src="<?= $img ?>/img390_1.jpg"
+                        <img  class="img-responsive center-block" src="<?= $img ?>/img390_1.jpg"
                         ></a></div>
                     <div class="box">
                         <div class="name"><a href="" ><全系列性能管理></全系列性能管理></a>
@@ -93,16 +102,16 @@
                     </div>
                 </li>
                 <li class="li_02">
-                    <div class="imgDiv"><a href="" ><img
-                            src="<?= $img ?>/img390_2.jpg"
+                    <div class="imgDiv"><a href="" ><img class="img-responsive center-block"
+                                                         src="<?= $img ?>/img390_2.jpg"
                     ></a></div>
-                    <div class="img"><a href="" ><img
-                            src="<?= $img ?>/img150_1.png"
+                    <div class="img"><a href="" ><img class="img-responsive center-block"
+                                                      src="<?= $img ?>/img150_1.png"
                     ></a></div>
                 </li>
                 <li class="li_03">
-                    <div class="imgDiv"><a href="" ><img
-                            src="<?= $img ?>/img390_3.jpg"
+                    <div class="imgDiv"><a href="" ><img class="img-responsive center-block"
+                                                         src="<?= $img ?>/img390_3.jpg"
                     ></a></div>
                     <div class="box">
                         <div class="name"><a href="" >大数据</a></div>
@@ -112,12 +121,12 @@
                     </div>
                 </li>
                 <li class="li_04">
-                    <div class="imgDiv"><a href="" ><img src="<?= $img ?>/img390_4.jpg"></a></div>
-                    <div class="img"><a href="l,9,0.html" ><img src="<?= $img ?>/img150_2.png"
+                    <div class="imgDiv"><a href="" ><img src="<?= $img ?>/img390_4.jpg" class="img-responsive center-block" ></a></div>
+                    <div class="img"><a href="" ><img src="<?= $img ?>/img150_2.png" class="img-responsive center-block"
                     ></a></div>
                 </li>
                 <li class="li_05">
-                    <div class="imgDiv"><a href="" ><img src="<?= $img ?>/img390_5.jpg"
+                    <div class="imgDiv"><a href="" ><img src="<?= $img ?>/img390_5.jpg" class="img-responsive center-block"
                     ></a></div>
                     <div class="box">
                         <div class="name"><a href="" >数据库/中间件</a>
@@ -129,16 +138,17 @@
                     </div>
                 </li>
                 <li class="li_06">
-                    <div class="imgDiv"><a href="" ><img
-                            src="<?= $img ?>/img390_6.jpg"
+                    <div class="imgDiv"><a href="" ><img class="img-responsive center-block"
+                                                         src="<?= $img ?>/img390_6.jpg"
                     ></a></div>
-                    <div class="img"><a href="" ><img
-                            src="<?= $img ?>/img150_3.png"
+                    <div class="img"><a href="" ><img class="img-responsive center-block"
+                                                      src="<?= $img ?>/img150_3.png"
                     ></a></div>
                 </li>
             </ul>
             <span class="clear"></span>
         </div>
+        <div class="clearfix " style="clear:both;"></div>
         <!--end-->
     </div>
     <div class="section indexPart2" style="background:url(<?= $img ?>/img1920_2.jpg) center;">
