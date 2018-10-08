@@ -20,7 +20,7 @@ vm = new Vue({
         typeList :{},
         speedList :[{id:1,name:'10M'},{id:2,name:'20M'},{id:3,name:'50M'},{id:4,name:'100M'},{id:5,name:'200M'}],
         bus_status :[{id:1,name:'潜在'},{id:2,name:'正式'},{id:3,name:'过期'}],
-        threelist :[{'id':1,'name':'中国移动'},{'id':2,'name':'中国联通'},{'id':3,'name':'中国电信'}],
+        threelist :{},
         methodlist :[{'id':1,'name':'微信'},{'id':2,'name':'支付宝'},{'id':3,'name':'银联'},{'id':4,'name':'现金'},{'id':5,'name':'其他'}],
         companyList:{},
         buildingList:{},
@@ -51,6 +51,8 @@ vm = new Vue({
                 this.companyList = res.data.data['companyList'];
                 this.buildingList = res.data.data['buildingList'];
                 this.ispList = res.data.data['ispList'];
+                this.threelist = res.data.data['threeList'];
+
                 this.pages = res.data.data['count'];
             }, function (res) {
                 alert("程序崩掉了");

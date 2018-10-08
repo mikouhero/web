@@ -95,6 +95,8 @@ class Crj extends Base
         $companyList = Db::name('company')->field('id,name')->select();
         $buildingList = Db::name('building')->field('id,name')->select();
         $ispList = Db::name('channel')->field('id,isp_sales')->select();
+        $threeList = Db::name('isp')->field('id,name')->select();
+	
         $count = Db::name('crj')->alias('p1')
             ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
@@ -106,6 +108,7 @@ class Crj extends Base
             'companyList' => $companyList,
             'buildingList' => $buildingList,
             'ispList' => $ispList,
+            'threeList'=>$threeList,
             'count' => ceil($count / $pagesize)
         );
         $this->ajaxReturnMsg(200, 'success', $res);

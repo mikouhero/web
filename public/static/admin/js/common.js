@@ -43,6 +43,12 @@ var ajaxUrl = {
     delIsp:adminUrl+"/isp/delete",
 
 
+    getIsp2List:adminUrl+"/isp2/getList",
+    addIsp2:adminUrl+"/isp2/insert",
+    editIsp2:adminUrl+"/isp2/update",         // 运营商
+    delIsp2:adminUrl+"/isp2/delete",
+
+
     getBrjList:adminUrl+"/brj/getList",
     addBrj:adminUrl+"/brj/insert",
     editBrj:adminUrl+"/brj/update",         // brj
