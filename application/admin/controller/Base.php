@@ -44,21 +44,32 @@ class Base extends Controller
              }
              $this->redirect('/admin/login');
          }
-         $path = $request->url();
-         if (substr_count($path, '/') < 3) {
-             $path = $path . '/index';;
-         };
-         if ($user_msg['id'] != 1 || $user_msg['user_name'] != 'admin') {
-             $rbac = new Rbac();
-             $rbac->cachePermission($user_msg['id']);
-             if (!$rbac->can($path)) {
-                 //判断 无需认证的操作
-                 if (!in_array($request->action(), config('rbac.NOT_AUTH_ACTION'))) {
-                     $this->ajaxReturnMsg('100', '无权限操作', '');
-                     exit;
-                 }
-             }
-         }
+
+        $controller = strtolower($request->controller());
+        $action = strtolower($request->action());
+        if($action == "getlist"){
+            $action = 'index';
+        }
+        $path = "admin/".$controller.'/'.$action;
+
+        if(in_array(ucfirst($controller),config('rbac.NOT_AUTH_CONTROLLER'))){
+
+
+        }else{
+            if ($user_msg['id'] != 1 || $user_msg['user_name'] != 'admin') {
+                $rbac = new Rbac();
+                $rbac->cachePermission($user_msg['id']);
+                if (!$rbac->can($path)) {
+                    if($request->get()){
+                        echo"<script>alert('无权限操作');</script>";
+                        die;
+                    }else if($request->post()){
+                        $this->ajaxReturnMsg('100', '无权限操作', '');
+                    }
+                    exit;
+                }
+            }
+        }
     }
 
 

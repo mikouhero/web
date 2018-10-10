@@ -51,7 +51,7 @@ class User extends Base
         $this->ajaxReturnMsg(200, 'success', $res);
     }
 
-    public function add(Request $request)
+    public function insert(Request $request)
     {
         $input = $request->post();
         $data = json_decode($input['msg'], true);
@@ -63,8 +63,6 @@ class User extends Base
         if (!preg_match('/^1[3456789]{1}\d{9}$/', $data['mobile'])) {
             $this->ajaxReturnMsg(202, '手机号格式错误', '');
         }
-
-
 
         // 判断用户是否存在
         if (Db::name('user')->where('user_name', $data['user_name'])->count()) {
@@ -100,7 +98,6 @@ class User extends Base
             $this->ajaxReturnMsg(202, '手机号格式错误', '');
         }
 
-
         // 判断用户是否存在
         if (Db::name('user')->where('id', '<>', $data['id'])->where('user_name', $data['user_name'])->count()) {
             $this->ajaxReturnMsg(202, '用户名已存在', '');
@@ -111,7 +108,13 @@ class User extends Base
             $this->ajaxReturnMsg(202, '手机号已存在', '');
         }
 
-        $param = $data;
+        $param = array(
+            "user_name" => $data['user_name'],
+            "name" => $data['name'],
+            "mobile" => $data['mobile'],
+            "status" => $data['status'],
+
+        );
         Db::name('user')->where('id', $data['id'])->update($param);
         $this->ajaxReturnMsg(200, 'success', '');
 
@@ -124,7 +127,7 @@ class User extends Base
             $this->ajaxReturnMsg(201, '缺少参数', '');
         }
 
-        if($data['user_id'] == 1){
+        if($data['id'] == 1){
             $this->ajaxReturnMsg(201, '不允许删除', '');
         }
 
@@ -155,7 +158,7 @@ class User extends Base
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
-    public function deleteUserRole(Request $request)
+    public function deleteRole(Request $request)
     {
         $data = $request->post();
         if (!isset($data['user_id']) || empty($data['user_id']) || !isset($data['role_id']) || empty($data['role_id'])) {

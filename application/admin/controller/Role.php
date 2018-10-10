@@ -52,7 +52,7 @@ class Role extends Base
         $this->ajaxReturnMsg(200, 'success', $res);
     }
 
-    public function add(Request $request)
+    public function insert(Request $request)
     {
         $input = $request->post();
         $data = json_decode($input['msg'], true);
@@ -130,7 +130,7 @@ class Role extends Base
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
-    public function deleteRolePermission(Request $request)
+    public function deletePermission(Request $request)
     {
         $data = $request->post();
         if (!isset($data['role_id']) || empty($data['role_id']) || !isset($data['permission_id']) || empty($data['permission_id'])) {

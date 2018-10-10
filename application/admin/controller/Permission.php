@@ -45,7 +45,7 @@ class Permission extends Base
         $this->ajaxReturnMsg(200, 'success', array('list' => $list, 'count' => ceil($count / $pagesize)));
     }
 
-    public function add(Request $request)
+    public function insert(Request $request)
     {
         $input = $request->post();
         $data = json_decode($input['msg'], true);

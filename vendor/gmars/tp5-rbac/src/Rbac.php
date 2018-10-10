@@ -430,6 +430,7 @@ class Rbac
 
         $permissionList = cache($cacheName);
         if (empty($permissionList)) {
+            return false;
             throw new Exception('你还没有登录或在登录后没有获取权限缓存');
         }
 

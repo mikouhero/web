@@ -17,7 +17,7 @@ return [
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => false,
+    'app_trace'              => true,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -257,7 +257,7 @@ return [
         'USER_AUTH_MODEL'           =>'User',    // 默认验证数据表模型
         'AUTH_PWD_ENCODER'          =>'md5',    // 用户认证密码加密方式
         'USER_AUTH_GATEWAY'         =>'/Public/login',// 默认认证网关
-        'NOT_AUTH_MODULE'           =>'/admin/index',    // 默认无需认证模块
+        'NOT_AUTH_CONTROLLER'           =>['Index','Person'],    // 默认无需认证控制器
         'REQUIRE_AUTH_MODULE'       =>'',        // 默认需要认证模块
         'NOT_AUTH_ACTION'           =>['index'],        // 默认无需认证操作
         'REQUIRE_AUTH_ACTION'       =>'',        // 默认需要认证操作
@@ -270,7 +270,7 @@ return [
         'RBAC_NODE_TABLE'           =>'think_node',
         'SHOW_PAGE_TRACE'=>1//显示调试信息
     ],
-    'base_url'=>'http://web.com/',
+    'base_url'=>'web.com',
 
     'user_lock_times'=>5,  // 后台错误次数限制
 

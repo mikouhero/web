@@ -2,21 +2,21 @@ var adminUrl = 'http://web.com/admin';
 var ajaxUrl = {
 
     getUserList:adminUrl+"/user/getList", //user
-    addUser:adminUrl+"/user/add",
+    addUser:adminUrl+"/user/insert",
     editUser:adminUrl+"/user/edit",
     delUser:adminUrl+"/user/delete",
 
     assignRole:adminUrl+"/user/assignRole",
-    deleteUserRole:adminUrl+"/user/deleteUserRole",
+    deleteUserRole:adminUrl+"/user/deleteRole",
     getRoleList:adminUrl+"/role/getList",       // role
-    addRole:adminUrl+"/role/add",
+    addRole:adminUrl+"/role/insert",
     editRole:adminUrl+"/role/edit",
     delRole:adminUrl+"/role/delete",
 
     assignPermission:adminUrl+"/role/assignPermission",
-    deleteRolePermission:adminUrl+"/role/deleteRolePermission",
+    deleteRolePermission:adminUrl+"/role/deletePermission",
     getPermissionList:adminUrl+"/permission/getList",   // permission
-    addPermission:adminUrl+"/permission/add",
+    addPermission:adminUrl+"/permission/insert",
     editPermission:adminUrl+"/permission/edit",
     delPermission:adminUrl+"/permission/delete",
 
