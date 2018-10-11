@@ -257,7 +257,7 @@ return [
         'USER_AUTH_MODEL'           =>'User',    // 默认验证数据表模型
         'AUTH_PWD_ENCODER'          =>'md5',    // 用户认证密码加密方式
         'USER_AUTH_GATEWAY'         =>'/Public/login',// 默认认证网关
-        'NOT_AUTH_CONTROLLER'           =>['Index','Person'],    // 默认无需认证控制器
+        'NOT_AUTH_CONTROLLER'       =>['Base','Index','Person'],    // 默认无需认证控制器
         'REQUIRE_AUTH_MODULE'       =>'',        // 默认需要认证模块
         'NOT_AUTH_ACTION'           =>['index'],        // 默认无需认证操作
         'REQUIRE_AUTH_ACTION'       =>'',        // 默认需要认证操作

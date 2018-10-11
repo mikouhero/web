@@ -1,6 +1,9 @@
 var adminUrl = 'http://web.com/admin';
 var ajaxUrl = {
 
+    getMenuList:adminUrl+"/index/getMenu", //index
+
+
     getUserList:adminUrl+"/user/getList", //user
     addUser:adminUrl+"/user/insert",
     editUser:adminUrl+"/user/edit",

@@ -9,11 +9,12 @@ namespace app\admin\controller;
 
 
 use gmars\rbac\Rbac;
-use org\bovigo\vfs\vfsStreamResolveIncludePathTestCase;
 use think\Controller;
 use think\Session;
 use think\Request;
 use think\Cookie;
+use think\Db;
+
 
 class Base extends Controller
 {
@@ -39,8 +40,8 @@ class Base extends Controller
          };
          $request = \think\Request::instance();
          if (!$user_msg = Session::get('manger_user')) {
-             if($request->post()){
-                 $this->ajaxReturnMsg('105', '请重新登录', '');
+             if($request->isPost()){
+                 $this->ajaxReturnMsg('105', '请新登录', '');
              }
              $this->redirect('/admin/login');
          }
@@ -60,10 +61,10 @@ class Base extends Controller
                 $rbac = new Rbac();
                 $rbac->cachePermission($user_msg['id']);
                 if (!$rbac->can($path)) {
-                    if($request->get()){
-                        echo"<script>alert('无权限操作');</script>";
+                    if($request->isGet()){
+                        echo"<script>alert('无权限操作');history.back();</script>";
                         die;
-                    }else if($request->post()){
+                    }else if($request->isPost()){
                         $this->ajaxReturnMsg('100', '无权限操作', '');
                     }
                     exit;
@@ -73,6 +74,47 @@ class Base extends Controller
     }
 
 
+    public function getMenu()
+    {
+        $user_msg = Session::get('manger_user');
+        $new = array();
+        /**
+         * admin
+         */
+        $adp = 'admin_Permission_' .$user_msg['id']."_";
+        if( ($user_msg['id'] == 1) || ($user_msg['user_name'] == 'admin')){
+            if(empty($data = cache($adp))){
+                $da = Db::name('permission')->field('path')->select();
+                cache('adminpermission',$da);
+                $data = $da;
+            }
+            foreach($data as $k => $v){
+                if(preg_match( '/index$/',$v['path'])){
+                    $new[] = $v['path'];
+                }
+            }
+        }else{
+            if(empty($data = cache($adp))){
+                $permission = Db::name("permission")
+                    ->alias('p')
+                    ->join("role_permission rp", "p.id = rp.permission_id")
+                    ->join("user_role ur", "rp.role_id = ur.role_id")
+                    ->where("ur.user_id = {$user_msg['id']}")->select();
+
+                cache('adminpermission',$permission);
+                $data = $permission;
+            }
+            if($data){
+                foreach($data as $k => $v){
+                    if(preg_match( '/index$/',$v['path'])){
+                        $new[] = $v['path'];
+                    }
+                }
+            }
+        }
+        $this->ajaxReturnMsg(200,'success',$new);
+
+    }
     protected function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
     {
         //        $this->api->end($api_id,$code,$msg,$data);
@@ -81,4 +123,6 @@ class Base extends Controller
         echo json_encode(array('code' => $code, 'msg' => $msg, 'data' => $data));
         die;
     }
+
+
 }

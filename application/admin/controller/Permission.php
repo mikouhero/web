@@ -61,7 +61,7 @@ class Permission extends Base
 
         // 判断手机号是否存在
         if (Db::name('permission')->where('path', $data['path'])->count()) {
-            $this->ajaxReturnMsg(202, '手机号已存在', '');
+            $this->ajaxReturnMsg(202, '权限路径已存在', '');
         }
         //判断邮箱是否存在
 

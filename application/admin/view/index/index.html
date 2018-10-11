@@ -13,7 +13,11 @@
     <script src="<?= $js ?>/vue-resource.js"></script>
     <script src="<?= $js ?>/pagination.js"></script>
     <script src="<?= $js ?>/common.js"></script>
-
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
 
     {block name="header"}
     {/block}
@@ -160,7 +164,7 @@
                 </div>
             </div><!-- #sidebar-shortcuts -->
 
-            <ul class="nav nav-list">
+            <ul class="nav nav-list" v-cloak>
                 <li class="active">
                     <a href="/admin/index/index">
                         <i class="icon-dashboard"></i>
@@ -168,72 +172,72 @@
                     </a>
                 </li>
 
-                <li>
+                <li v-show="this.menu.indexOf('admin/member/index') != -1">
                     <a href="/admin/member/index">
                         <i class="icon-text-width"></i>
                         <span class="menu-text"> 会员管理 </span>
                     </a>
                 </li>
-                <li>
+                <li v-show="this.menu.indexOf('admin/company/index') != -1" >
                     <a href="/admin/company/index">
                         <i class="icon-gift"></i>
                         <span class="menu-text"> 公司管理 </span>
                     </a>
                 </li>
-                <li>
+                <li v-show="this.menu.indexOf('admin/brj/index') != -1" >
                     <a href="/admin/brj/index">
                         <i class="icon-edit"></i>
                         <span class="menu-text"> BRJ管理 </span>
                     </a>
                 </li>
 
-                <li>
+                <li v-show="this.menu.indexOf('admin/brjop/index') != -1" >
                     <a href="/admin/brjop/index">
                         <i class="icon-edit"></i>
                         <span class="menu-text"> BRJ_OP管理 </span>
                     </a>
                 </li>
-                <li>
+                <li v-show="this.menu.indexOf('admin/crj/index') != -1" >
                     <a href="/admin/crj/index">
                         <i class="icon-list"></i>
                         <span class="menu-text"> CRJ管理 </span>
                     </a>
                 </li>
 
-                <li>
+                <li v-show="this.menu.indexOf('admin/crjop/index') != -1" >
                     <a href="/admin/crjop/index">
                         <i class="icon-list"></i>
                         <span class="menu-text"> CRJ_OP管理 </span>
                     </a>
                 </li>
 
-                <li>
+                <li v-show="this.menu.indexOf('admin/building/index') != -1" >
                     <a href="/admin/building/index">
                         <i class=" icon-flag"></i>
                         <span class="menu-text"> 楼宇管理 </span>
                     </a>
                 </li>
 
-                <li>
+                <li v-show="this.menu.indexOf('admin/servicetype/index') != -1" >
                     <a href="/admin/servicetype/index">
                         <i class="icon-key"></i>
                         <span class="menu-text"> 类型管理 </span>
                     </a>
                 </li>
 
-                <li>
+                <li v-show="this.menu.indexOf('admin/isp2/index') != -1">
                     <a href="/admin/isp2/index">
                         <i class="icon-folder-open"></i>
                         <span class="menu-text"> 运营商管理 </span>
                     </a>
                 </li>
-                <li>
+                <li v-show="this.menu.indexOf('admin/isp/index') != -1">
                     <a href="/admin/isp/index">
                         <i class="icon-folder-open"></i>
                         <span class="menu-text"> 运营商经理管理 </span>
                     </a>
                 </li>
-                <li>
+                <li >
                     <a href="#" class="dropdown-toggle">
                         <i class="icon-desktop"></i>
                         <span class="menu-text"> 系统管理 </span>
@@ -242,21 +246,21 @@
                     </a>
 
                     <ul class="submenu">
-                        <li>
+                        <li v-show="this.menu.indexOf('admin/user/index') != -1" >
                             <a href="/admin/user/index">
                                 <i class="icon-double-angle-right"></i>
                                 用户管理
                             </a>
                         </li>
 
-                        <li>
+                        <li v-show="this.menu.indexOf('admin/role/index') != -1" >
                             <a href="/admin/role/index">
                                 <i class="icon-double-angle-right"></i>
                                 角色管理
                             </a>
                         </li>
 
-                        <li>
+                        <li v-show="this.menu.indexOf('admin/permission/index') != -1" >
                             <a href="/admin/permission/index">
                                 <i class="icon-double-angle-right"></i>
                                 权限管理
@@ -670,6 +674,8 @@
 <script src="<?= $js ?>/ace.min.js"></script>
 
 <!-- inline scripts related to this page -->
+<script src="<?= $js?>/admin/index.js"></script>
+
 {block name="footer"}
 <script type="text/javascript">
     jQuery(function ($) {
