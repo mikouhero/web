@@ -55,7 +55,6 @@ class Base extends Controller
 
         if(in_array(ucfirst($controller),config('rbac.NOT_AUTH_CONTROLLER'))){
 
-
         }else{
             if ($user_msg['id'] != 1 || $user_msg['user_name'] != 'admin') {
                 $rbac = new Rbac();
@@ -72,7 +71,6 @@ class Base extends Controller
             }
         }
     }
-
 
     public function getMenu()
     {
@@ -115,6 +113,7 @@ class Base extends Controller
         $this->ajaxReturnMsg(200,'success',$new);
 
     }
+
     protected function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
     {
         //        $this->api->end($api_id,$code,$msg,$data);

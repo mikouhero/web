@@ -152,6 +152,7 @@ class Brj extends Base
                 'status' => $data['status'],
                 'teardown' => $data['teardown'],
                 'bid' => $data['bid'],
+                'create_time' => date("Y-m-d H:i:s")
             );
             Db::name('brj')->insertGetId($param);
 

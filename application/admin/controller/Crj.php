@@ -155,6 +155,7 @@ class Crj extends Base
             'demand' => $data['demand'],
             'actual' => $data['actual'],
             'method' => $data['method'],
+            'create_time' => date("Y-m-d H:i:s")
 
         );
         $crj_id = Db::name('crj')->insertGetId($param);
