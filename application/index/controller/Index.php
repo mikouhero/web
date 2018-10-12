@@ -2,6 +2,7 @@
 
 namespace app\index\controller;
 
+use Think\Cache;
 use think\Controller;
 use think\Request;
 use think\config;
@@ -25,8 +26,6 @@ class Index extends Controller
             'on2' =>'',
             'on3' =>'',
             'on4' =>'',
-
-
         ));
     }
 
@@ -35,6 +34,7 @@ class Index extends Controller
      */
     public function index()
     {
+        $this->visitLog();
         return view('index@index/index');
     }
 
@@ -77,6 +77,22 @@ class Index extends Controller
             'time'=> date("Y-m-d H:i:s")
         );
         Db::name('test')->insert($param);
+    }
+
+
+    private function visitLog()
+    {
+        $ip = Request::instance()->ip();
+        $cache = cache('visit_index_'.$ip.'_');
+        if(!$cache){
+            Db::name('visit')->insert(
+                array(
+                    'ip' => $ip,
+                    'create_time' => date('Y-m-d H:i:s')
+                )
+            );
+            cache('visit_index_'.$ip.'_',$ip,['expire'=>1800] );
+        }
     }
 
 }

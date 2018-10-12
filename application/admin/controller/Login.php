@@ -95,7 +95,7 @@ class Login extends Controller
         $param['login_name'] = $user['user_name'];
         $request = Request::instance();
         $param['service_ip'] = $request->ip();;//登录ip地址
-        $param['login_time'] = date("Y-m-d H:i:s");
+        $param['create_time'] = date("Y-m-d H:i:s");
         Db::name('login_log')->insert($param);
         $this->ajaxReturnMsg(200, 'success', '');
     }

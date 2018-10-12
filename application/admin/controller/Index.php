@@ -71,7 +71,7 @@ class Index extends Base
                 'today' => $today,
                 'speed' => $speed
             );
-            cache($table,$data);
+            cache($table,$data,['expire'=>3600]);
         }
         return $data;
 
