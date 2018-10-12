@@ -16,6 +16,8 @@ Route::get('/about', 'index/Index/about','',['ext'=>'html']);
 Route::get('/connect', 'index/Index/connect','',['ext'=>'html']);
 Route::get('/example', 'index/Index/example','',['ext'=>'html']);
 Route::get('/product', 'index/Index/product','',['ext'=>'html']);
+//Route::get('/center', 'index/Center/index','',['ext'=>'html']);
+
 
 
 //return [

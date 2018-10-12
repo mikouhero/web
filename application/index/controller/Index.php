@@ -2,7 +2,6 @@
 
 namespace app\index\controller;
 
-use Think\Cache;
 use think\Controller;
 use think\Request;
 use think\config;
@@ -69,16 +68,6 @@ class Index extends Controller
         ));
         return view('index@index/connect');
     }
-
-    public function test(Request $request)
-    {
-        $param = array(
-            'ip' => $request->ip(),
-            'time'=> date("Y-m-d H:i:s")
-        );
-        Db::name('test')->insert($param);
-    }
-
 
     private function visitLog()
     {

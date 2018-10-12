@@ -34,36 +34,36 @@ class Base extends Controller
         ));
 
         //权限过滤
-         if (isset(Session::get('manger_user')['link']) && empty(Session::get('manger_user')['link'])) {
-             $this->redirect("/admin/login/doCookie");
-             die;
-         };
-         $request = \think\Request::instance();
-         if (!$user_msg = Session::get('manger_user')) {
-             if($request->isPost()){
-                 $this->ajaxReturnMsg('105', '请新登录', '');
-             }
-             $this->redirect('/admin/login');
-         }
+        if (isset(Session::get('manger_user')['link']) && empty(Session::get('manger_user')['link'])) {
+            $this->redirect("/admin/login/doCookie");
+            die;
+        };
+        $request = \think\Request::instance();
+        if (!$user_msg = Session::get('manger_user')) {
+            if ($request->isPost()) {
+                $this->ajaxReturnMsg('105', '请新登录', '');
+            }
+            $this->redirect('/admin/login');
+        }
 
         $controller = strtolower($request->controller());
         $action = strtolower($request->action());
-        if($action == "getlist"){
+        if ($action == "getlist") {
             $action = 'index';
         }
-        $path = "admin/".$controller.'/'.$action;
+        $path = "admin/" . $controller . '/' . $action;
 
-        if(in_array(ucfirst($controller),config('rbac.NOT_AUTH_CONTROLLER'))){
+        if (in_array(ucfirst($controller), config('rbac.NOT_AUTH_CONTROLLER'))) {
 
-        }else{
+        } else {
             if ($user_msg['id'] != 1 || $user_msg['user_name'] != 'admin') {
                 $rbac = new Rbac();
                 $rbac->cachePermission($user_msg['id']);
                 if (!$rbac->can($path)) {
-                    if($request->isGet()){
-                        echo"<script>alert('无权限操作');history.back();</script>";
+                    if ($request->isGet()) {
+                        echo "<script>alert('无权限操作');history.back();</script>";
                         die;
-                    }else if($request->isPost()){
+                    } else if ($request->isPost()) {
                         $this->ajaxReturnMsg('100', '无权限操作', '');
                     }
                     exit;
@@ -79,38 +79,38 @@ class Base extends Controller
         /**
          * admin
          */
-        $adp = 'admin_Permission_' .$user_msg['id']."_";
-        if( ($user_msg['id'] == 1) || ($user_msg['user_name'] == 'admin')){
-            if(empty($data = cache($adp))){
+        $adp = 'admin_Permission_' . $user_msg['id'] . "_";
+        if (($user_msg['id'] == 1) || ($user_msg['user_name'] == 'admin')) {
+            if (empty($data = cache($adp))) {
                 $da = Db::name('permission')->field('path')->select();
-                cache('adminpermission',$da);
+                cache('adminpermission', $da);
                 $data = $da;
             }
-            foreach($data as $k => $v){
-                if(preg_match( '/index$/',$v['path'])){
+            foreach ($data as $k => $v) {
+                if (preg_match('/index$/', $v['path'])) {
                     $new[] = $v['path'];
                 }
             }
-        }else{
-            if(empty($data = cache($adp))){
+        } else {
+            if (empty($data = cache($adp))) {
                 $permission = Db::name("permission")
                     ->alias('p')
                     ->join("role_permission rp", "p.id = rp.permission_id")
                     ->join("user_role ur", "rp.role_id = ur.role_id")
                     ->where("ur.user_id = {$user_msg['id']}")->select();
 
-                cache('adminpermission',$permission);
+                cache('adminpermission', $permission);
                 $data = $permission;
             }
-            if($data){
-                foreach($data as $k => $v){
-                    if(preg_match( '/index$/',$v['path'])){
+            if ($data) {
+                foreach ($data as $k => $v) {
+                    if (preg_match('/index$/', $v['path'])) {
                         $new[] = $v['path'];
                     }
                 }
             }
         }
-        $this->ajaxReturnMsg(200,'success',$new);
+        $this->ajaxReturnMsg(200, 'success', $new);
 
     }
 
