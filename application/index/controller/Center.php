@@ -113,7 +113,7 @@ class Center extends  Controller
         $current_page = $data['current_page'];
         $pagesize = 10;
         $start = ($current_page - 1) * $pagesize;
-        $list = Db::name('login_log')->field('login_name,login_time,service_ip')->where('login_name',Session::get('member_user.user'))->where('source',1)->limit($start, $pagesize)->order('id','desc')->select();
+        $list = Db::name('login_log')->field('login_name,create_time,service_ip')->where('login_name',Session::get('member_user.user'))->where('source',1)->limit($start, $pagesize)->order('id','desc')->select();
         $count = Db::name('login_log')->where('login_name',Session::get('member_user.user'))->where('source',1)->count();
         $data = array(
             'list' => $list,
@@ -167,7 +167,7 @@ class Center extends  Controller
             p4.name as type_name,
             p3.speed,
             p3.status,
-            p3.contact,
+            p3.contacts,
             p3.address,
             p3.start_time')
             ->join('company p2', 'p2.id = p1.cid', 'left')
