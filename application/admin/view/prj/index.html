@@ -1,0 +1,414 @@
+{extend name="index/index" /}
+<!--###############################################################################################################-->
+<!--################################################# 单独 ########################################################-->
+<!--###############################################################################################################-->
+{block name="header"}
+<script src="<?= $js?>/pagination.js"></script>
+<script src="<?= $js ?>/plugins/My97DatePicker/WdatePicker.js"></script>
+<style>
+    [v-cloak] {
+        display: none !important;
+    }
+</style>
+{/block}
+{block name="main"}
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            PRJ 列表
+            <small>
+                <i class="icon-double-angle-right"></i>
+            </small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id='SearchForm'>
+                <div class="row ">
+                    <div class="col-xs-2 input-group-s" >
+                        <input type="text" class="form-control"   placeholder="请输入业务编号" v-model="s_prj">
+                    </div>
+
+                    <div class="col-xs-2 input-group-s" >
+                        <input type="text" class="form-control"   placeholder="请输入业务员" v-model="s_prj_user">
+                    </div>
+
+                    <div class="col-xs-2 input-group-s" >
+                        <input type="text" class="form-control"   placeholder="请输入经理" v-model="s_prj_manger">
+                    </div>
+
+                    <div class="col-xs-2 input-group-s">
+                        <select  class="form-control "  v-model="s_cid">
+                            <option value="">请选择公司</option>
+                            <option v-for="item in companyList" :value="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <div class="form-group">
+                            <span class="btn btn-primary btn-sm " @click = "getList()">搜索</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <div class="form-group">
+                             <span class="btn btn-success btn-sm tooltip-success" data-rel="tooltip" data-placement="top"
+                                   title="添加" data-toggle="modal" data-target="#layer" @click="getCode">添加</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="sample-table-2" class="table table-bordered  solidTab ">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>业务编号</th>
+                        <th>公司名称</th>
+                        <th>项目名称</th>
+                        <th>施工地址</th>
+                        <th>施工队</th>
+                        <th>业务员</th>
+                        <th>经理</th>
+                        <th>成本</th>
+                        <th>合同价</th>
+                        <th>一期款</th>
+                        <th>二期款</th>
+                        <th>尾款</th>
+                        <th>操作</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,key) in List" v-cloak>
+                        <td>{{item.id}}</td>
+                        <td>{{item.prj}}</td>
+                        <td>{{item.company_name}}</td>
+                        <td>{{item.pro_name}}</td>
+                        <td>{{item.address}}</td>
+                        <td>{{item.team}}</td>
+                        <td>{{item.prj_user}}</td>
+                        <td>{{item.prj_manger}}</td>
+                        <td>{{item.pre_cost}}</td>
+                        <td>{{item.final_cost}}</td>
+                        <td>{{item.first_pay}}</td>
+                        <td>{{item.second_pay}}</td>
+                        <td>{{item.last_pay}}</td>
+                        <td>
+                            <div class="action-buttons">
+
+                                <a class="green"  @click="edittmpid(item.id,key)" data-toggle="modal" data-target="#edit">
+                                    <i class="icon-pencil bigger-130"></i>
+                                </a>
+
+
+                                <a class="red" >
+                                    <i class="icon-trash bigger-130" @click="delTmp(item.id,key)" data-toggle="modal" data-target="#delete"></i>
+                                </a>
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="box-footer clearfix">
+                    <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--新增模态框-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="layer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="gridSystemModalLabel">新增prj</h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 业务编号 </label>
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5" readonly
+                                       v-model="msg['prj'] = prjCode">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" >公司名 </label>
+
+                            <div class="col-sm-9">
+                                <select class="col-xs-10 col-sm-5"  v-model="msg['cid']">
+                                    <option value="" disabled>请选择公司</option>
+                                    <option v-for="item in companyList" :value="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 项目名称 </label>
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                       v-model="msg['pro_name']">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 安装地址 </label>
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                       v-model="msg['address']">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 施工队 </label>
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="msg['team']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 业务员 </label>
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="msg['prj_user']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 经理 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="form-field-2" placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="msg['prj_manger']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 成本 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="msg['pre_cost']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 合同价 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="msg['final_cost']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" > 一期款 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="msg['first_pay']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" > 二期款 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="msg['second_pay']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" > 尾款 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="msg['last_pay']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="add">确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--编辑用户-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="">编辑prj</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 业务编号 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"  readonly
+                                           v-model="editmsg['prj']">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" >公司名 </label>
+
+                                <div class="col-sm-9">
+                                    <select class="col-xs-10 col-sm-5"  v-model="editmsg['cid']">
+                                        <option value="" disabled>请选择公司</option>
+                                        <option v-for="item in companyList" :value="item.id">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 项目名称 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['pro_name']">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 安装地址 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['address']">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 施工队 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['team']">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 业务员 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['prj_user']">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 经理 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['prj_manger']">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 成本 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['pre_cost']">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 合同价 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['final_cost']">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 一期款 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['first_pay']">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 二期款 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['second_pay']">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 尾款 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['last_pay']">
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="edit">保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--删除-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" >确定删除？</h2>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="del(delid)">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--role-->
+
+
+</div>
+{/block}
+{block name="footer"}
+<script src="<?= $js?>/admin/prj.js"></script>
+
+{/block}
