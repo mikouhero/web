@@ -53,6 +53,7 @@ var ajaxUrl = {
 
 
     getBrjList:adminUrl+"/brj/getList",
+    getCode:adminUrl+"/brj/add",
     addBrj:adminUrl+"/brj/insert",
     editBrj:adminUrl+"/brj/update",         // brj
     delBrj:adminUrl+"/brj/delete",

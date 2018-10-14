@@ -24,6 +24,7 @@ vm = new Vue({
         bus_status :[{id:1,name:'潜在'},{id:2,name:'正式'},{id:3,name:'过期'}],
         companyList:{},
         buildingList:{},
+        brjCode:'',
     },
     methods: {
         getList: function () {
@@ -52,6 +53,21 @@ vm = new Vue({
                 this.companyList = res.data.data['companyList'];
                 this.buildingList = res.data.data['buildingList'];
                 this.pages = res.data.data['count'];
+            }, function (res) {
+                alert("程序崩掉了");
+            });
+        },
+        getCode:function () {
+            this.$http.post(ajaxUrl.getCode, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.brjCode = res.data.data;
+
             }, function (res) {
                 alert("程序崩掉了");
             });

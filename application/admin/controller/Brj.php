@@ -115,15 +115,15 @@ class Brj extends Base
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
-        if(empty($data['end_time'])){
+        if (empty($data['end_time'])) {
             $data['end_time'] = NUll;
         }
 
-        if(empty($data['start_time'])){
+        if (empty($data['start_time'])) {
             $data['start_time'] = NUll;
         }
 
-        if(empty($data['teardown'])){
+        if (empty($data['teardown'])) {
             $data['teardown'] = NUll;
         }
 
@@ -134,6 +134,10 @@ class Brj extends Base
         // 判断用户是否存在
         if (Db::name('brj')->where('brj', $data['brj'])->count()) {
             $this->ajaxReturnMsg(203, '业务编号已经存在', '');
+        }
+
+        if ($data['brj'] != $this->getCode()) {
+            $this->ajaxReturnMsg(204, '非法的业务编号', '');
         }
 
         Db::startTrans();
@@ -167,6 +171,28 @@ class Brj extends Base
 
     }
 
+    /*
+     * 获取brj号码
+     */
+    public function add()
+    {
+        $brj = $this->getCode();
+
+        $this->ajaxReturnMsg(200, 'success', $brj);
+    }
+
+    private  function getCode()
+    {
+        $code = Db::name('brj')->field('brj')->limit(1)->order('id','desc')->find();
+
+        if(empty($code['brj'])){
+            $brj = "brj" . "10001";
+        }else{
+            $brj = "brj" . (intval( substr($code['brj'],3)) + 1);
+        }
+        return $brj;
+    }
+
     public function update(Request $request)
     {
         $input = $request->post();
@@ -176,15 +202,15 @@ class Brj extends Base
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
-        if(empty($data['end_time'])){
+        if (empty($data['end_time'])) {
             $data['end_time'] = NUll;
         }
 
-        if(empty($data['start_time'])){
+        if (empty($data['start_time'])) {
             $data['start_time'] = NUll;
         }
 
-        if(empty($data['teardown'])){
+        if (empty($data['teardown'])) {
             $data['teardown'] = NUll;
         }
 
