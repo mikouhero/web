@@ -270,7 +270,7 @@ return [
         'RBAC_NODE_TABLE'           =>'think_node',
         'SHOW_PAGE_TRACE'=>1//显示调试信息
     ],
-    'base_url'=>'web.com',
+    'base_url'=>'http://web.com',
 
     'user_lock_times'=>5,  // 后台错误次数限制
 

@@ -181,6 +181,13 @@
                     </a>
                 </li>
 
+                <li v-show="this.menu.indexOf('admin/prj/index') != -1" >
+                    <a href="/admin/prj/index">
+                        <i class="icon-list"></i>
+                        <span class="menu-text">PRJ管理 </span>
+                    </a>
+                </li>
+
                 <li v-show="this.menu.indexOf('admin/building/index') != -1" >
                     <a href="/admin/building/index">
                         <i class=" icon-flag"></i>
@@ -191,7 +198,7 @@
                 <li v-show="this.menu.indexOf('admin/servicetype/index') != -1" >
                     <a href="/admin/servicetype/index">
                         <i class="icon-key"></i>
-                        <span class="menu-text"> 服务类型管理 </span>
+                        <span class="menu-text"> 业务类型管理 </span>
                     </a>
                 </li>
 

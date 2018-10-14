@@ -82,7 +82,7 @@ class Company extends Base
         if (!$img) {
             $this->ajaxReturnMsg(203, '上传失败', '');
         }
-        $img= config('base_url') . $img;
+        $img= config('base_url') .'/'. $img;
 
         //加密
         $param = array(
@@ -124,7 +124,7 @@ class Company extends Base
             if (!$img) {
                 $this->ajaxReturnMsg(202, '上传失败', '');
             }
-            $param['license_icon'] = config('base_url') . $img;
+            $param['license_icon'] = config('base_url') .'/'. $img;
             // 删除原来的图片
             $len = strlen(Request::instance()->domain());
             $path = substr($data['license_icon'], $len + 1); // 图片路径
