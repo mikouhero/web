@@ -52,8 +52,7 @@ class Servicetype extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-
-        if (!isset($data['name']) || empty($data['name']) || !isset($data['status'])) {
+        if ((!isset($data['name'])) || empty($data['name']) || (!isset($data['status']))) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 

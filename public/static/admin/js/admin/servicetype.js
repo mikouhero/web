@@ -43,7 +43,7 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-               this.msg={};
+               this.msg={'status':1};
                this.getList();
 
             }, function (res) {
