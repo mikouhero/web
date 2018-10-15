@@ -4,30 +4,45 @@
     {/block}
 
     {block name="main"}
-    <div class="vipRight col-xs-8">
-        <h2 class="vipTitle">在线留言</h2>
-            <table class="grzx" width="705" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td>&nbsp;留言：</td>
-                    <td><textarea placeholder="请在这里输入您的的意见。" v-model="msg"></textarea></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td><button style="
-                    border-radius: 3px;border: 1px solid transparent;   
-                     cursor: pointer;-webkit-appearance: button;
-                     padding: 6px 12px;    
-                     font-size: 14px;
-                    background: #ccc;
-                    font-size: 14px;
-                    font-weight: 400;
-                    line-height: 1.42857143;
-                    text-align: center;
-                    white-space: nowrap;
-                    vertical-align: middle;
-                " @click="send">提交</button></td>
-                </tr>
-            </table>
+    <div class="vipRight col-xs-8" >
+        <div class="row">
+        <div class="col-xs-12">
+            <div id='SearchForm'>
+                <div class="row" style="margin-top: 20px">
+
+                    <div class="col-xs-1">
+                        <div class="form-group">
+                            <span class="btn btn-primary btn-sm " @click = "getList()">发布留言</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="sample-table-2" class="table table-bordered  solidTab ">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>内容</th>
+                        <th>回复状态</th>
+                        <th>发布时间</th>
+                        <th>查看</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+                    </tbody>
+                </table>
+                <div class="box-footer clearfix">
+                    <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     </div>
     {/block}
 
