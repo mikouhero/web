@@ -12,19 +12,18 @@ vm = new Vue({
         s_crj :'',
         s_isp:'',
         s_cid:'',
-        s_speed:'',
         s_status:'',
         s_time:'',
         s_out:'',
         s_isp_manager:'',
         typeList :{},
-        speedList :[{id:1,name:'10M'},{id:2,name:'20M'},{id:3,name:'50M'},{id:4,name:'100M'},{id:5,name:'200M'}],
-        bus_status :[{id:1,name:'潜在'},{id:2,name:'正式'},{id:3,name:'过期'}],
+        bus_status :[{id:1,name:'正常'},{id:2,name:'过期'}],
         threelist :{},
-        methodlist :[{'id':1,'name':'微信'},{'id':2,'name':'支付宝'},{'id':3,'name':'银联'},{'id':4,'name':'现金'},{'id':5,'name':'其他'}],
+        methodlist :[{'id':1,'name':'月结'},{'id':2,'name':'季度结'},{'id':3,'name':'年结'}],
         companyList:{},
         buildingList:{},
         ispList:{},
+        crjCode:'',
     },
     methods: {
         getList: function () {
@@ -33,7 +32,6 @@ vm = new Vue({
                 s_crj:this.s_crj,
                 s_isp:this.s_isp,
                 s_cid:this.s_cid,
-                s_speed:this.s_speed,
                 s_status:this.s_status,
                 s_time:this.s_time,
                 s_out:this.s_out,
@@ -82,7 +80,21 @@ vm = new Vue({
                 alert("程序崩掉了");
             });
         },
+        getCode:function () {
+            this.$http.post(ajaxUrl.getCrjCode, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.crjCode = res.data.data;
 
+            }, function (res) {
+                alert("程序崩掉了");
+            });
+        },
         edittmpid: function (id, key) {
             this.editid = id;
             this.editmsg = this.List[key];

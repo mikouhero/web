@@ -5,7 +5,7 @@ vm = new Vue({
         pageNo: 1,   // 当前页数
         pages: 0,    //  多少页
         s_brj:'',
-        s_contact:'',
+        s_address:'',
         s_speed:'',
         s_time:'',
         s_type:'',
@@ -20,7 +20,7 @@ vm = new Vue({
                 current_page: this.pageNo,
                 s_brj:this.s_brj,
                 s_speed:this.s_speed,
-                s_contact:this.s_contact,
+                s_address:this.s_address,
                 s_status:this.s_status,
                 s_time:$('#s_time').val(),
                 s_type:this.s_type

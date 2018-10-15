@@ -28,7 +28,7 @@ class Crj extends Base
         $start = ($current_page - 1) * $pagesize;
         $condition['p1.deleted'] = ['=', '0'];
         if (isset($data['s_crj']) && !empty($data['s_crj'])) {
-            $condition['p1.crj'] = ['=', $data['s_crj']];
+            $condition['p3.crj_code'] = ['=', $data['s_crj']];
         }
 
         if (isset($data['s_cid']) && !empty($data['s_cid'])) {
@@ -36,10 +36,6 @@ class Crj extends Base
         }
         if (isset($data['s_isp']) && !empty($data['s_isp'])) {
             $condition['p1.isp'] = ['=', $data['s_isp']];
-        }
-
-        if (isset($data['s_speed']) && !empty($data['s_speed'])) {
-            $condition['p1.speed'] = ['=', $data['s_speed']];
         }
 
         if (isset($data['s_status']) && !empty($data['s_status'])) {
@@ -66,7 +62,7 @@ class Crj extends Base
             ->field('p1.id,
                      p1.cid,
                      p2.name as company_name ,
-                     p1.crj,
+                     p3.crj_code as crj,
                      p1.address,
                      p1.isp,
                      p1.demand,
@@ -75,7 +71,6 @@ class Crj extends Base
                      p1.price,
                      p1.s_price,
                      p1.status,
-                     p1.speed,
                      DATE_FORMAT(p1.start_time,"%Y-%m-%d") as start_time,
                      DATE_FORMAT(p1.end_time,"%Y-%m-%d") as end_time,
                      DATE_FORMAT(p1.teardown,"%Y-%m-%d") as teardown,
@@ -85,6 +80,7 @@ class Crj extends Base
                      '
                     )
             ->join('company p2', 'p2.id = p1.cid', 'left')
+            ->join('crj_code p3', 'p1.crj = p3.crj_code', 'left')
             ->join('b_crj_s p4','p4.crj_id = p1.id','left')
             ->join('channel p5','p5.id = p4.isp_manager','left')
             ->where($condition)
@@ -144,7 +140,6 @@ class Crj extends Base
             'cid' => $data['cid'],
             'crj' => $data['crj'],
             'address' => $data['address'],
-            'speed' => $data['speed'],
             's_price' => $data['s_price'],
             'price' => $data['price'],
             'isp' => $data['isp'],
@@ -159,8 +154,6 @@ class Crj extends Base
 
         );
         $crj_id = Db::name('crj')->insertGetId($param);
-
-
 
         $param3 = array(
             'crj_id' => $crj_id,
@@ -179,6 +172,33 @@ class Crj extends Base
        }
 
 
+    }
+
+    /*
+     * 获取brj号码
+     */
+    public function add()
+    {
+        $crj = $this->getCode();
+
+        $this->ajaxReturnMsg(200, 'success', $crj);
+    }
+
+    private  function getCode()
+    {
+        $code = Db::name('crj_code')
+            ->field('p1.crj_code')
+            ->alias('p1')
+            ->join('crj p2','p2.crj = p1.id' ,'left')
+            ->where('p2.crj is null')
+            ->select();
+        $arr = array();
+        if($code){
+            foreach ($code as $k=>$v){
+                $arr[] = $v['crj_code'];
+            }
+        }
+        return $arr;
     }
 
     public function update(Request $request)
@@ -212,7 +232,6 @@ class Crj extends Base
                 'cid' => $data['cid'],
                 'crj' => $data['crj'],
                 'address' => $data['address'],
-                'speed' => $data['speed'],
                 's_price' => $data['s_price'],
                 'price' => $data['price'],
                 'isp' => $data['isp'],

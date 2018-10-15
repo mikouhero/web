@@ -1,0 +1,210 @@
+{extend name="index/index" /}
+<!--###############################################################################################################-->
+<!--################################################# 单独 ########################################################-->
+<!--###############################################################################################################-->
+{block name="header"}
+<script src="<?= $js?>/pagination.js"></script>
+<script src="<?= $js ?>/plugins/My97DatePicker/WdatePicker.js"></script>
+<style>
+    [v-cloak] {
+        display: none !important;
+    }
+</style>
+{/block}
+{block name="main"}
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            CRJ 业务编号列表
+            <small>
+                <i class="icon-double-angle-right"></i>
+            </small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div id='SearchForm'>
+                <div class="row ">
+                    <div class="col-xs-2 input-group-s" >
+                        <input type="text" class="form-control"   placeholder="请输入业务编号" v-model="s_crj_code">
+                    </div>
+
+                    <div class="col-xs-2 input-group-s">
+                        <select  class="form-control "  v-model="s_cid">
+                            <option value="">请选择公司</option>
+                            <option v-for="item in companyList" :value="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <div class="form-group">
+                            <span class="btn btn-primary btn-sm " @click = "getList()">搜索</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <div class="form-group">
+                             <span class="btn btn-success btn-sm tooltip-success" data-rel="tooltip" data-placement="top"
+                                   title="添加用户" data-toggle="modal" data-target="#layer">添加</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="sample-table-2" class="table table-bordered  solidTab ">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>公司名</th>
+                        <th>业务编号</th>
+                        <th>操作</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,key) in List" v-cloak>
+                        <td>{{item.id}}</td>
+                        <td>{{item.company_name}}</td>
+                        <td>{{item.crj_code}}</td>
+                        <td>
+                            <div class="action-buttons">
+
+                                <a class="green"  @click="edittmpid(item.id,key)" data-toggle="modal" data-target="#edit">
+                                    <i class="icon-pencil bigger-130"></i>
+                                </a>
+
+                                <a class="red" >
+                                    <i class="icon-trash bigger-130" @click="delTmp(item.id,key)" data-toggle="modal" data-target="#delete"></i>
+                                </a>
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="box-footer clearfix">
+                    <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--新增模态框-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="layer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="gridSystemModalLabel">新增CRJ业务编号</h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" >公司名 </label>
+
+                            <div class="col-sm-9">
+                                <select class="col-xs-10 col-sm-5"  v-model="msg['cid']">
+                                    <option value="" disabled>请选择运营商公司</option>
+                                    <option v-for="item in companyList" :value="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" > 业务编号 </label>
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="msg['crj_code']">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="add">确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--编辑用户-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="">编辑CRJ业务编号</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" >公司名 </label>
+
+                                <div class="col-sm-9">
+                                    <select class="col-xs-10 col-sm-5"  v-model="editmsg['cid']">
+                                        <option value="" disabled>请选择运营商公司</option>
+                                        <option v-for="item in companyList" :value="item.id">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 业务编号 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['crj_code']">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="edit">保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--删除-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" >确定删除？</h2>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="del(delid)">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--role-->
+
+
+</div>
+{/block}
+{block name="footer"}
+<script src="<?= $js?>/admin/crjcode.js"></script>
+
+{/block}

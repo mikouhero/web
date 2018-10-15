@@ -20,8 +20,7 @@ vm = new Vue({
         s_time:'',
         s_out:'',
         typeList :{},
-        speedList :[{id:1,name:'10M'},{id:2,name:'20M'},{id:3,name:'50M'},{id:4,name:'100M'},{id:5,name:'200M'}],
-        bus_status :[{id:1,name:'潜在'},{id:2,name:'正式'},{id:3,name:'过期'}],
+        bus_status :[{id:1,name:'正常'},{id:2,name:'过期'}],
         companyList:{},
         buildingList:{},
         brjCode:'',
@@ -58,7 +57,7 @@ vm = new Vue({
             });
         },
         getCode:function () {
-            this.$http.post(ajaxUrl.getCode, {
+            this.$http.post(ajaxUrl.getBrjCode, {
             }, {
                 emulateJSON: true
             }).then(function (res) {

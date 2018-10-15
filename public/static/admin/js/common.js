@@ -53,14 +53,14 @@ var ajaxUrl = {
 
 
     getBrjList:adminUrl+"/brj/getList",
-    getCode:adminUrl+"/brj/add",
+    getBrjCode:adminUrl+"/brj/add",
     addBrj:adminUrl+"/brj/insert",
     editBrj:adminUrl+"/brj/update",         // brj
     delBrj:adminUrl+"/brj/delete",
 
 
     getPrjList:adminUrl+"/prj/getList",
-    getCode:adminUrl+"/prj/add",
+    getPrjCode:adminUrl+"/prj/add",
     addPrj:adminUrl+"/prj/insert",
     editPrj:adminUrl+"/prj/update",         // brj
     delPrj:adminUrl+"/prj/delete",
@@ -73,6 +73,7 @@ var ajaxUrl = {
     delBrjop:adminUrl+"/brjop/delete",
 
     getCrjList:adminUrl+"/crj/getList",
+    getCrjCode:adminUrl+"/crj/add",
     addCrj:adminUrl+"/crj/insert",
     editCrj:adminUrl+"/crj/update",         // crj
     delCrj:adminUrl+"/crj/delete",
@@ -81,6 +82,12 @@ var ajaxUrl = {
     addCrjop:adminUrl+"/crjop/insert",
     editCrjop:adminUrl+"/crjop/update",         // crjop
     delCrjop:adminUrl+"/crjop/delete",
+
+
+    getCrjcodeList:adminUrl+"/crjcode/getList",
+    addCrjcode:adminUrl+"/crjcode/insert",
+    editCrjcode:adminUrl+"/crjcode/update",         // crjcode
+    delCrjcode:adminUrl+"/crjcode/delete",
 
 
     getServicetypeList:adminUrl+"/servicetype/getList",
