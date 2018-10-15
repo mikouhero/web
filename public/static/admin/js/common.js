@@ -98,4 +98,7 @@ var ajaxUrl = {
     getPersonList:adminUrl+"/person/getList",   // person
     editPerson:adminUrl+"/person/update",
 
+
+    getLoginlogList:adminUrl+"/loginlog/getList",   // loginlog
+
 };

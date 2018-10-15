@@ -56,7 +56,7 @@ class Permission extends Base
 
         // 判断用户是否存在
         if (Db::name('permission')->where('name', $data['name'])->count()) {
-            $this->ajaxReturnMsg(202, '用户名已存在', '');
+            $this->ajaxReturnMsg(202, '权限已存在', '');
         }
 
         // 判断手机号是否存在
@@ -66,8 +66,11 @@ class Permission extends Base
         //判断邮箱是否存在
 
         //加密
-        $param = $data;
-        $param['create_time'] = date("Y-m-d H:i:s");
+        $param = array(
+            'name'  => $data['name'],
+            'path'  => $data['path'],
+            'create_time' => date("Y-m-d H:i:s")
+        );
 
         $id = Db::name('permission')->insertGetId($param);
         $this->ajaxReturnMsg(200, 'success', $id);

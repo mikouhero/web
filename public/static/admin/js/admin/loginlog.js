@@ -1,27 +1,23 @@
 vm = new Vue({
-    el: '.vipRight',
+    el: '.page-content',
     data: {
-        msg:{},
         pageNo: 1,   // 当前页数
         pages: 0,    //  多少页
-        s_brj:'',
-        s_address:'',
-        s_time:'',
-        s_type:'',
-        statuslist :[{id:1,name:'正常'},{id:2,name:'过期'}],
-        s_status:'',
-        typelist:{}
-
+        logList: {},
+        msg: {},
+        editid: '',
+        editmsg: {},
+        delid: '',
+        delkey: '',
+        s_name :'',
+        add_id:'',
+        account:'',
     },
     methods: {
         getList: function () {
-            this.$http.post("/index/center/getOrder", {
+            this.$http.post(ajaxUrl.getLoginlogList, {
                 current_page: this.pageNo,
-                s_brj:this.s_brj,
-                s_address:this.s_address,
-                s_status:this.s_status,
-                s_time:$('#s_time').val(),
-                s_type:this.s_type
+                name:this.s_name,
             }, {
                 emulateJSON: true
             }).then(function (res) {
@@ -29,10 +25,8 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-                this.msg = res.data.data['list'];
+                this.logList = res.data.data['logList'];
                 this.pages = res.data.data['count'];
-                this.typelist = res.data.data['typelist'];
-                
             }, function (res) {
                 alert("程序崩掉了");
             });
@@ -51,6 +45,6 @@ vm = new Vue({
             this.getList();
         });
     }
-
 });
+
 

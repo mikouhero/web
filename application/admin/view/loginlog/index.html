@@ -1,0 +1,75 @@
+{extend name="index/index" /}
+<!--###############################################################################################################-->
+<!--################################################# 单独 ########################################################-->
+<!--###############################################################################################################-->
+{block name="header"}
+<script src="<?= $js?>/pagination.js"></script>
+<style>
+    [v-cloak] {
+        display: none !important;
+    }
+</style>
+{/block}
+{block name="main"}
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            登录记录列表
+            <small>
+                <i class="icon-double-angle-right"></i>
+            </small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div id='SearchForm'>
+                <div class="row ">
+
+                    <div class="col-xs-2 input-group-s" >
+                        <input type="text" class="form-control" style=" width: 200px;"  placeholder="请输入登录名"v-model="s_name">
+                    </div>
+
+                    <div class="col-xs-1">
+                        <div class="form-group">
+                             <span class="btn btn-primary btn-sm " @click = "getList()">搜索</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="sample-table-2" class="table table-bordered  solidTab ">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>登录名</th>
+                        <th>登录IP</th>
+                        <th>登录时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,key) in logList" v-cloak>
+                        <td>{{item.id}}</td>
+                        <td>{{item.login_name}}</td>
+                        <td>{{item.service_ip}}</td>
+                        <td>{{item.create_time}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="box-footer clearfix">
+                    <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{/block}
+{block name="footer"}
+<script src="<?= $js?>/admin/loginlog.js"></script>
+
+{/block}

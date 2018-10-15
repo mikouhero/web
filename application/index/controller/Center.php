@@ -147,11 +147,12 @@ class Center extends  Controller
             $condition['p3.type'] = ['=', $data['s_type']];
         }
 
-        if (isset($data['s_speed']) && !empty($data['s_speed'])) {
-            $condition['p3.speed'] = ['=', $data['s_speed']];
-        }
         if (isset($data['s_address']) && !empty($data['s_address'])) {
             $condition['p3.address'] = ['like', '%'.$data['s_address'].'%'];
+        }
+
+        if (isset($data['s_status']) && !empty($data['s_status'])) {
+            $condition['p3.status'] = ['=', $data['s_status']];
         }
 
         if (isset($data['s_time']) && !empty($data['s_time'])) {

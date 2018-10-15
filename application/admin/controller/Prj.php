@@ -96,7 +96,7 @@ class Prj extends Base
         try {
             $param = array(
                 'cid' => $data['cid'],
-//                'prj' => $data['prj'],
+                'prj' => $data['prj'],
                 'pro_name' => $data['pro_name'],
                 'address' => $data['address'],
                 'team' => $data['team'],
