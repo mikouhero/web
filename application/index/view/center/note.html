@@ -1,51 +1,78 @@
+{{extend name="center/index" /}}
+{block name="header"}
+<script src="/static/home/js/pagination.js"></script>
+{/block}
 
-    {{extend name="center/index" /}}
-    {block name="header"}
-    {/block}
+{block name="main"}
+<div class="vipRight col-xs-8">
+    <div class="page-content">
 
-    {block name="main"}
-    <div class="vipRight col-xs-8" >
         <div class="row">
-        <div class="col-xs-12">
-            <div id='SearchForm'>
-                <div class="row" style="margin-top: 20px">
+            <div class="col-xs-12">
+                <div id='SearchForm'>
+                    <div class="row" style="margin-top: 20px">
 
-                    <div class="col-xs-1">
-                        <div class="form-group">
-                            <span class="btn btn-primary btn-sm " @click = "getList()">发布留言</span>
+                        <div class="col-xs-1">
+                            <div class="form-group">
+                                <span class="btn btn-primary btn-sm " data-toggle="modal" data-target="#layer"
+                                      data-rel="tooltip" data-placement="top">发布留言</span>
+                            </div>
                         </div>
+
                     </div>
-
                 </div>
-            </div>
 
-            <div class="table-responsive">
-                <table id="sample-table-2" class="table table-bordered  solidTab ">
-                    <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>内容</th>
-                        <th>回复状态</th>
-                        <th>发布时间</th>
-                        <th>查看</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                <div class="table-responsive">
+                    <table id="sample-table-2" class="table table-bordered  solidTab ">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>内容</th>
+                            <th>回复状态</th>
+                            <th>发布时间</th>
+                            <th>查看</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
 
-                    </tbody>
-                </table>
-                <div class="box-footer clearfix">
-                    <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+                        </tbody>
+                    </table>
+                    <div class="box-footer clearfix">
+                        <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
+
+        <div role="dialog" class="modal fade bs-example-modal-sm " id="layer">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                        <h2 class="modal-title" id="gridSystemModalLabel">新增公司</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+
+                        </form>
+                    </div>
+                    <div class="modal-footer text-right">
+                        <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                        <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="">确认
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
-    {/block}
+</div>
+{/block}
 
-    {block name="footer"}
-    <script src="/static/home/js/center/note.js"></script>
-    {/block}
+{block name="footer"}
+<script src="/static/home/js/center/note.js"></script>
+{/block}
