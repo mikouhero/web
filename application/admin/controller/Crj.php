@@ -91,7 +91,7 @@ class Crj extends Base
         $companyList = Db::name('company')->field('id,name')->select();
         $buildingList = Db::name('building')->field('id,name')->select();
         $ispList = Db::name('channel')->field('id,isp_sales')->select();
-        $threeList = Db::name('isp')->field('id,name')->select();
+        $threeList = Db::name('isp')->field('id,name')->where('deleted','0')->select();
 	
         $count = Db::name('crj')->alias('p1')
             ->join('company p2', 'p2.id = p1.cid', 'left')
@@ -189,7 +189,7 @@ class Crj extends Base
         $code = Db::name('crj_code')
             ->field('p1.crj_code')
             ->alias('p1')
-            ->join('crj p2','p2.crj = p1.id' ,'left')
+            ->join('crj p2','p2.crj = p1.crj_code' ,'left')
             ->where('p2.crj is null')
             ->select();
         $arr = array();
@@ -230,7 +230,7 @@ class Crj extends Base
         try {
             $param = array(
                 'cid' => $data['cid'],
-                'crj' => $data['crj'],
+//                'crj' => $data['crj'],
                 'address' => $data['address'],
                 's_price' => $data['s_price'],
                 'price' => $data['price'],

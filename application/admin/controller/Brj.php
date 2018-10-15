@@ -144,7 +144,7 @@ class Brj extends Base
         try {
             $param = array(
                 'cid' => $data['cid'],
-                'brj' => $data['brj'],
+//                'brj' => $data['brj'],
                 'type' => $data['type'],
                 'address' => $data['address'],
                 'speed' => $data['speed'],

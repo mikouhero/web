@@ -11,7 +11,7 @@ vm = new Vue({
         delkey: '',
         s_isp :'',
         s_name:'',
-        threelist :[{'id':1,'name':'中国移动'},{'id':2,'name':'中国联通'},{'id':3,'name':'中国电信'}],
+        threelist :{},
     },
     methods: {
         getList: function () {
@@ -28,6 +28,8 @@ vm = new Vue({
                     return false;
                 }
                 this.List = res.data.data['list'];
+                this.threelist = res.data.data['threeList'];
+
                 this.pages = res.data.data['count'];
             }, function (res) {
                 alert("程序崩掉了");

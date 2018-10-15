@@ -28,7 +28,7 @@ class Crjcode extends Base
         $start = ($current_page - 1) * $pagesize;
         $condition['p1.deleted'] = ['=', '0'];
         if (isset($data['s_crj_code']) && !empty($data['s_crj_code'])) {
-            $condition['p1.s_crj_code'] = ['=', $data['s_crj_code']];
+            $condition['p1.crj_code'] = ['=', $data['s_crj_code']];
         }
 
         if (isset($data['s_cid']) && !empty($data['s_cid'])) {

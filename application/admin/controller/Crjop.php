@@ -67,6 +67,7 @@ class Crjop extends Base
                      p1.cid,
                      p2.name as company_name,
                      p1.crj,
+                     p1.address,
                      p3.id as Iid,
                      p3.port,
                      p3.ip,

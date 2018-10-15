@@ -17,7 +17,7 @@ vm = new Vue({
         getList: function () {
             this.$http.post(ajaxUrl.getCrjcodeList, {
                 current_page: this.pageNo,
-                s_crj:this.s_crj,
+                s_crj_code:this.s_crj_code,
                 s_cid:this.s_cid,
             }, {
                 emulateJSON: true

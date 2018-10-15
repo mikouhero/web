@@ -42,11 +42,13 @@ class Isp extends Base
             ->where($condition)
             ->limit($start, $pagesize)
             ->select();
+        $threeList = Db::name('isp')->field('id,name')->where('deleted','0')->select();
 
         $count = Db::name('channel')->alias('p1')->where($condition)->count();
         $res = array(
             'list' => $list,
-            'count' => ceil($count / $pagesize)
+            'count' => ceil($count / $pagesize),
+            'threeList'=>$threeList,
         );
         $this->ajaxReturnMsg(200, 'success', $res);
     }
