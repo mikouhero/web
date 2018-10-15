@@ -147,18 +147,18 @@ class Center extends  Controller
             $condition['p3.type'] = ['=', $data['s_type']];
         }
 
-
         if (isset($data['s_speed']) && !empty($data['s_speed'])) {
             $condition['p3.speed'] = ['=', $data['s_speed']];
         }
-        if (isset($data['s_contact']) && !empty($data['s_contact'])) {
-            $condition['p3.contact'] = ['=', $data['s_contact']];
+        if (isset($data['s_address']) && !empty($data['s_address'])) {
+            $condition['p3.address'] = ['like', '%'.$data['s_address'].'%'];
         }
 
         if (isset($data['s_time']) && !empty($data['s_time'])) {
             $condition['p3.start_time'] = ['>=', $data['s_time']];
         }
 
+        $condition['p1.id'] = ['=', Session::get('member_user.id')];
         $list = Db::name('member')
             ->alias('p1')
             ->field('
@@ -167,7 +167,7 @@ class Center extends  Controller
             p4.name as type_name,
             p3.speed,
             p3.status,
-            p3.contacts,
+            p3.contact,
             p3.address,
             p3.start_time')
             ->join('company p2', 'p2.id = p1.cid', 'left')
