@@ -27,7 +27,7 @@ class Servicetype extends Base
         $current_page = $data['current_page'];
         $pagesize = 10;
         $start = ($current_page - 1) * $pagesize;
-        $condition['p1.id'] = ['>','0'];
+        $condition['p1.deleted'] = ['=','0'];
         if(isset($data['name']) && !empty($data['name'])){
             $condition['p1.name'] = [ '=', $data['name']];
         }
@@ -104,7 +104,8 @@ class Servicetype extends Base
             $this->ajaxReturnMsg(201, '网络错误', '');
         }
         $param = array(
-            'status' => 0,
+            'deleted' => 1,
+            'delete_time' => date("Y-m-d H:i:s")
         );
         Db::name('service_type')->where('id',$data['id'])->update($param);
         $this->ajaxReturnMsg(200, 'success', '');

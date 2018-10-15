@@ -27,7 +27,7 @@ class Building extends Base
         $current_page = $data['current_page'];
         $pagesize = 10;
         $start = ($current_page - 1) * $pagesize;
-        $condition['p1.id'] = ['>','0'];
+        $condition['p1.deleted'] = ['=','0'];
         if(isset($data['name']) && !empty($data['name'])){
             $condition['p1.name'] = [ '=', $data['name']];
         }
@@ -96,7 +96,11 @@ class Building extends Base
         if (!$falg) {
             $this->ajaxReturnMsg(201, '网络错误', '');
         }
-        $flag = Db::name('building')->where('id',$data['id'])->delete();
+        $param = array(
+            'deleted' => 1,
+            'delete_time' => date("Y-m-d H:i:s")
+        );
+        $flag = Db::name('building')->where('id',$data['id'])->update($param);
         if (!$flag) $this->ajaxReturnMsg(202, '', '');
         $this->ajaxReturnMsg(200, 'success', '');
     }

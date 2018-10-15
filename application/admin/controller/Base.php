@@ -51,6 +51,12 @@ class Base extends Controller
         if ($action == "getlist") {
             $action = 'index';
         }
+
+        if ($action == "add") {
+            $action = 'insert';
+        }
+
+
         $path = "admin/" . $controller . '/' . $action;
 
         if (in_array(ucfirst($controller), config('rbac.NOT_AUTH_CONTROLLER'))) {
