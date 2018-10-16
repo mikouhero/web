@@ -77,13 +77,10 @@
                         <td>{{item.company_name}}</td>
                         <td>{{item.crj}}</td>
                         <td>{{item.address}}</td>
-
                         <td>{{item.port}}</td>
                         <td>{{item.ip}}</td>
                         <td>{{item.account}}</td>
                         <td>{{item.password}}</td>
-
-
                         <td>
                             <div class="action-buttons">
 
@@ -102,7 +99,7 @@
 
                     </tbody>
                 </table>
-                <div class="box-footer clearfix">
+                <div class="box-footer clearfix" v-show="pages>0">
                     <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
                 </div>
             </div>

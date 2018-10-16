@@ -72,7 +72,7 @@
 
                     </tbody>
                 </table>
-                <div class="box-footer clearfix">
+                <div class="box-footer clearfix" v-show="pages>0">
                     <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
                 </div>
             </div>
