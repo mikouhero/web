@@ -28,8 +28,12 @@ class Note extends Base
         $pagesize = 10;
         $start = ($current_page - 1) * $pagesize;
         $condition['p1.id'] = ['>','0'];
-        if(isset($data['name']) && !empty($data['name'])){
-            $condition['p1.name'] = [ '=', $data['name']];
+        if(isset($data['s_name']) && !empty($data['s_name'])){
+            $condition['p1.name'] = [ '=', $data['s_name']];
+        }
+
+        if(isset($data['s_cid']) && !empty($data['s_cid'])){
+            $condition['p3.id'] = [ '=', $data['s_cid']];
         }
 
         $list = Db::name('note')
@@ -48,10 +52,23 @@ class Note extends Base
             ->order('p1.id','desc')
             ->limit($start, $pagesize)
             ->select();
-        $count = Db::name('note')->alias('p1')->where($condition)->count();
+        $count = Db::name('note')
+            ->alias('p1')
+            ->field('p1.id,
+                     p1.content,
+                     p1.member_id,
+                     p1.name,p1.ip,
+                     p1.create_time,
+                     p1.status,
+                     p3.name as company')
+            ->join('member p2','p1.member_id = p2.id','left')
+            ->join('company p3','p3.id = p2.cid' ,'left')
+            ->where($condition)->count();
+        $companyList = Db::name('company')->field('id,name')->select();
         $res = array(
             'list' => $list,
-            'count' => ceil($count / $pagesize)
+            'count' => ceil($count / $pagesize),
+            'companyList' => $companyList,
         );
         $this->ajaxReturnMsg(200, 'success', $res);
     }

@@ -8,12 +8,16 @@ vm = new Vue({
         topic:{},
         tmpid:'',
         msg:'',
+        s_name:'',
+        s_cid:'',
+        companyList:{},
     },
     methods: {
         getList: function () {
             this.$http.post(ajaxUrl.getNoteList, {
                 current_page: this.pageNo,
-                name:this.s_name,
+                s_name:this.s_name,
+                s_cid :this.s_cid
             }, {
                 emulateJSON: true
             }).then(function (res) {
@@ -22,6 +26,8 @@ vm = new Vue({
                     return false;
                 }
                 this.List = res.data.data['list'];
+                this.companyList = res.data.data['companyList'];
+
                 this.pages = res.data.data['count'];
             }, function (res) {
                 alert("程序崩掉了");
