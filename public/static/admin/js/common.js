@@ -101,4 +101,12 @@ var ajaxUrl = {
 
     getLoginlogList:adminUrl+"/loginlog/getList",   // loginlog
 
+
+    getNoteList:adminUrl+"/note/getList",   // note
+    getDetail:adminUrl+"/note/add",
+    sendNote:adminUrl+"/note/insert",
+
+
+
+
 };

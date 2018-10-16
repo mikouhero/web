@@ -34,6 +34,19 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <tr v-for="(item,key) in List" v-cloak>
+                            <td>{{item.id}}</td>
+                            <td>{{item.content}}</td>
+                            <td v-show="item.status == 0"><span class="label label-sm label-danger">待回复</span></td>
+                            <td v-show="item.status == 1"><span class="label label-sm label-info">已查看</span></td>
+                            <td v-show="item.status == 2"><span class="label label-sm ">已回复</span></td>
+                            <td>{{item.create_time}}</td>
+                            <td>
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit" @click="getDetail(item.id)">详情</button>
+                            </td>
+                        </tr>
+
+                        </tbody>
 
 
                         </tbody>
@@ -53,21 +66,129 @@
                         <button type="button" class="close" data-dismiss="modal">
                             <span>&times;</span>
                         </button>
-                        <h2 class="modal-title" id="gridSystemModalLabel">新增公司</h2>
+                        <h2 class="modal-title" id="gridSystemModalLabel">新增留言</h2>
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" >留言内容 </label>
+                                <div class="col-sm-9 ">
+                                    <textarea class="form-control" rows="5" placeholder="请在这里输入您的的问题。" v-model="msg"></textarea>
+                                </div>
+                            </div>
 
                         </form>
                     </div>
                     <div class="modal-footer text-right">
                         <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
-                        <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="">确认
+                        <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="send">确认
                         </button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div role="dialog" class="modal fade bs-example-modal-sm " id="edit">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" @click="getList">
+                            <span>&times;</span>
+                        </button>
+                        <h2 class="modal-title" id="">留言内容</h2>
+                    </div>
+                    <div class="modal-body">
+
+                        <!--<form class="form-horizontal" role="form">-->
+
+
+                        <div class="">
+                            <div class="widget-box ">
+                                <div class="widget-header">
+                                    <h4 class="lighter smaller">
+                                        会话
+                                    </h4>
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="widget-main no-padding">
+                                        <div class="dialogs">
+
+                                            <div class="itemdiv dialogdiv">
+                                                <div class="user">
+                                                </div>
+
+                                                <div class="body">
+                                                    <div class="time">
+                                                        <i class="icon-time"></i>
+                                                        <span class="green">{{topic.create_time}}</span>
+                                                    </div>
+
+                                                    <div class="name">
+                                                        <a href="#">{{topic.name}}</a>
+                                                    </div>
+                                                    <div class="text">{{topic.content}}</div>
+
+                                                    <div class="tools">
+                                                        <a href="#" class="btn btn-minier btn-info">
+                                                            <i class="icon-only icon-share-alt"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="itemdiv dialogdiv" v-for="item in delailList">
+                                                <div class="user">
+                                                    <!--<img alt="Alexa's Avatar" src="/assets/avatars/avatar1.png" />-->
+                                                </div>
+
+                                                <div class="body">
+                                                    <div class="time">
+                                                        <i class="icon-time"></i>
+                                                        <span class="green">{{item.create_time}}</span>
+                                                    </div>
+
+                                                    <div class="name">
+                                                        <span v-if="item.source ==1">{{item.user_name}}</span>
+                                                        <span class="label label-info arrowed arrowed-in-right" v-if="item.source ==2">{{item.user_name}}</span>
+
+                                                    </div>
+                                                    <div class="text">{{item.content}}</div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <form>
+                                            <div class="form-actions">
+                                                <div class="input-group">
+                                                    <textarea placeholder="type your message here ..."  class="form-control"  rows="5" v-model="msg"></textarea>
+
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-sm btn-info no-radius" type="button" @click="save">
+                                                            <i class="icon-share-alt"></i>
+                                                            发送
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div><!-- /widget-main -->
+                                </div><!-- /widget-body -->
+                            </div><!-- /widget-box -->
+                        </div><!-- /span -->
+
+                        <!--</form>-->
+                    </div>
+                    <div class="modal-footer text-right">
+                        <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="getList">关闭
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 </div>

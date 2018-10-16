@@ -221,6 +221,14 @@
                         <span class="menu-text"> 运营商经理管理 </span>
                     </a>
                 </li>
+
+                <li v-show="this.menu.indexOf('admin/note/index') != -1">
+                    <a href="/admin/note/index">
+                        <i class="icon-comment"></i>
+                        <span class="menu-text"> 留言管理 </span>
+                    </a>
+                </li>
+
                 <li >
                     <a href="#" class="dropdown-toggle">
                         <i class="icon-desktop"></i>

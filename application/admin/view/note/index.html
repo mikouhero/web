@@ -1,0 +1,199 @@
+{extend name="index/index" /}
+<!--###############################################################################################################-->
+<!--################################################# 单独 ########################################################-->
+<!--###############################################################################################################-->
+{block name="header"}
+<script src="<?= $js?>/pagination.js"></script>
+<style>
+    [v-cloak] {
+        display: none !important;
+    }
+</style>
+{/block}
+{block name="main"}
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            留言列表
+            <small>
+                <i class="icon-double-angle-right"></i>
+            </small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div id='SearchForm'>
+                <div class="row ">
+
+                    <div class="col-xs-2 input-group-s" >
+                        <!--<input type="text" class="form-control" style=" width: 200px;"  placeholder="请输入楼名"v-model="s_name">-->
+                    </div>
+
+                    <div class="col-xs-1">
+                        <div class="form-group">
+                             <span class="btn btn-primary btn-sm " >搜索</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="sample-table-2" class="table table-bordered  solidTab ">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>公司</th>
+                        <th>用户名</th>
+                        <th>内容</th>
+                        <th>状态</th>
+                        <th>IP</th>
+                        <th>发布时间</th>
+                        <th>回复</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,key) in List" v-cloak>
+                        <td>{{item.id}}</td>
+                        <td>{{item.company}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.content}}</td>
+                        <td v-show="item.status == 0"><span class="label label-sm label-danger">新留言</span></td>
+                        <td v-show="item.status == 1"><span class="label label-sm label-info">已查看</span></td>
+                        <td v-show="item.status == 2"><span class="label label-sm ">已回复</span></td>
+                        <td>{{item.ip}}</td>
+                        <td>{{item.create_time}}</td>
+                        <td>
+                            <div class="action-buttons">
+
+                                <a class="green"  @click="getDetail(item.id)" data-toggle="modal" data-target="#edit">
+                                    <i class="icon-pencil bigger-130"></i>
+                                </a>
+
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="box-footer clearfix">
+                    <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--新增模态框-->
+    <!--编辑用户-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" @click="getList">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="">留言内容</h2>
+                </div>
+                <div class="modal-body">
+
+                    <!--<form class="form-horizontal" role="form">-->
+
+
+                        <div class="">
+                            <div class="widget-box ">
+                                <div class="widget-header">
+                                    <h4 class="lighter smaller">
+                                        <i class="icon-comment blue"></i>
+                                        会话
+                                    </h4>
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="widget-main no-padding">
+                                        <div class="dialogs">
+
+                                            <div class="itemdiv dialogdiv">
+                                                <div class="user">
+                                                </div>
+
+                                                <div class="body">
+                                                    <div class="time">
+                                                        <i class="icon-time"></i>
+                                                        <span class="green">{{topic.create_time}}</span>
+                                                    </div>
+
+                                                    <div class="name">
+                                                        <a href="#">{{topic.name}}</a>
+                                                    </div>
+                                                    <div class="text">{{topic.content}}</div>
+
+                                                    <div class="tools">
+                                                        <a href="#" class="btn btn-minier btn-info">
+                                                            <i class="icon-only icon-share-alt"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="itemdiv dialogdiv" v-for="item in delailList">
+                                                <div class="user">
+                                                    <!--<img alt="Alexa's Avatar" src="/assets/avatars/avatar1.png" />-->
+                                                </div>
+
+                                                <div class="body">
+                                                    <div class="time">
+                                                        <i class="icon-time"></i>
+                                                        <span class="green">{{item.create_time}}</span>
+                                                    </div>
+
+                                                    <div class="name">
+                                                        <spam  v-if="item.source ==1">{{item.user_name}}</spam>
+                                                        <span class="label label-info arrowed arrowed-in-right" v-if="item.source ==2">{{item.user_name}}</span>
+
+                                                    </div>
+                                                    <div class="text">{{item.content}}</div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <form>
+                                            <div class="form-actions">
+                                                <div class="input-group">
+                                                    <textarea placeholder="type your message here ..."  class="form-control"  rows="5" v-model="msg"></textarea>
+
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-sm btn-info no-radius" type="button" @click="save">
+                                                            <i class="icon-share-alt"></i>
+                                                            发送
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div><!-- /widget-main -->
+                                </div><!-- /widget-body -->
+                            </div><!-- /widget-box -->
+                        </div><!-- /span -->
+
+                    <!--</form>-->
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="getList">关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{/block}
+{block name="footer"}
+<script src="<?= $js?>/admin/note.js"></script>
+
+{/block}

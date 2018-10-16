@@ -1,35 +1,19 @@
 vm = new Vue({
-    el: '.vipRight',
+    el: '.page-content',
     data: {
-        msg:'',
         pageNo: 1,   // 当前页数
         pages: 0,    //  多少页
-        List:{},
+        List: {},
         delailList:{},
         topic:{},
         tmpid:'',
+        msg:'',
     },
     methods: {
-        send: function () {
-            this.$http.post("/index/center/sendnote", {
-                msg:this.msg,
-            }, {
-                emulateJSON: true
-            }).then(function (res) {
-                if (res.data.code != 200) {
-                    alert(res.data.msg);
-                    return false;
-                }
-                this.getList();
-                this.msg = '';
-
-            }, function (res) {
-                alert("程序崩掉了");
-            });
-        },
         getList: function () {
-            this.$http.post("/index/center/getnotelist", {
+            this.$http.post(ajaxUrl.getNoteList, {
                 current_page: this.pageNo,
+                name:this.s_name,
             }, {
                 emulateJSON: true
             }).then(function (res) {
@@ -37,8 +21,8 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-                this.List = res.data.data;
-
+                this.List = res.data.data['list'];
+                this.pages = res.data.data['count'];
             }, function (res) {
                 alert("程序崩掉了");
             });
@@ -46,7 +30,7 @@ vm = new Vue({
         getDetail: function (id) {
 
             this.tmpid = id;
-            this.$http.post('/index/center/getDetail', {
+            this.$http.post(ajaxUrl.getDetail, {
                 id:id
             }, {
                 emulateJSON: true
@@ -62,7 +46,7 @@ vm = new Vue({
             });
         },
         save:function () {
-            this.$http.post('/index/center/sendnew', {
+            this.$http.post(ajaxUrl.sendNote    , {
                 id:this.tmpid,
                 msg:this.msg,
             }, {
@@ -93,4 +77,5 @@ vm = new Vue({
         });
     }
 });
+
 

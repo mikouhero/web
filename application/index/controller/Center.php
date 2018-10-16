@@ -202,6 +202,21 @@ class Center extends  Controller
         return view('index@center/note');
     }
 
+    public function getNoteList(Request $request)
+    {
+        $data = $request->post();
+        $current_page = $data['current_page'];
+        $pagesize = 10;
+        $start = ($current_page - 1) * $pagesize;
+       $data =  Db::name('note')->field('id,content,status,create_time')
+            ->where('member_id','=',Session::get('member_user.id'))
+           ->order('id', 'desc')
+            ->limit($start, $pagesize)
+            ->select();
+        $this->ajaxReturnMsg(200,'success',$data);
+    }
+
+
     public  function  sendnote(Request $request)
     {
         $data = $request->post();
@@ -209,23 +224,66 @@ class Center extends  Controller
             $this->ajaxReturnMsg(201,'内容不能为空',$data);
         }
 
-        $where['ip'] = ['=',$request->ip()];
-        $where['create_time'] =['>=',date('Y-m-d')];
-
-        $num = Db::name('note')->where($where)->count();
-        if($num > 2){
-            $this->ajaxReturnMsg(201,'今日留言超过限制',$data);
-        }
-        $param = array(
-            'name' => Session::get('member_user.user'),
-            'content' => $data['msg'],
-            'ip' => $request->ip(),
-            'create_time' => date("Y-m-d H:i:s")
+        $param =array(
+            'member_id'     =>  Session::get('member_user.id'),
+            'content'       =>  $data['msg'],
+            'name'          =>  Session::get('member_user.user'),
+            'ip'            =>  $request->ip(),
+            'status'        => 0,
+            'create_time'   =>  date('Y-m-d H:i:s')
         );
+
         Db::name('note')->insert($param);
 
         $this->ajaxReturnMsg(200,'success',$data);
 
+    }
+
+    public function getDetail(Request $request)
+    {
+        $data = $request->post();
+
+        if(!isset($data['id']) || empty($data['id']) ){
+            $this->ajaxReturnMsg(201, '参数错误 ', '');
+        }
+        $topic = Db::name('note')->field('content,create_time,name')->where('id',$data['id'])->find();
+        $topic['create_time'] = formatDate($topic['create_time']);
+
+        $list = Db::name('note_comment')
+            ->field('user_name,content,create_time,source')
+            ->where('note_id',$data['id'])
+            ->order('id','asc')
+            ->select();
+        foreach ($list as $k => $v){
+            $list[$k]['create_time'] = formatDate($v['create_time']);
+        }
+        $res = array(
+            'topic' => $topic,
+            'list' => $list,
+        );
+        $this->ajaxReturnMsg(200, 'success', $res);
+    }
+
+
+    public function sendNew(Request $request)
+    {
+        $data = $request->post();
+
+        if(!isset($data['id']) || empty($data['id']) || !isset($data['msg']) || empty($data['msg']) ){
+            $this->ajaxReturnMsg(201, '参数错误 ', '');
+        }
+        $param = array(
+            'note_id'        => $data['id'],
+            'content'        => $data['msg'],
+            'source'         => 1,
+            'ip'             =>$request->ip(),
+            'user_name'          =>  Session::get('member_user.user'),
+            'user_id'        =>Session::get('member_user.id'),
+            'create_time'    => date("Y-m-d H:i:s")
+        );
+        Db::name('note_comment')->insert($param);
+        Db::name('note')->where('id',$data['id'])->update(['status'=>0]);
+        $this->ajaxReturnMsg(200, 'success', '');
     }
 
     protected function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
