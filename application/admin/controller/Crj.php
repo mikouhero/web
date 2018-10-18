@@ -38,6 +38,11 @@ class Crj extends Base
             $condition['p1.isp'] = ['=', $data['s_isp']];
         }
 
+        if (isset($data['s_type']) && !empty($data['s_type'])) {
+            $condition['p1.type'] = ['=', $data['s_type']];
+        }
+
+
         if (isset($data['s_status']) && !empty($data['s_status'])) {
             $condition['p1.status'] = ['=', $data['s_status']];
         }
@@ -64,6 +69,7 @@ class Crj extends Base
                      p2.name as company_name ,
                      p3.crj_code as crj,
                      p1.address,
+                     p1.type,
                      p1.isp,
                      p1.demand,
                      p1.method,
@@ -139,6 +145,7 @@ class Crj extends Base
         $param = array(
             'cid' => $data['cid'],
             'crj' => $data['crj'],
+            'type' => $data['type'],
             'address' => $data['address'],
             's_price' => $data['s_price'],
             'price' => $data['price'],
@@ -231,6 +238,7 @@ class Crj extends Base
             $param = array(
                 'cid' => $data['cid'],
 //                'crj' => $data['crj'],
+                'type' => $data['type'],
                 'address' => $data['address'],
                 's_price' => $data['s_price'],
                 'price' => $data['price'],

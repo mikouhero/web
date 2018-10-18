@@ -12,6 +12,7 @@ vm = new Vue({
         s_crj :'',
         s_isp:'',
         s_cid:'',
+        s_type:'',
         s_status:'',
         s_time:'',
         s_out:'',
@@ -35,6 +36,7 @@ vm = new Vue({
                 s_status:this.s_status,
                 s_time:this.s_time,
                 s_out:this.s_out,
+                s_type:this.s_type,
                 s_isp_manager:this.s_isp_manager,
 
             }, {
