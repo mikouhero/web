@@ -163,16 +163,16 @@ class Center extends  Controller
         $list = Db::name('member')
             ->alias('p1')
             ->field('
-            p3.brj,
+            p3.crj,
             p3.type,
             p4.name as type_name,
-            p3.speed,
+            p3.actual,
             p3.status,
-            p3.contact,
             p3.address,
+            p3.s_price,
             p3.start_time')
             ->join('company p2', 'p2.id = p1.cid', 'left')
-            ->join('brj p3' ,'p3.cid = p2.id','left')
+            ->join('crj p3' ,'p3.cid = p2.id','left')
             ->join('service_type p4','p4.id = p3.type' ,'left')
             ->where($condition)
             ->order('p3.id', 'desc')
@@ -181,7 +181,7 @@ class Center extends  Controller
         $count =  Db::name('member')
             ->alias('p1')
             ->join('company p2', 'p2.id = p1.cid', 'left')
-            ->join('brj p3' ,'p3.cid = p2.id','left')
+            ->join('crj p3' ,'p3.cid = p2.id','left')
             ->where($condition)
             ->order('p3.id', 'desc')
             ->count();

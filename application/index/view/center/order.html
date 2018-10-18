@@ -59,18 +59,20 @@
                 <th>业务类型</th>
                 <th>带宽</th>
                 <th>业务状态</th>
-                <th>联系人</th>
+                <th>价格</th>
+                <!--<th>联系人</th>-->
                 <th>安装地址</th>
                 <th>开通时间</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="item in msg" v-cloak>
-                <td>{{item.brj}}</td>
+                <td>{{item.crj}}</td>
                 <td>{{item.type_name}}</td>
-                <td>{{item.speed}}</td>
+                <td>{{item.actual}}</td>
                 <td v-show="item.status == b.id" v-for="b in statuslist">{{b.name}}</td>
-                <td>{{item.contact}}</td>
+                <td>&yen;:{{item.s_price}}</td>
+                <!--<td>{{item.contact}}</td>-->
                 <td>{{item.address}} </td>
                 <td>{{item.start_time}}</td>
             </tr>
