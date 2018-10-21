@@ -34,9 +34,9 @@ class Crj extends Base
         if (isset($data['s_cid']) && !empty($data['s_cid'])) {
             $condition['p1.cid'] = ['=', $data['s_cid']];
         }
-        if (isset($data['s_isp']) && !empty($data['s_isp'])) {
-            $condition['p1.isp'] = ['=', $data['s_isp']];
-        }
+//        if (isset($data['s_isp']) && !empty($data['s_isp'])) {
+//            $condition['p1.isp'] = ['=', $data['s_isp']];
+//        }
 
         if (isset($data['s_type']) && !empty($data['s_type'])) {
             $condition['p1.type'] = ['=', $data['s_type']];
@@ -70,7 +70,6 @@ class Crj extends Base
                      p3.crj_code as crj,
                      p1.address,
                      p1.type,
-                     p1.isp,
                      p1.demand,
                      p1.method,
                      p1.actual,
@@ -81,6 +80,7 @@ class Crj extends Base
                      DATE_FORMAT(p1.end_time,"%Y-%m-%d") as end_time,
                      DATE_FORMAT(p1.teardown,"%Y-%m-%d") as teardown,
                      p4.sales,
+                     p5.phone,
                      p5.isp_sales,
                      p4.isp_manager
                      '
@@ -121,7 +121,7 @@ class Crj extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['cid']) || empty($data['cid']) || !isset($data['crj']) || empty($data['crj']) || !isset($data['address']) || empty($data['address']) || !isset($data['isp']) || empty($data['isp']) || !isset($data['method']) || empty($data['method']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['price']) || empty($data['price']) || !isset($data['demand']) || empty($data['demand']) || !isset($data['isp_manager']) || empty($data['isp_manager']) || !isset($data['sales']) || empty($data['sales']) || !isset($data['status'])) {
+        if (!isset($data['cid']) || empty($data['cid']) || !isset($data['crj']) || empty($data['crj']) || !isset($data['address']) || empty($data['address'])  || !isset($data['method']) || empty($data['method']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['price']) || empty($data['price']) || !isset($data['demand']) || empty($data['demand']) || !isset($data['isp_manager']) || empty($data['isp_manager']) || !isset($data['sales']) || empty($data['sales']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
         if(empty($data['end_time'])){
@@ -149,7 +149,7 @@ class Crj extends Base
             'address' => $data['address'],
             's_price' => $data['s_price'],
             'price' => $data['price'],
-            'isp' => $data['isp'],
+//            'isp' => $data['isp'],
             'start_time' => $data['start_time'],
             'end_time' => $data['end_time'],
             'status' => $data['status'],
@@ -213,7 +213,7 @@ class Crj extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['id']) || empty($data['id']) || !isset($data['cid']) || empty($data['cid']) || !isset($data['crj']) || empty($data['crj']) || !isset($data['address']) || empty($data['address']) || !isset($data['isp']) || empty($data['isp']) || !isset($data['method']) || empty($data['method']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['price']) || empty($data['price']) || !isset($data['demand']) || empty($data['demand']) || !isset($data['status'])) {
+        if (!isset($data['id']) || empty($data['id']) || !isset($data['cid']) || empty($data['cid']) || !isset($data['crj']) || empty($data['crj']) || !isset($data['address']) || empty($data['address']) ||  !isset($data['method']) || empty($data['method']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['price']) || empty($data['price']) || !isset($data['demand']) || empty($data['demand']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
         if(empty($data['end_time'])){
@@ -242,7 +242,7 @@ class Crj extends Base
                 'address' => $data['address'],
                 's_price' => $data['s_price'],
                 'price' => $data['price'],
-                'isp' => $data['isp'],
+//                'isp' => $data['isp'],
                 'start_time' => $data['start_time'],
                 'end_time' => $data['end_time'],
                 'status' => $data['status'],

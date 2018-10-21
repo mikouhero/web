@@ -31,12 +31,12 @@
                     </div>
 
 
-                    <div class="col-xs-2 input-group-s">
-                        <select  class="form-control "  v-model="s_isp">
-                            <option value="">请选择运营商</option>
-                            <option v-for="item in threelist" :value="item.id">{{item.name}}</option>
-                        </select>
-                    </div>
+                    <!--<div class="col-xs-2 input-group-s">-->
+                        <!--<select  class="form-control "  v-model="s_isp">-->
+                            <!--<option value="">请选择运营商</option>-->
+                            <!--<option v-for="item in threelist" :value="item.id">{{item.name}}</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
 
                     <div class="col-xs-2 input-group-s">
                         <select  class="form-control "  v-model="s_status">
@@ -109,8 +109,9 @@
                         <th>业务编号</th>
                         <th>安装地址</th>
                         <th>业务类型</th>
-                        <th>运营商</th>
+                        <!--<th>运营商</th>-->
                         <th>运营商经理</th>
+                        <th>运营商经理电话</th>
                         <th>业务员</th>
                         <th>客户需求</th>
                         <th>实际套餐</th>
@@ -132,8 +133,9 @@
                         <td>{{item.crj}}</td>
                         <td>{{item.address}}</td>
                         <td v-show="item.type == i.id" v-for="i in typeList">{{i.name}}</td>
-                        <td v-show="item.isp == t.id" v-for="t in threelist">{{t.name}}</td>
+                        <!--<td>{{item.isp}}</td>-->
                         <td>{{item.isp_sales}}</td>
+                        <td>{{item.phone}}</td>
                         <td>{{item.sales}}</td>
                         <td>{{item.demand}}</td>
                         <td>{{item.actual}}</td>
@@ -224,16 +226,16 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" >运营商 </label>
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-3 control-label no-padding-right" >运营商 </label>-->
 
-                            <div class="col-sm-9">
-                                <select class="col-xs-10 col-sm-5"  v-model="msg['isp']">
-                                    <option value="" disabled>请选择运营商</option>
-                                    <option v-for="item in threelist " :value="item.id">{{item.name}}</option>
-                                </select>
-                            </div>
-                        </div>
+                            <!--<div class="col-sm-9">-->
+                                <!--<select class="col-xs-10 col-sm-5"  v-model="msg['isp']">-->
+                                    <!--<option value="" disabled>请选择运营商</option>-->
+                                    <!--<option v-for="item in threelist " :value="item.id">{{item.name}}</option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" >运营商经理</label>
@@ -396,16 +398,16 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" >运营商 </label>
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-3 control-label no-padding-right" >运营商 </label>-->
 
-                                <div class="col-sm-9">
-                                    <select class="col-xs-10 col-sm-5"  v-model="editmsg['isp']">
-                                        <option value="" disabled>请选择业务类型</option>
-                                        <option v-for="item in threelist " :value="item.id">{{item.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
+                                <!--<div class="col-sm-9">-->
+                                    <!--<select class="col-xs-10 col-sm-5"  v-model="editmsg['isp']">-->
+                                        <!--<option value="" disabled>请选择业务类型</option>-->
+                                        <!--<option v-for="item in threelist " :value="item.id">{{item.name}}</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" >运营商经理</label>

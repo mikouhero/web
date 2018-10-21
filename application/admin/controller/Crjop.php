@@ -72,11 +72,15 @@ class Crjop extends Base
                      p3.port,
                      p3.ip,
                      p3.account,
-                     p3.password
+                     p3.password,
+                     p5.phone,
+                     p5.isp_sales
                      '
                     )
             ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
+            ->join('b_crj_s p4','p4.crj_id = p1.id','left')
+            ->join('channel p5','p5.id = p4.isp_manager','left')
             ->where('p3.crj_id is not null ')
             ->where($condition)
             ->order('id', 'desc')

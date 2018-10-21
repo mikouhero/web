@@ -30,12 +30,12 @@
                         <input type="text" class="form-control" style=" width: 200px;"  placeholder="请输入联系人"v-model="s_name">
                     </div>
 
-                    <div class="col-xs-2 input-group-s">
-                        <select  class="form-control "  v-model="s_isp">
-                            <option value="">请选择运营商公司</option>
-                            <option v-for="item in threelist" :value="item.id">{{item.name}}</option>
-                        </select>
-                    </div>
+                    <!--<div class="col-xs-2 input-group-s">-->
+                        <!--<select  class="form-control "  v-model="s_isp">-->
+                            <!--<option value="">请选择运营商公司</option>-->
+                            <!--<option v-for="item in threelist" :value="item.id">{{item.name}}</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
 
                     <div class="col-xs-1">
                         <div class="form-group">
@@ -67,9 +67,7 @@
                     <tbody>
                     <tr v-for="(item,key) in List" v-cloak>
                         <td>{{item.id}}</td>
-                        <td v-if="item.isp == 1">中国移动</td>
-                        <td v-if="item.isp == 2">中国联通</td>
-                        <td v-if="item.isp == 3">中国电信</td>
+                        <td >{{item.isp}}</td>
                         <td>{{item.isp_sales}}</td>
                         <td>{{item.phone}}</td>
                         <td>{{item.create_time}}</td>
@@ -117,10 +115,8 @@
                             <label class="col-sm-3 control-label no-padding-right" >所属运营商 </label>
 
                             <div class="col-sm-9">
-                                <select class="col-xs-10 col-sm-5"  v-model="msg['isp']">
-                                    <option value="" disabled>请选择运营商公司</option>
-                                    <option v-for="item in threelist" :value="item.id">{{item.name}}</option>
-                                </select>
+                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                       v-model="msg['isp']">
                             </div>
                         </div>
 
