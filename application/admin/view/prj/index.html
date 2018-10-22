@@ -98,6 +98,11 @@
                         <td>
                             <div class="action-buttons">
 
+                                <a class="blue" title="上传附件" @click="edittmpid(item.id,key)" data-toggle="modal" data-target="#add">
+                                    <i class="icon-zoom-in bigger-130"  data-toggle="modal" data-target="#role"></i>
+
+                                </a>
+
                                 <a class="green"  @click="edittmpid(item.id,key)" data-toggle="modal" data-target="#edit">
                                     <i class="icon-pencil bigger-130"></i>
                                 </a>
@@ -406,6 +411,26 @@
     </div>
     <!--role-->
 
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="add">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title">添加附件</h2>
+                </div>
+                <div class="modal-body">
+                    <input type="file" @change="getFile($event)" />
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="upload">确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 {/block}

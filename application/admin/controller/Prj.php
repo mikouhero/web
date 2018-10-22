@@ -122,6 +122,23 @@ class Prj extends Base
 
     }
 
+    public function upload(Request $request)
+    {
+        //获取表单上传文件
+        $file = $request->file('fj');
+        if (empty($file)) {
+            $this->ajaxReturnMsg(201,'请选择上传文件','');
+        }
+        $info = $file->move('upload'.DS.'fujian');
+        if(!$info){
+            $this->ajaxReturnMsg(201,'上传失败','');
+        }
+        $f = $info->getFilename();
+        $p = $info->getPath();
+        $path= $p.DS.$f;
+
+    }
+
     /*
      * 获取prj号码
      */

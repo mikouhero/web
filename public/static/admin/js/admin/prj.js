@@ -19,6 +19,9 @@ vm = new Vue({
         companyList:{},
         buildingList:{},
         prjCode:'',
+        upath: '',
+        result: '',
+        uping:0
     },
     methods: {
         getList: function () {
@@ -145,6 +148,27 @@ vm = new Vue({
             this.getList(this.pageNo);
             // console.log("当前页：" + this.pageNo);
         },
+        upload: function () {
+            //console.log(this.upath);
+            var zipFormData = new FormData();
+            zipFormData.append('fj', this.upath);//filename是键，file是值，就是要传的文件，test.zip是要传的文件名
+            console.log(zipFormData);
+            let config = { headers: { 'Content-Type': 'multipart/form-data' } };
+            this.$http.post(ajaxUrl.uploadPrj, zipFormData,config).then(function (response) {
+                // console.log(response);
+                // console.log(response.data);
+                // console.log(response.bodyText);
+
+                // var resultobj = response.data;
+                // this.uping = 0;
+                // this.result = resultobj.msg;
+            });
+        },
+
+        getFile: function (even) {
+            this.upath = event.target.files[0];
+        },
+
 
     },
     mounted: function () {

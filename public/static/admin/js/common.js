@@ -64,6 +64,7 @@ var ajaxUrl = {
     addPrj:adminUrl+"/prj/insert",
     editPrj:adminUrl+"/prj/update",         // brj
     delPrj:adminUrl+"/prj/delete",
+    uploadPrj:adminUrl+"/prj/upload",
 
 
 
