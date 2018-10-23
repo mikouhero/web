@@ -113,8 +113,10 @@ class User extends Base
             "name" => $data['name'],
             "mobile" => $data['mobile'],
             "status" => $data['status'],
-
         );
+        if($data['id']==1 || $data['user_name']=="admin"){
+            $param['status'] =1;
+        }
         Db::name('user')->where('id', $data['id'])->update($param);
         $this->ajaxReturnMsg(200, 'success', '');
 

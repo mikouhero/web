@@ -77,6 +77,15 @@ class Base extends Controller
                 }
             }
         }
+        $status = cache('admin_status'.$user_msg['id']);
+        if(empty($status)){
+            $status = Db::name('user')->field('status')->where('id',$user_msg['id'])->find();
+            cache('admin_status'.$user_msg['id'],$status,['expire'=>60*10]);
+        }
+        if($status['status'] == 0){
+            echo "<script>alert('账号被锁定，请联系管理员');history.back();</script>";
+            die;
+        }
     }
 
     public function getMenu()
