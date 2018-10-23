@@ -91,8 +91,11 @@ class Role extends Base
         if (Db::name('role')->where('id', '<>', $data['id'])->where('name', $data['name'])->count()) {
             $this->ajaxReturnMsg(202, '用户名已存在', '');
         }
-        unset($data['role']);
-        $param = $data;
+       $param =array(
+           'name' => $data['name'],
+           'status' => $data['status'],
+           'description'=>$data['description']
+       );
         Db::name('role')->where('id', $data['id'])->update($param);
         $this->ajaxReturnMsg(200, 'success', '');
 

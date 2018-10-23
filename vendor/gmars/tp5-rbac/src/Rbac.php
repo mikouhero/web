@@ -391,12 +391,18 @@ class Rbac
             throw new Exception('参数错误');
         }
 
+        /**
+         * 添加状态修改
+         */
         $permission = Db::name($this->permissionTable)
             ->alias('p')
             ->join("{$this->rolePermissionTable} rp", "p.id = rp.permission_id")
             ->join("{$this->userRoleTable} ur", "rp.role_id = ur.role_id")
-            ->where("ur.user_id = {$id}")->select();
+            ->join("{$this->roleTable} r","r.id = ur.role_id")
+            ->where('r.status','=',1)
+            ->where("{$this->permissionTable}.status",'=',1)
 
+            ->where("ur.user_id = {$id}")->select();
         $newPermission = [];
         if (!empty($permission)) {
             foreach ($permission as $k=>$v)

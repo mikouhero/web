@@ -104,6 +104,10 @@ class Base extends Controller
                     ->alias('p')
                     ->join("role_permission rp", "p.id = rp.permission_id")
                     ->join("user_role ur", "rp.role_id = ur.role_id")
+                    ->join("role r", "ur.role_id = r.id")
+                    ->where('r.status','=',1)
+                    ->where('permission.status','=',1)
+
                     ->where("ur.user_id = {$user_msg['id']}")->select();
 
                 cache('adminpermission', $permission);
