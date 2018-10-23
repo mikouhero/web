@@ -62,9 +62,9 @@ var ajaxUrl = {
     getPrjList:adminUrl+"/prj/getList",
     getPrjCode:adminUrl+"/prj/add",
     addPrj:adminUrl+"/prj/insert",
-    editPrj:adminUrl+"/prj/update",         // brj
+    editPrj:adminUrl+"/prj/update",         // prj
     delPrj:adminUrl+"/prj/delete",
-    uploadPrj:adminUrl+"/prj/upload",
+    uploadPrj:adminUrl+"/prj/updatefj",
 
 
 

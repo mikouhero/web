@@ -57,7 +57,8 @@ class Prj extends Base
             p1.final_cost,
             p1.first_pay,
             p1.second_pay,
-            p1.last_pay')
+            p1.last_pay,
+            p1.fj')
             ->join('company p2', 'p2.id = p1.cid', 'left')
             ->where($condition)
             ->order('id', 'desc')
@@ -122,10 +123,12 @@ class Prj extends Base
 
     }
 
-    public function upload(Request $request)
+    public function updatefj(Request $request)
     {
         //获取表单上传文件
         $file = $request->file('fj');
+        $heder = $request->header();
+        $id = $heder['id'];
         if (empty($file)) {
             $this->ajaxReturnMsg(201,'请选择上传文件','');
         }
@@ -136,6 +139,17 @@ class Prj extends Base
         $f = $info->getFilename();
         $p = $info->getPath();
         $path= $p.DS.$f;
+        $data = Db::name('prj')->field('fj')->where('id',$id)->find();
+        if($data){
+
+            $len = strlen(Request::instance()->domain());
+            $oldpath = substr($data['fj'], $len + 1); // 图片路径
+            if (file_exists($oldpath)) {
+                unlink($oldpath);
+            }
+        }
+        Db::name('prj')->where('id',$id)->update(['fj'=>config('base_url').DS.$path]);
+        $this->ajaxReturnMsg(200,'success','');
 
     }
 

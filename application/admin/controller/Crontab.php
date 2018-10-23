@@ -73,7 +73,12 @@ class Crontab extends Controller
                 }
             }
             if(is_dir($path)){
-                $this->del($path.'/');
+                if(count(scandir($path))==2){ // 目录为空,=2是因为. 和 ..存在
+                    rmdir($path);             // 删除空目录
+                }else{
+                    $this->del($path.'/');
+                }
+
             }
         }
         closedir($handle);

@@ -20,8 +20,7 @@ vm = new Vue({
         buildingList:{},
         prjCode:'',
         upath: '',
-        result: '',
-        uping:0
+        fjid:'',
     },
     methods: {
         getList: function () {
@@ -112,6 +111,7 @@ vm = new Vue({
                     this.getList();
                     return false;
                 }
+
                 this.getList();
 
                 this.editmsg = {};
@@ -148,20 +148,32 @@ vm = new Vue({
             this.getList(this.pageNo);
             // console.log("当前页：" + this.pageNo);
         },
+        fjtmpid: function (id) {
+            this.fjid = id;
+        },
+
         upload: function () {
             //console.log(this.upath);
             var zipFormData = new FormData();
             zipFormData.append('fj', this.upath);//filename是键，file是值，就是要传的文件，test.zip是要传的文件名
-            console.log(zipFormData);
-            let config = { headers: { 'Content-Type': 'multipart/form-data' } };
-            this.$http.post(ajaxUrl.uploadPrj, zipFormData,config).then(function (response) {
-                // console.log(response);
-                // console.log(response.data);
-                // console.log(response.bodyText);
+            // console.log(zipFormData);
+            let config = { headers: { 'Content-Type': 'multipart/form-data' ,'id':this.fjid} };
+            this.$http.post(
+                ajaxUrl.uploadPrj,
+                zipFormData,
+                config
+            ).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    this.getList();
+                    return false;
+                }
+                $('#fj').val('');
+                this.getList();
 
-                // var resultobj = response.data;
-                // this.uping = 0;
-                // this.result = resultobj.msg;
+                this.fjid = '';
+            }, function (res) {
+                alert("程序崩掉了");
             });
         },
 

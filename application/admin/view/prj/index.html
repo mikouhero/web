@@ -76,6 +76,7 @@
                         <th>一期款</th>
                         <th>二期款</th>
                         <th>尾款</th>
+                        <th>附件</th>
                         <th>操作</th>
 
                     </tr>
@@ -95,10 +96,12 @@
                         <td>{{item.first_pay}}</td>
                         <td>{{item.second_pay}}</td>
                         <td>{{item.last_pay}}</td>
+                        <td><a :href="item.fj" target="_blank" v-if="item.fj"><i class="icon-download-alt bigger-130"></i></a></td>
+
                         <td>
                             <div class="action-buttons">
 
-                                <a class="blue" title="上传附件" @click="edittmpid(item.id,key)" data-toggle="modal" data-target="#add">
+                                <a class="blue" title="上传附件"  data-toggle="modal" data-target="#add"  @click="fjtmpid(item.id)">
                                     <i class="icon-zoom-in bigger-130"  data-toggle="modal" data-target="#role"></i>
 
                                 </a>
@@ -421,7 +424,7 @@
                     <h2 class="modal-title">添加附件</h2>
                 </div>
                 <div class="modal-body">
-                    <input type="file" @change="getFile($event)" />
+                    <input type="file" id='fj' @change="getFile($event)" />
                 </div>
                 <div class="modal-footer text-right">
                     <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>

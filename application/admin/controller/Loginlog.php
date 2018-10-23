@@ -37,6 +37,7 @@ class Loginlog extends Base
             ->field('p1.id,p1.login_name,p1.create_time,p1.service_ip')
             ->where($condition)
             ->limit($start, $pagesize)
+            ->order('id','desc')
             ->select();
         $count = Db::name('login_log')->alias('p1')->where($condition)->count();
         $res = array(
