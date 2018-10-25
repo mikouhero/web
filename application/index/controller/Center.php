@@ -208,11 +208,19 @@ class Center extends  Controller
         $current_page = $data['current_page'];
         $pagesize = 10;
         $start = ($current_page - 1) * $pagesize;
-       $data =  Db::name('note')->field('id,content,status,create_time')
+        $list =  Db::name('note')->field('id,content,status,create_time')
             ->where('member_id','=',Session::get('member_user.id'))
            ->order('id', 'desc')
             ->limit($start, $pagesize)
             ->select();
+       $count = Db::name('note')->field('id,content,status,create_time')
+           ->where('member_id','=',Session::get('member_user.id'))
+           ->order('id', 'desc')
+           ->count();
+        $data = array(
+            'list' => $list,
+            'count' => ceil($count / $pagesize)
+        );
         $this->ajaxReturnMsg(200,'success',$data);
     }
 

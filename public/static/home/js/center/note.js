@@ -37,8 +37,8 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-                this.List = res.data.data;
-
+                this.List = res.data.data['list'];
+                this.pages = res.data.data['count'];
             }, function (res) {
                 alert("程序崩掉了");
             });
