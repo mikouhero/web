@@ -16,7 +16,7 @@ vm = new Vue({
         s_status:'',
         s_time:'',
         s_out:'',
-        // s_isp_manager:'',
+        s_isp_manager:'',
         typeList :{},
         bus_status :[{id:1,name:'正常'},{id:2,name:'过期'}],
         threelist :{},
@@ -28,7 +28,7 @@ vm = new Vue({
     },
     methods: {
         getList: function () {
-            this.$http.post(ajaxUrl.getCrjList, {
+            this.$http.post(ajaxUrl.getCrjbtList, {
                 current_page: this.pageNo,
                 s_crj:this.s_crj,
                 s_isp:this.s_isp,
@@ -66,7 +66,7 @@ vm = new Vue({
             this.msg['end_time'] = end;
             this.msg['teardown'] = teardown;
 
-            this.$http.post(ajaxUrl.addCrj, {
+            this.$http.post(ajaxUrl.addCrjbt, {
                 'msg': JSON.stringify(this.msg)
             }, {
                 emulateJSON: true
@@ -83,7 +83,7 @@ vm = new Vue({
             });
         },
         getCode:function () {
-            this.$http.post(ajaxUrl.getCrjCode, {
+            this.$http.post(ajaxUrl.getCrjbtCode, {
             }, {
                 emulateJSON: true
             }).then(function (res) {
@@ -111,7 +111,7 @@ vm = new Vue({
             this.editmsg['start_time'] = start;
             this.editmsg['end_time'] = end;
             this.editmsg['teardown'] = teardown;
-            this.$http.post(ajaxUrl.editCrj, {
+            this.$http.post(ajaxUrl.editCrjbt, {
                 msg: JSON.stringify(this.editmsg)
             }, {
                 emulateJSON: true
@@ -134,7 +134,7 @@ vm = new Vue({
             this.delkey = key;
         },
         del: function (id) {
-            this.$http.post(ajaxUrl.delCrj, {
+            this.$http.post(ajaxUrl.delCrjbt, {
                 id: id
             }, {
                 emulateJSON: true

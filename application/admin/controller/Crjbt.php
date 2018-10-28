@@ -13,11 +13,11 @@ use think\Db;
 use think\Request;
 
 
-class Crj extends Base
+class Crjbt extends Base
 {
     public function index()
     {
-        return view("admin@crj/index");
+        return view("admin@crjbt/index");
     }
 
     public function getList(Request $request)
@@ -66,7 +66,7 @@ class Crj extends Base
             ->alias('p1')
             ->field('p1.id,
                      p1.cid,
-                     p2.name as company_name ,
+                     p2.name as company_name,
                      p3.crj_code as crj,
                      p1.address,
                      p1.type,
@@ -79,19 +79,23 @@ class Crj extends Base
                      DATE_FORMAT(p1.start_time,"%Y-%m-%d") as start_time,
                      DATE_FORMAT(p1.end_time,"%Y-%m-%d") as end_time,
                      DATE_FORMAT(p1.teardown,"%Y-%m-%d") as teardown,
-                     p4.sales
+                     p4.sales,
+                     p4.isp_manager,
+                     p5.phone,
+                     p5.isp_sales,
+                     p4.price as s_price
                      '
                     )
             ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('crj_code p3', 'p1.crj = p3.crj_code', 'left')
             ->join('crj_bt p4','p4.crj_id = p1.id','left')
-//            ->join('channel p5','p5.id = p4.isp_manager','left')
+            ->join('channel p5','p5.id = p4.isp_manager','left')
             ->where($condition)
             ->order('id', 'desc')
             ->limit($start, $pagesize)
             ->select();
-        $typeList = Db::name('service_type')->field('id,name,status,deleted')->select();
-        $companyList = Db::name('company')->field('id,name,deleted')->select();
+        $typeList = Db::name('service_type')->field('id,name,status')->select();
+        $companyList = Db::name('company')->field('id,name')->select();
         $buildingList = Db::name('building')->field('id,name')->select();
         $ispList = Db::name('channel')->field('id,isp_sales')->select();
         $threeList = Db::name('isp')->field('id,name')->where('deleted','0')->select();
@@ -100,7 +104,7 @@ class Crj extends Base
             ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
             ->join('crj_bt p4','p4.crj_id = p1.id','left')
-//            ->join('channel p5','p5.id = p4.isp_manager','left')
+            ->join('channel p5','p5.id = p4.isp_manager','left')
             ->where($condition)->count();
         $res = array(
             'list' => $list,
@@ -119,16 +123,16 @@ class Crj extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['cid']) || empty($data['cid']) ||
-            !isset($data['crj']) || empty($data['crj']) ||
-            !isset($data['address']) || empty($data['address'])  ||
-            !isset($data['method']) || empty($data['method']) ||
-//            !isset($data['s_price']) || empty($data['s_price']) ||
-            !isset($data['price']) || empty($data['price']) ||
-            !isset($data['demand']) || empty($data['demand']) ||
-//            !isset($data['isp_manager']) || empty($data['isp_manager']) ||
-            !isset($data['sales']) || empty($data['sales']) ||
-            !isset($data['status'])) {
+        if (!isset($data['cid']) || empty($data['cid'])
+            || !isset($data['crj']) || empty($data['crj'])
+            || !isset($data['address']) || empty($data['address'])
+            || !isset($data['method']) || empty($data['method'])
+//            || !isset($data['s_price']) || empty($data['s_price'])
+            || !isset($data['price']) || empty($data['price'])
+            || !isset($data['demand']) || empty($data['demand'])
+            || !isset($data['isp_manager']) || empty($data['isp_manager'])
+            || !isset($data['sales']) || empty($data['sales'])
+            || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
         if(empty($data['end_time'])){
@@ -165,15 +169,19 @@ class Crj extends Base
             'actual' => $data['actual'],
             'method' => $data['method'],
             'isp_method' => $data['isp_method'],
+
             'create_time' => date("Y-m-d H:i:s")
 
         );
         $crj_id = Db::name('crj')->insertGetId($param);
-
+        if(!isset($data['s_price']) || empty($data['s_price'])){
+            $data['s_price'] ='';
+        }
         $param3 = array(
             'crj_id' => $crj_id,
-//            'isp_manager'=> $data['isp_manager'],
-            'sales' =>$data['sales']
+            'isp_manager'=> $data['isp_manager'],
+            'sales' =>$data['sales'],
+            'price' => $data['s_price'],
         );
 
         Db::name('crj_bt')->insert($param3);
@@ -221,17 +229,7 @@ class Crj extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['id']) || empty($data['id']) ||
-            !isset($data['cid']) || empty($data['cid']) ||
-            !isset($data['crj']) || empty($data['crj']) ||
-            !isset($data['address']) || empty($data['address']) ||
-            !isset($data['method']) || empty($data['method']) ||
-            !isset($data['isp_method']) || empty($data['isp_method']) ||
-
-//            !isset($data['s_price']) || empty($data['s_price']) ||
-            !isset($data['price']) || empty($data['price']) ||
-            !isset($data['demand']) || empty($data['demand']) ||
-            !isset($data['status'])) {
+        if (!isset($data['id']) || empty($data['id']) || !isset($data['cid']) || empty($data['cid']) || !isset($data['crj']) || empty($data['crj']) || !isset($data['address']) || empty($data['address']) ||  !isset($data['method']) || empty($data['method']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['price']) || empty($data['price']) || !isset($data['demand']) || empty($data['demand']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
         if(empty($data['end_time'])){
@@ -258,7 +256,7 @@ class Crj extends Base
 //                'crj' => $data['crj'],
                 'type' => $data['type'],
                 'address' => $data['address'],
-//                's_price' => $data['s_price'],
+                's_price' => $data['s_price'],
                 'price' => $data['price'],
 //                'isp' => $data['isp'],
                 'start_time' => $data['start_time'],
@@ -266,7 +264,6 @@ class Crj extends Base
                 'status' => $data['status'],
                 'teardown' => $data['teardown'],
                 'demand' => $data['demand'],
-                'isp_method' => $data['isp_method'],
                 'actual' => $data['actual'],
                 'method' => $data['method'],
             );
@@ -274,7 +271,7 @@ class Crj extends Base
 
 
             $param3 = array(
-//                'isp_manager'=> $data['isp_manager'],
+                'isp_manager'=> $data['isp_manager'],
                 'sales' =>$data['sales']
             );
 

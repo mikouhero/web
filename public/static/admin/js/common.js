@@ -79,6 +79,14 @@ var ajaxUrl = {
     editCrj:adminUrl+"/crj/update",         // crj
     delCrj:adminUrl+"/crj/delete",
 
+    getCrjbtList:adminUrl+"/crjbt/getList",
+    getCrjbtCode:adminUrl+"/crjbt/add",
+    addCrjbt:adminUrl+"/crjbt/insert",
+    editCrjbt:adminUrl+"/crjbt/update",         // crjbt
+    delCrjbt:adminUrl+"/crjbt/delete",
+
+
+
     getCrjopList:adminUrl+"/crjop/getList",
     addCrjop:adminUrl+"/crjop/insert",
     editCrjop:adminUrl+"/crjop/update",         // crjop
