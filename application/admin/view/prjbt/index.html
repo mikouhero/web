@@ -15,7 +15,7 @@
 <div class="page-content">
     <div class="page-header">
         <h1>
-            PRJ 列表
+            PRJ_BT 列表
             <small>
                 <i class="icon-double-angle-right"></i>
             </small>
@@ -71,11 +71,11 @@
                         <th>施工队</th>
                         <th>业务员</th>
                         <th>项目经理</th>
-                        <!--<th>成本</th>-->
+                        <th>成本</th>
                         <th>合同价</th>
-                        <!--<th>一期款</th>-->
-                        <!--<th>二期款</th>-->
-                        <!--<th>尾款</th>-->
+                        <th>一期款</th>
+                        <th>二期款</th>
+                        <th>尾款</th>
                         <th>附件</th>
                         <th>操作</th>
 
@@ -91,11 +91,11 @@
                         <td>{{item.team}}</td>
                         <td>{{item.prj_user}}</td>
                         <td>{{item.prj_manger}}</td>
-                        <!--<td>{{item.pre_cost}}</td>-->
+                        <td>{{item.pre_cost}}</td>
                         <td>{{item.final_cost}}</td>
-                        <!--<td>{{item.first_pay}}</td>-->
-                        <!--<td>{{item.second_pay}}</td>-->
-                        <!--<td>{{item.last_pay}}</td>-->
+                        <td>{{item.first_pay}}</td>
+                        <td>{{item.second_pay}}</td>
+                        <td>{{item.last_pay}}</td>
                         <td><a :href="item.fj" target="_blank" v-if="item.fj"><i class="icon-download-alt bigger-130"></i></a></td>
 
                         <td>
@@ -205,15 +205,15 @@
                         </div>
 
 
-                        <!--<div class="form-group">-->
-                            <!--<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 成本 </label>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 成本 </label>
 
-                            <!--<div class="col-sm-9">-->
-                                <!--<input type="text"  placeholder=""-->
-                                       <!--class="col-xs-10 col-sm-5" v-model="msg['pre_cost']">-->
-                                <!--<span class="help-inline col-xs-12 col-sm-7"></span>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="msg['pre_cost']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 合同价 </label>
@@ -225,35 +225,35 @@
                             </div>
                         </div>
 
-                        <!--<div class="form-group">-->
-                            <!--<label class="col-sm-3 control-label no-padding-right" > 一期款 </label>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" > 一期款 </label>
 
-                            <!--<div class="col-sm-9">-->
-                                <!--<input type="text"  placeholder=""-->
-                                       <!--class="col-xs-10 col-sm-5" v-model="msg['first_pay']">-->
-                                <!--<span class="help-inline col-xs-12 col-sm-7"></span>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="msg['first_pay']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
 
-                        <!--<div class="form-group">-->
-                            <!--<label class="col-sm-3 control-label no-padding-right" > 二期款 </label>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" > 二期款 </label>
 
-                            <!--<div class="col-sm-9">-->
-                                <!--<input type="text"  placeholder=""-->
-                                       <!--class="col-xs-10 col-sm-5" v-model="msg['second_pay']">-->
-                                <!--<span class="help-inline col-xs-12 col-sm-7"></span>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="msg['second_pay']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
 
-                        <!--<div class="form-group">-->
-                            <!--<label class="col-sm-3 control-label no-padding-right" > 尾款 </label>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" > 尾款 </label>
 
-                            <!--<div class="col-sm-9">-->
-                                <!--<input type="text"  placeholder=""-->
-                                       <!--class="col-xs-10 col-sm-5" v-model="msg['last_pay']">-->
-                                <!--<span class="help-inline col-xs-12 col-sm-7"></span>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder=""
+                                       class="col-xs-10 col-sm-5" v-model="msg['last_pay']">
+                                <span class="help-inline col-xs-12 col-sm-7"></span>
+                            </div>
+                        </div>
 
                     </form>
                 </div>
@@ -341,13 +341,13 @@
                                 </div>
                             </div>
 
-                            <!--<div class="form-group">-->
-                                <!--<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 成本 </label>-->
-                                <!--<div class="col-sm-9">-->
-                                    <!--<input type="text"  placeholder="" class="col-xs-10 col-sm-5"-->
-                                           <!--v-model="editmsg['pre_cost']">-->
-                                <!--</div>-->
-                            <!--</div>-->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 成本 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['pre_cost']">
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 合同价 </label>
@@ -358,28 +358,28 @@
                             </div>
 
 
-                            <!--<div class="form-group">-->
-                                <!--<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 一期款 </label>-->
-                                <!--<div class="col-sm-9">-->
-                                    <!--<input type="text"  placeholder="" class="col-xs-10 col-sm-5"-->
-                                           <!--v-model="editmsg['first_pay']">-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="form-group">-->
-                                <!--<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 二期款 </label>-->
-                                <!--<div class="col-sm-9">-->
-                                    <!--<input type="text"  placeholder="" class="col-xs-10 col-sm-5"-->
-                                           <!--v-model="editmsg['second_pay']">-->
-                                <!--</div>-->
-                            <!--</div>-->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 一期款 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['first_pay']">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 二期款 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['second_pay']">
+                                </div>
+                            </div>
 
-                            <!--<div class="form-group">-->
-                                <!--<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 尾款 </label>-->
-                                <!--<div class="col-sm-9">-->
-                                    <!--<input type="text"  placeholder="" class="col-xs-10 col-sm-5"-->
-                                           <!--v-model="editmsg['last_pay']">-->
-                                <!--</div>-->
-                            <!--</div>-->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 尾款 </label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                           v-model="editmsg['last_pay']">
+                                </div>
+                            </div>
 
 
                         </form>
@@ -438,6 +438,6 @@
 </div>
 {/block}
 {block name="footer"}
-<script src="<?= $js?>/admin/prj.js"></script>
+<script src="<?= $js?>/admin/prjbt.js"></script>
 
 {/block}

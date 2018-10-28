@@ -13,11 +13,11 @@ use think\Db;
 use think\Request;
 
 
-class Prj extends Base
+class Prjbt extends Base
 {
     public function index()
     {
-        return view("admin@prj/index");
+        return view("admin@prjbt/index");
     }
 
     public function getList(Request $request)
@@ -48,15 +48,19 @@ class Prj extends Base
             ->field('p1.id,
             p1.cid,
             p2.name as company_name ,
-            p1.prj,
-            p1.address,
+            p1.prj,p1.address,
             p1.pro_name,
             p1.team,
             p1.prj_user,
             p1.prj_manger,
+            p3.pre_cost,
             p1.final_cost,
+            p3.first_pay,
+            p3.second_pay,
+            p3.last_pay,
             p1.fj')
             ->join('company p2', 'p2.id = p1.cid', 'left')
+            ->join('prj_bt p3','p3.prj_id = p1.id','left')
             ->where($condition)
             ->order('id', 'desc')
             ->limit($start, $pagesize)
@@ -103,7 +107,18 @@ class Prj extends Base
                 'final_cost' => $data['final_cost'],
                 'create_time' => date("Y-m-d H:i:s")
             );
-            Db::name('prj')->insertGetId($param);
+            $prj_id = Db::name('prj')->insertGetId($param);
+
+            $param2 = array(
+                'prj_id' => $prj_id,
+                'pre_cost' => $data['pre_cost'],
+                'first_pay' => $data['first_pay'],
+                'second_pay' => $data['second_pay'],
+                'last_pay' => $data['last_pay'],
+            );
+
+            Db::name('prj_bt')->insert($param2);
+
 
             Db::commit();
             $this->ajaxReturnMsg(200, 'success', '');
@@ -193,9 +208,27 @@ class Prj extends Base
                 'team' => $data['team'],
                 'prj_user' => $data['prj_user'],
                 'prj_manger' => $data['prj_manger'],
+//                'pre_cost' => $data['pre_cost'],
                 'final_cost' => $data['final_cost'],
+//                'first_pay' => $data['first_pay'],
+//                'second_pay' => $data['second_pay'],
+//                'last_pay' => $data['last_pay'],
             );
             Db::name('prj')->where('id', $data['id'])->update($param);
+
+            $param3 = array(
+                'pre_cost' => $data['pre_cost'],
+                'first_pay' => $data['first_pay'],
+                'second_pay' => $data['second_pay'],
+                'last_pay' => $data['last_pay'],
+            );
+            $flag = Db::name('prj_bt')->where('prj_id',$data['id'])->where('deleted',0)->count();
+            if($flag){
+                Db::name('prj_bt')->where('prj_id',$data['id'])->where('deleted',0)->update($param3);
+            }else{
+                $param3['prj_id'] = $data['id'];
+                Db::name('prj_bt')->insert($param3);
+            }
 
             Db::commit();
             $this->ajaxReturnMsg(200, 'success', '');

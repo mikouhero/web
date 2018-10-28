@@ -188,10 +188,23 @@
                     </a>
                 </li>
 
+                <li v-show="this.menu.indexOf('admin/crjbt/index') != -1" >
+                    <a href="/admin/crjbt/index">
+                        <i class="icon-list"></i>
+                        <span class="menu-text"> CRJ_BT管理 </span>
+                    </a>
+                </li>
                 <li v-show="this.menu.indexOf('admin/prj/index') != -1" >
                     <a href="/admin/prj/index">
-                        <i class="icon-list"></i>
+                        <i class="icon-list-alt"></i>
                         <span class="menu-text">PRJ管理 </span>
+                    </a>
+                </li>
+
+                <li v-show="this.menu.indexOf('admin/prjbt/index') != -1" >
+                    <a href="/admin/prjbt/index">
+                        <i class="icon-list-alt"></i>
+                        <span class="menu-text">PRJ_BT管理 </span>
                     </a>
                 </li>
 

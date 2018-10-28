@@ -79,7 +79,7 @@ class Crjop extends Base
                     )
             ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
-            ->join('b_crj_s p4','p4.crj_id = p1.id','left')
+            ->join('crj_bt p4','p4.crj_id = p1.id','left')
             ->join('channel p5','p5.id = p4.isp_manager','left')
             ->where('p3.crj_id is not null ')
             ->where($condition)
@@ -122,7 +122,7 @@ class Crjop extends Base
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
-        if (Db::name('crj')->where('crj', $data['crj_id'])->count()) {
+        if (Db::name('crj_op')->where('crj_id', $data['crj_id'])->count()) {
             $this->ajaxReturnMsg(203, '该编号的运维信息已存在', '');
         }
 

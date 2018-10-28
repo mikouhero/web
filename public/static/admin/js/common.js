@@ -68,6 +68,13 @@ var ajaxUrl = {
 
 
 
+    getPrjbtList:adminUrl+"/prjbt/getList",
+    getPrjbtCode:adminUrl+"/prjbt/add",
+    addPrjbt:adminUrl+"/prjbt/insert",
+    editPrjbt:adminUrl+"/prjbt/update",         // prjbt
+    delPrjbt:adminUrl+"/prjbt/delete",
+    uploadPrjbt:adminUrl+"/prjbt/updatefj",
+
     getBrjopList:adminUrl+"/brjop/getList",
     addBrjop:adminUrl+"/brjop/insert",
     editBrjop:adminUrl+"/brjop/update",         // brjop

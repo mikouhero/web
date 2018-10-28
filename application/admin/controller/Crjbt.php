@@ -229,7 +229,13 @@ class Crjbt extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['id']) || empty($data['id']) || !isset($data['cid']) || empty($data['cid']) || !isset($data['crj']) || empty($data['crj']) || !isset($data['address']) || empty($data['address']) ||  !isset($data['method']) || empty($data['method']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['price']) || empty($data['price']) || !isset($data['demand']) || empty($data['demand']) || !isset($data['status'])) {
+        if (!isset($data['id']) || empty($data['id']) ||
+            !isset($data['cid']) || empty($data['cid']) ||
+            !isset($data['crj']) || empty($data['crj']) ||
+            !isset($data['address']) || empty($data['address']) ||
+            !isset($data['method']) || empty($data['method']) ||
+//            !isset($data['s_price']) || empty($data['s_price']) ||
+            !isset($data['price']) || empty($data['price']) || !isset($data['demand']) || empty($data['demand']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
         if(empty($data['end_time'])){
@@ -256,7 +262,7 @@ class Crjbt extends Base
 //                'crj' => $data['crj'],
                 'type' => $data['type'],
                 'address' => $data['address'],
-                's_price' => $data['s_price'],
+//                's_price' => $data['s_price'],
                 'price' => $data['price'],
 //                'isp' => $data['isp'],
                 'start_time' => $data['start_time'],
@@ -272,7 +278,8 @@ class Crjbt extends Base
 
             $param3 = array(
                 'isp_manager'=> $data['isp_manager'],
-                'sales' =>$data['sales']
+                'sales' =>$data['sales'],
+                'price' => $data['s_price'],
             );
 
             Db::name('crj_bt')->where('crj_id',$data['id'])->where('deleted',0)->update($param3);

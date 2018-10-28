@@ -22,7 +22,7 @@ vm = new Vue({
     },
     methods: {
         getList: function () {
-            this.$http.post(ajaxUrl.getPrjList, {
+            this.$http.post(ajaxUrl.getPrjbtList, {
                 current_page: this.pageNo,
                 s_prj:this.s_prj,
                 s_cid:this.s_cid,
@@ -46,7 +46,7 @@ vm = new Vue({
             });
         },
         getCode:function () {
-            this.$http.post(ajaxUrl.getPrjCode, {
+            this.$http.post(ajaxUrl.getPrjbtCode, {
             }, {
                 emulateJSON: true
             }).then(function (res) {
@@ -68,7 +68,7 @@ vm = new Vue({
             this.msg['end_time'] = end;
             this.msg['teardown'] = teardown;
 
-            this.$http.post(ajaxUrl.addPrj, {
+            this.$http.post(ajaxUrl.addPrjbt, {
                 'msg': JSON.stringify(this.msg)
             }, {
                 emulateJSON: true
@@ -99,7 +99,7 @@ vm = new Vue({
             this.editmsg['start_time'] = start;
             this.editmsg['end_time'] = end;
             this.editmsg['teardown'] = teardown;
-            this.$http.post(ajaxUrl.editPrj, {
+            this.$http.post(ajaxUrl.editPrjbt, {
                 msg: JSON.stringify(this.editmsg)
             }, {
                 emulateJSON: true
@@ -123,7 +123,7 @@ vm = new Vue({
             this.delkey = key;
         },
         del: function (id) {
-            this.$http.post(ajaxUrl.delPrj, {
+            this.$http.post(ajaxUrl.delPrjbt, {
                 id: id
             }, {
                 emulateJSON: true
@@ -157,7 +157,7 @@ vm = new Vue({
             // console.log(zipFormData);
             let config = { headers: { 'Content-Type': 'multipart/form-data' ,'id':this.fjid} };
             this.$http.post(
-                ajaxUrl.uploadPrj,
+                ajaxUrl.uploadPrjbt,
                 zipFormData,
                 config
             ).then(function (res) {
