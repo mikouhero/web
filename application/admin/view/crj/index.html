@@ -142,7 +142,8 @@
                         <td>&yen;:{{item.price}}</td>
                         <td>&yen;:{{item.s_price}}</td>
                         <td v-show="item.method == m.id" v-for="m in methodlist">{{m.name}}</td>
-                        <td v-show="item.status == b.id" v-for="b in bus_status">{{b.name}}</td>
+                        <td v-show="item.status == 1" ><span class="label label-sm label-success">正常</span></td>
+                        <td v-show="item.status == 2" ><span class="label label-sm label-warning">过期</span></td>
                         <td>{{item.start_time}}</td>
                         <td>{{item.end_time}}</td>
                         <td>{{item.teardown}}</td>

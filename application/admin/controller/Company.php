@@ -34,7 +34,7 @@ class Company extends Base
 
         $list = Db::name('company')
             ->alias('p1')
-            ->field('p1.id,p1.code,p1.name,p1.address,p1.contact,p1.phone,p1.license_icon')
+            ->field('p1.id,p1.code,p1.name,p1.address,p1.contact,p1.phone,p1.license_icon,p1.type')
             ->where($condition)
             ->limit($start, $pagesize)
             ->select();
@@ -64,7 +64,9 @@ class Company extends Base
             }
             $param = array(
                 'cid' => $data['id'],
-                'account' => $data['account']
+                'account' => $data['account'],
+                'name' => $data['account_name']
+
             );
             Db::name('cid_account')->insert($param);
             $this->ajaxReturnMsg(200, 'success', '');
@@ -88,6 +90,7 @@ class Company extends Base
         $param = array(
             'code' =>$data['code'],
             'name' =>$data['name'],
+            'type'  =>$data['type'],
             'address' =>$data['address'],
             'contact' =>$data['contact'],
             'phone' =>$data['phone'],
@@ -115,6 +118,7 @@ class Company extends Base
         $param = array(
             'code' => $data['code'],
             'name' => $data['name'],
+            'type' => $data['type'],
             'address' => $data['address'],
             'phone' => $data['phone'],
             'contact' => $data['contact'],
@@ -152,6 +156,7 @@ class Company extends Base
             'delete_time' => date("Y-m-d H:i:s")
         );
         $flag = Db::name('company')->where('id',$data['id'])->update($param);
+         Db::name('member')->where('cid',$data['id'])->update(['status'=>0]);
         if (!$flag) $this->ajaxReturnMsg(202, '', '');
         $this->ajaxReturnMsg(200, 'success', '');
     }

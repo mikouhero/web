@@ -12,6 +12,8 @@ vm = new Vue({
         s_code :'',
         add_id:'',
         account:'',
+        account_name:'',
+        typeList:[{'id':1,'name':'普票'},{'id':2,'name':'专票'},{'id':'','name':''}],
     },
     methods: {
         getCompanyList: function () {
@@ -101,7 +103,7 @@ vm = new Vue({
         },
         addAccount:function () {
             this.$http.post(ajaxUrl.addCompany, {
-                'msg': JSON.stringify({'id':this.add_id,'account':this.account})
+                'msg': JSON.stringify({'id':this.add_id,'account':this.account,'account_name':this.account_name})
             }, {
                 emulateJSON: true
             }).then(function (res) {

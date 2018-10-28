@@ -52,6 +52,7 @@
                         <th>id</th>
                         <th>公司编号</th>
                         <th>公司名称</th>
+                        <th>开票类型</th>
                         <th>公司地址</th>
                         <th>联系人</th>
                         <th>联系方式</th>
@@ -65,13 +66,14 @@
                         <td>{{item.id}}</td>
                         <td>{{item.code}}</td>
                         <td>{{item.name}}</td>
+                        <td v-show="item.type == i.id" v-for="i in typeList">{{i.name}}</td>
                         <td>{{item.address}}</td>
                         <td>{{item.contact}}</td>
                         <td>{{item.phone}}</td>
                         <td>
-                            <ul>
-                                <li v-for="i in item.account">{{i.account}}</li>
-                            </ul>
+                            <ol>
+                                <li v-for="i in item.account">{{i.name}}<br>{{i.account}}</li>
+                            </ol>
                         </td>
                         <td><img :src="item.license_icon" style="height:40px;"></td>
 
@@ -133,6 +135,17 @@
                             <div class="col-sm-9">
                                 <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
                                        v-model="msg['name']">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 开票类型 </label>
+
+                            <div class="col-sm-9">
+                                <select class="col-xs-10 col-sm-5"  v-model="msg['type']">
+                                    <option value="" disabled>请选择开票类型</option>
+                                    <option v-for="item in typeList" :value="item.id">{{item.name}}</option>
+                                </select>
                             </div>
                         </div>
 
@@ -216,6 +229,16 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" >开票类型 </label>
+                            <div class="col-sm-9">
+                                <select class="col-xs-10 col-sm-5"  v-model="editmsg['type']">
+                                    <option value="" disabled>请选择开票类型</option>
+                                    <option v-for="item in typeList" :value="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="space-4"></div>
 
                         <div class="form-group">
@@ -292,11 +315,21 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
-                    <h2 class="modal-title" >新增公司账户</h2>
+                    <h2 class="modal-title" >新增公司付款账户</h2>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" role="form">
 
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 开户行 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                       v-model="account_name">
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 账户 </label>

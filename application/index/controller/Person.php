@@ -53,6 +53,10 @@ class Person extends  Controller
         if (!$user) {
             $this->ajaxReturnMsg(201, '用户不存在', '');
         }
+        $cid = Db::name('company')->where('id',$user['cid'])->where('deleted',0)->find();
+        if(!$cid){
+            $this->ajaxReturnMsg(201, '您的公司信息不存在', '');
+        }
 
         if (0 == $user['status']) {
             $this->ajaxReturnMsg(201, '该账户已被锁定，请联系管理员', '');
