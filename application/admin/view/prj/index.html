@@ -64,13 +64,13 @@
                     <thead>
                     <tr>
                         <th>id</th>
+                        <th>业务员</th>
+                        <th>项目经理</th>
                         <th>业务编号</th>
                         <th>公司名称</th>
                         <th>项目名称</th>
                         <th>施工地址</th>
                         <th>施工队</th>
-                        <th>业务员</th>
-                        <th>项目经理</th>
                         <!--<th>成本</th>-->
                         <th>合同价</th>
                         <!--<th>一期款</th>-->
@@ -84,13 +84,13 @@
                     <tbody>
                     <tr v-for="(item,key) in List" v-cloak>
                         <td>{{item.id}}</td>
+                        <td>{{item.prj_user}}</td>
+                        <td>{{item.prj_manger}}</td>
                         <td>{{item.prj}}</td>
                         <td>{{item.company_name}}</td>
                         <td>{{item.pro_name}}</td>
                         <td>{{item.address}}</td>
                         <td>{{item.team}}</td>
-                        <td>{{item.prj_user}}</td>
-                        <td>{{item.prj_manger}}</td>
                         <!--<td>{{item.pre_cost}}</td>-->
                         <td>{{item.final_cost}}</td>
                         <!--<td>{{item.first_pay}}</td>-->

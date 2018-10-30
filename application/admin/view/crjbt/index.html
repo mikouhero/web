@@ -15,7 +15,7 @@
 <div class="page-content">
     <div class="page-header">
         <h1>
-            CRJ_BT 列表
+            CRJ_BD 列表
             <small>
                 <i class="icon-double-angle-right"></i>
             </small>
@@ -116,7 +116,7 @@
                         <th>客户需求</th>
                         <th>实际套餐</th>
                         <th>套餐资费</th>
-                        <th>销售价</th>
+                        <!--<th>销售价</th>-->
                         <th>客户结算</th>
                         <th>运营商结算</th>
                         <th>业务状态</th>
@@ -140,8 +140,8 @@
                         <td>{{item.sales}}</td>
                         <td>{{item.demand}}</td>
                         <td>{{item.actual}}</td>
-                        <td>{{item.price}}</td>
                         <td>{{item.s_price}}</td>
+                        <!--<td>{{item.price}}</td>-->
                         <td v-show="item.method == m.id" v-for="m in methodlist">{{m.name}}</td>
                         <td v-show="item.isp_method == m.id" v-for="m in methodlist">{{m.name}}</td>
                         <td v-show="item.status == 1" ><span class="label label-sm label-success">正常</span></td>
@@ -275,17 +275,17 @@
                         </div>
 
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" > 套餐价格 </label>
-                            <div class="col-sm-9">
-                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="msg['price']">
-                                <span class="help-inline col-xs-12 col-sm-7"></span>
-                            </div>
-                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-3 control-label no-padding-right" > 套餐价格 </label>-->
+                            <!--<div class="col-sm-9">-->
+                                <!--<input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="msg['price']">-->
+                                <!--<span class="help-inline col-xs-12 col-sm-7"></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" > 销售价格 </label>
+                            <label class="col-sm-3 control-label no-padding-right" > 套餐资费 </label>
                             <div class="col-sm-9">
                                 <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="msg['s_price']">
                                 <span class="help-inline col-xs-12 col-sm-7"></span>
@@ -460,21 +460,21 @@
 
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 套餐价格 </label>
-                                <div class="col-sm-9">
-                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="editmsg['price']">
-                                    <span class="help-inline col-xs-12 col-sm-7"></span>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" > 售价格 </label>
+                                <label class="col-sm-3 control-label no-padding-right"> 套餐资费 </label>
                                 <div class="col-sm-9">
                                     <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="editmsg['s_price']">
                                     <span class="help-inline col-xs-12 col-sm-7"></span>
                                 </div>
                             </div>
+
+
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-3 control-label no-padding-right" > 销售价格 </label>-->
+                                <!--<div class="col-sm-9">-->
+                                    <!--<input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="editmsg['s_price']">-->
+                                    <!--<span class="help-inline col-xs-12 col-sm-7"></span>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" >客户结算方式 </label>

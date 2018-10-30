@@ -64,6 +64,7 @@ class Center extends  Controller
            ->where('p2.deleted',0)
            ->find();
        if(empty($data)){
+       	Session::delete('member_user');
            $this->ajaxReturnMsg(105,'重新登录','');
        }
        $data['last_login_time'] = formatDate($user['last_login_time']);
@@ -169,7 +170,7 @@ class Center extends  Controller
             p3.actual,
             p3.status,
             p3.address,
-            p3.s_price,
+            p3.price,
             p3.start_time')
             ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('crj p3' ,'p3.cid = p2.id','left')

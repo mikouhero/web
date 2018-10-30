@@ -73,7 +73,6 @@ class Crj extends Base
                      p1.demand,
                      p1.method,
                      p1.isp_method,
-                     p1.actual,
                      p1.price,
                      p1.status,
                      DATE_FORMAT(p1.start_time,"%Y-%m-%d") as start_time,
@@ -162,7 +161,7 @@ class Crj extends Base
             'status' => $data['status'],
             'teardown' => $data['teardown'],
             'demand' => $data['demand'],
-            'actual' => $data['actual'],
+//            'actual' => $data['actual'],
             'method' => $data['method'],
             'isp_method' => $data['isp_method'],
             'create_time' => date("Y-m-d H:i:s")
@@ -267,7 +266,7 @@ class Crj extends Base
                 'teardown' => $data['teardown'],
                 'demand' => $data['demand'],
                 'isp_method' => $data['isp_method'],
-                'actual' => $data['actual'],
+//                'actual' => $data['actual'],
                 'method' => $data['method'],
             );
             Db::name('crj')->where('id', $data['id'])->update($param);

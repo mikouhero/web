@@ -127,8 +127,8 @@ class Crjbt extends Base
             || !isset($data['crj']) || empty($data['crj'])
             || !isset($data['address']) || empty($data['address'])
             || !isset($data['method']) || empty($data['method'])
-//            || !isset($data['s_price']) || empty($data['s_price'])
-            || !isset($data['price']) || empty($data['price'])
+            || !isset($data['s_price']) || empty($data['s_price'])
+//            || !isset($data['price']) || empty($data['price'])
             || !isset($data['demand']) || empty($data['demand'])
             || !isset($data['isp_manager']) || empty($data['isp_manager'])
             || !isset($data['sales']) || empty($data['sales'])
@@ -158,8 +158,8 @@ class Crjbt extends Base
             'crj' => $data['crj'],
             'type' => $data['type'],
             'address' => $data['address'],
-//            's_price' => $data['s_price'],
-            'price' => $data['price'],
+//           's_price' => $data['s_price'],
+//            'price' => $data['price'],
 //            'isp' => $data['isp'],
             'start_time' => $data['start_time'],
             'end_time' => $data['end_time'],
@@ -234,8 +234,9 @@ class Crjbt extends Base
             !isset($data['crj']) || empty($data['crj']) ||
             !isset($data['address']) || empty($data['address']) ||
             !isset($data['method']) || empty($data['method']) ||
-//            !isset($data['s_price']) || empty($data['s_price']) ||
-            !isset($data['price']) || empty($data['price']) || !isset($data['demand']) || empty($data['demand']) || !isset($data['status'])) {
+            !isset($data['s_price']) || empty($data['s_price']) ||
+ //           !isset($data['price']) || empty($data['price']) ||
+	     !isset($data['demand']) || empty($data['demand']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
         if(empty($data['end_time'])){
@@ -263,7 +264,7 @@ class Crjbt extends Base
                 'type' => $data['type'],
                 'address' => $data['address'],
 //                's_price' => $data['s_price'],
-                'price' => $data['price'],
+//                'price' => $data['price'],
 //                'isp' => $data['isp'],
                 'start_time' => $data['start_time'],
                 'end_time' => $data['end_time'],

@@ -114,9 +114,9 @@
                         <!--<th>运营商经理电话</th>-->
                         <th>业务员</th>
                         <th>客户需求</th>
-                        <th>实际套餐</th>
-                        <th>套餐资费</th>
-                        <!--<th>销售价</th>-->
+                        <!--<th>实际套餐</th>-->
+                        <!--<th>套餐资费</th>-->
+                        <th>销售价格</th>
                         <th>客户结算</th>
                         <th>运营商结算</th>
 
@@ -140,7 +140,7 @@
                         <!--<td>{{item.phone}}</td>-->
                         <td>{{item.sales}}</td>
                         <td>{{item.demand}}</td>
-                        <td>{{item.actual}}</td>
+                        <!--<td>{{item.actual}}</td>-->
                         <td>&yen;:{{item.price}}</td>
                         <!--<td>&yen;:{{item.s_price}}</td>-->
                         <td v-show="item.method == m.id" v-for="m in methodlist">{{m.name}}</td>
@@ -267,17 +267,17 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" > 实际套餐 </label>
-                            <div class="col-sm-9">
-                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
-                                       v-model="msg['actual']">
-                            </div>
-                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-3 control-label no-padding-right" > 实际套餐 </label>-->
+                            <!--<div class="col-sm-9">-->
+                                <!--<input type="text"  placeholder="" class="col-xs-10 col-sm-5"-->
+                                       <!--v-model="msg['actual']">-->
+                            <!--</div>-->
+                        <!--</div>-->
 
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" > 套餐资费 </label>
+                            <label class="col-sm-3 control-label no-padding-right" > 销售价格 </label>
                             <div class="col-sm-9">
                                 <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="msg['price']">
                                 <span class="help-inline col-xs-12 col-sm-7"></span>
@@ -450,17 +450,17 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" > 实际套餐 </label>
-                                <div class="col-sm-9">
-                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
-                                           v-model="editmsg['actual']">
-                                </div>
-                            </div>
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-3 control-label no-padding-right" > 实际套餐 </label>-->
+                                <!--<div class="col-sm-9">-->
+                                    <!--<input type="text"  placeholder="" class="col-xs-10 col-sm-5"-->
+                                           <!--v-model="editmsg['actual']">-->
+                                <!--</div>-->
+                            <!--</div>-->
 
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 套餐价格 </label>
+                                <label class="col-sm-3 control-label no-padding-right"> 销售价格 </label>
                                 <div class="col-sm-9">
                                     <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="editmsg['price']">
                                     <span class="help-inline col-xs-12 col-sm-7"></span>

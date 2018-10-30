@@ -13,7 +13,7 @@ vm = new Vue({
         add_id:'',
         account:'',
         account_name:'',
-        typeList:[{'id':1,'name':'普票'},{'id':2,'name':'专票'},{'id':'','name':''}],
+        typeList:[{'id':1,'name':'普票'},{'id':2,'name':'专票'}],
     },
     methods: {
         getCompanyList: function () {
