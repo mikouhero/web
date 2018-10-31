@@ -111,6 +111,7 @@ vm = new Vue({
             this.editmsg['start_time'] = start;
             this.editmsg['end_time'] = end;
             this.editmsg['teardown'] = teardown;
+            console.log(this.editmsg);
             this.$http.post(ajaxUrl.editCrjbt, {
                 msg: JSON.stringify(this.editmsg)
             }, {

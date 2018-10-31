@@ -32,7 +32,7 @@ class Crj extends Base
         }
 
         if (isset($data['s_cid']) && !empty($data['s_cid'])) {
-            $condition['p1.cid'] = ['=', $data['s_cid']];
+            $condition['p3.cid'] = ['=', $data['s_cid']];
         }
 //        if (isset($data['s_isp']) && !empty($data['s_isp'])) {
 //            $condition['p1.isp'] = ['=', $data['s_isp']];
@@ -65,7 +65,6 @@ class Crj extends Base
         $list = Db::name('crj')
             ->alias('p1')
             ->field('p1.id,
-                     p1.cid,
                      p2.name as company_name ,
                      p3.crj_code as crj,
                      p1.address,
@@ -81,8 +80,8 @@ class Crj extends Base
                      p6.name as sales
                      '
                     )
-            ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('crj_code p3', 'p1.crj = p3.crj_code', 'left')
+            ->join('company p2', 'p2.id = p3.cid', 'left')
             ->join('crj_bt p4','p4.crj_id = p1.id','left')
             ->join('user p6','p6.id=p4.sales','left')
 //            ->join('channel p5','p5.id = p4.isp_manager','left')
@@ -108,9 +107,10 @@ class Crj extends Base
 
 
         $count = Db::name('crj')->alias('p1')
-            ->join('company p2', 'p2.id = p1.cid', 'left')
-            ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
+            ->join('crj_code p3', 'p1.crj = p3.crj_code', 'left')
+            ->join('company p2', 'p2.id = p3.cid', 'left')
             ->join('crj_bt p4','p4.crj_id = p1.id','left')
+            ->join('user p6','p6.id=p4.sales','left')
 //            ->join('channel p5','p5.id = p4.isp_manager','left')
             ->where($condition)->count();
         $res = array(
@@ -131,7 +131,8 @@ class Crj extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['cid']) || empty($data['cid']) ||
+        if (
+//            !isset($data['cid']) || empty($data['cid']) ||
             !isset($data['crj']) || empty($data['crj']) ||
             !isset($data['address']) || empty($data['address'])  ||
             !isset($data['method']) || empty($data['method']) ||
@@ -162,7 +163,7 @@ class Crj extends Base
        Db::startTrans();
        try{
         $param = array(
-            'cid' => $data['cid'],
+//            'cid' => $data['cid'],
             'crj' => $data['crj'],
             'type' => $data['type'],
             'address' => $data['address'],
@@ -233,7 +234,8 @@ class Crj extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['id']) || empty($data['id']) ||
+        if (
+//            !isset($data['id']) || empty($data['id']) ||
             !isset($data['cid']) || empty($data['cid']) ||
             !isset($data['crj']) || empty($data['crj']) ||
             !isset($data['address']) || empty($data['address']) ||
@@ -266,7 +268,7 @@ class Crj extends Base
         Db::startTrans();
         try {
             $param = array(
-                'cid' => $data['cid'],
+//                'cid' => $data['cid'],
 //                'crj' => $data['crj'],
                 'type' => $data['type'],
                 'address' => $data['address'],

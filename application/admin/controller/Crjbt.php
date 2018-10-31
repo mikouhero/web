@@ -96,7 +96,7 @@ class Crjbt extends Base
         $typeList = Db::name('service_type')->field('id,name,status')->select();
         $companyList = Db::name('company')->field('id,name')->select();
         $buildingList = Db::name('building')->field('id,name')->select();
-        $ispList = Db::name('channel')->field('id,isp_sales')->select();
+        $ispList = Db::name('channel')->field('id,concat(isp_sales,"(",isp,")") as isp_sales')->select();
         $threeList = Db::name('isp')->field('id,name')->where('deleted','0')->select();
 	
         $count = Db::name('crj')->alias('p1')
@@ -125,7 +125,7 @@ class Crjbt extends Base
         if (!isset($data['cid']) || empty($data['cid'])
             || !isset($data['crj']) || empty($data['crj'])
             || !isset($data['address']) || empty($data['address'])
-            || !isset($data['method']) || empty($data['method'])
+            || !isset($data['isp_method']) || empty($data['isp_method'])
             || !isset($data['s_price']) || empty($data['s_price'])
 //            || !isset($data['price']) || empty($data['price'])
             || !isset($data['demand']) || empty($data['demand'])
@@ -229,13 +229,14 @@ class Crjbt extends Base
         $data = json_decode($input['msg'], true);
 
         if (!isset($data['id']) || empty($data['id']) ||
-            !isset($data['cid']) || empty($data['cid']) ||
+//            !isset($data['cid']) || empty($data['cid']) ||
             !isset($data['crj']) || empty($data['crj']) ||
             !isset($data['address']) || empty($data['address']) ||
-            !isset($data['method']) || empty($data['method']) ||
+            !isset($data['isp_method']) || empty($data['isp_method']) ||
             !isset($data['s_price']) || empty($data['s_price']) ||
  //           !isset($data['price']) || empty($data['price']) ||
-	     !isset($data['demand']) || empty($data['demand']) || !isset($data['status'])) {
+	        !isset($data['demand']) || empty($data['demand']) ||
+            !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
         if(empty($data['end_time'])){
