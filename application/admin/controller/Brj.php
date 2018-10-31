@@ -11,6 +11,7 @@ namespace app\admin\controller;
 use think\Controller;
 use think\Db;
 use think\Request;
+use think\Session;
 
 
 class Brj extends Base
@@ -22,6 +23,8 @@ class Brj extends Base
 
     public function getList(Request $request)
     {
+
+
         $data = $request->post();
         $current_page = $data['current_page'];
         $pagesize = 10;
@@ -68,6 +71,22 @@ class Brj extends Base
         if (isset($data['s_time']) && !empty($data['s_time'])) {
             $condition['p1.end_time'] = array(['>=', date("Y-m-d")], ['<=', date("Y-m-d", strtotime('+' . $data['s_time'] . 'days'))]);
         }
+
+        $user = Session::get('manger_user');
+        /**
+         * 拿到user_id 判断是否是业务员
+         */
+        $limit = Db::name('user')
+            ->alias('p1')
+            ->join('user_role p2','p2.user_id=p1.id','left')
+            ->join('role p3','p2.role_id = p3.id','left')
+            ->where('p3.name','=','业务员')
+            ->where('p1.id','=',$user['id'])
+            ->count();
+        if($limit){
+            $condition['p1.sale'] = ['=', $user['id']];
+        }
+
         $list = Db::name('brj')
             ->alias('p1')
             ->field('p1.id,

@@ -11,6 +11,7 @@ namespace app\admin\controller;
 use think\Controller;
 use think\Db;
 use think\Request;
+use think\Session;
 
 
 class Prj extends Base
@@ -42,7 +43,21 @@ class Prj extends Base
         if (isset($data['s_cid']) && !empty($data['s_cid'])) {
             $condition['p1.cid'] = ['=', $data['s_cid']];
         }
+        $user = Session::get('manger_user');
 
+        /**
+         * 拿到user_id 判断是否是业务员
+         */
+        $limit = Db::name('user')
+            ->alias('p1')
+            ->join('user_role p2','p2.user_id=p1.id','left')
+            ->join('role p3','p2.role_id = p3.id','left')
+            ->where('p3.name','=','业务员')
+            ->where('p1.id','=',$user['id'])
+            ->count();
+        if($limit){
+            $condition['p1.sales'] = ['=', $user['id']];
+        }
         $list = Db::name('prj')
             ->alias('p1')
             ->field('p1.id,
