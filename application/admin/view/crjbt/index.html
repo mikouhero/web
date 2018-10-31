@@ -117,7 +117,7 @@
                         <th>实际套餐</th>
                         <th>套餐资费</th>
                         <!--<th>销售价</th>-->
-                        <th>客户结算</th>
+                        <!--<th>客户结算</th>-->
                         <th>运营商结算</th>
                         <th>业务状态</th>
                         <th>开通时间</th>
@@ -142,7 +142,7 @@
                         <td>{{item.actual}}</td>
                         <td>{{item.s_price}}</td>
                         <!--<td>{{item.price}}</td>-->
-                        <td v-show="item.method == m.id" v-for="m in methodlist">{{m.name}}</td>
+                        <!--<td v-show="item.method == m.id" v-for="m in methodlist">{{m.name}}</td>-->
                         <td v-show="item.isp_method == m.id" v-for="m in methodlist">{{m.name}}</td>
                         <td v-show="item.status == 1" ><span class="label label-sm label-success">正常</span></td>
                         <td v-show="item.status == 2" ><span class="label label-sm label-warning">过期</span></td>
@@ -292,16 +292,16 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" >客户结算方式 </label>
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-3 control-label no-padding-right" >客户结算方式 </label>-->
 
-                            <div class="col-sm-9">
-                                <select class="col-xs-10 col-sm-5"  v-model="msg['method']">
-                                    <option value="" disabled>请选择客户结算方式 </option>
-                                    <option v-for="item in methodlist" :value="item.id">{{item.name}}</option>
-                                </select>
-                            </div>
-                        </div>
+                            <!--<div class="col-sm-9">-->
+                                <!--<select class="col-xs-10 col-sm-5"  v-model="msg['method']">-->
+                                    <!--<option value="" disabled>请选择客户结算方式 </option>-->
+                                    <!--<option v-for="item in methodlist" :value="item.id">{{item.name}}</option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
 
                         <div class="form-group">
@@ -476,16 +476,16 @@
                                 <!--</div>-->
                             <!--</div>-->
 
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" >客户结算方式 </label>
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-3 control-label no-padding-right" >客户结算方式 </label>-->
 
-                                <div class="col-sm-9">
-                                    <select class="col-xs-10 col-sm-5"  v-model="editmsg['method']">
-                                        <option value="" disabled>请选择客户结算方式</option>
-                                        <option v-for="item in methodlist" :value="item.id">{{item.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
+                                <!--<div class="col-sm-9">-->
+                                    <!--<select class="col-xs-10 col-sm-5"  v-model="editmsg['method']">-->
+                                        <!--<option value="" disabled>请选择客户结算方式</option>-->
+                                        <!--<option v-for="item in methodlist" :value="item.id">{{item.name}}</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" >运营商结算方式 </label>

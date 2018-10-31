@@ -78,6 +78,7 @@ class Brj extends Base
             p1.speed,
             p1.s_price,
             p1.contact,
+            p5.name as sale,
             p1.phone,
             p1.status,
             DATE_FORMAT(p1.start_time,"%Y-%m-%d") as start_time,
@@ -87,6 +88,7 @@ class Brj extends Base
             p1.bid')
             ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('building p4', 'p4.id = p1.bid', 'left')
+            ->join('user p5','p5.id=p1.sale','left')
             ->where($condition)
             ->order('id', 'desc')
             ->limit($start, $pagesize)
@@ -95,12 +97,25 @@ class Brj extends Base
         $companyList = Db::name('company')->field('id,name')->select();
         $buildingList = Db::name('building')->field('id,name')->select();
 
+        /**
+         * 业务员列表
+         */
+        $saleList = Db::name('user')
+                    ->field('p1.id,p1.name')
+                    ->alias('p1')
+                    ->join('user_role p2','p2.user_id=p1.id','left')
+                    ->join('role p3','p2.role_id = p3.id','left')
+                    ->where('p3.name','=','业务员')
+                    ->select();
+
+
         $count = Db::name('brj')->alias('p1')->where($condition)->count();
         $res = array(
             'list' => $list,
             'typeList' => $typeList,
             'companyList' => $companyList,
             'buildingList' => $buildingList,
+            'saleList'   => $saleList,
             'count' => ceil($count / $pagesize)
         );
         $this->ajaxReturnMsg(200, 'success', $res);
@@ -150,6 +165,7 @@ class Brj extends Base
                 'speed' => $data['speed'],
                 's_price' => $data['s_price'],
                 'contact' => $data['contact'],
+                'sale' => $data['sale'],
                 'phone' => $data['phone'],
                 'start_time' => $data['start_time'],
                 'end_time' => $data['end_time'],
@@ -233,6 +249,7 @@ class Brj extends Base
                 'speed' => $data['speed'],
                 's_price' => $data['s_price'],
                 'contact' => $data['contact'],
+                'sale' => $data['sale'],
                 'phone' => $data['phone'],
                 'start_time' => $data['start_time'],
                 'end_time' => $data['end_time'],

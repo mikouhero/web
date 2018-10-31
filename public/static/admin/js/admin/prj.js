@@ -19,6 +19,8 @@ vm = new Vue({
         prjCode:'',
         upath: '',
         fjid:'',
+        saleList:{},
+
     },
     methods: {
         getList: function () {
@@ -41,6 +43,8 @@ vm = new Vue({
                 this.companyList = res.data.data['companyList'];
                 this.buildingList = res.data.data['buildingList'];
                 this.pages = res.data.data['count'];
+                this.saleList = res.data.data['saleList'];
+
             }, function (res) {
                 alert("程序崩掉了");
             });

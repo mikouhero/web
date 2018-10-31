@@ -78,12 +78,13 @@ class Crj extends Base
                      DATE_FORMAT(p1.start_time,"%Y-%m-%d") as start_time,
                      DATE_FORMAT(p1.end_time,"%Y-%m-%d") as end_time,
                      DATE_FORMAT(p1.teardown,"%Y-%m-%d") as teardown,
-                     p4.sales
+                     p6.name as sales
                      '
                     )
             ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('crj_code p3', 'p1.crj = p3.crj_code', 'left')
             ->join('crj_bt p4','p4.crj_id = p1.id','left')
+            ->join('user p6','p6.id=p4.sales','left')
 //            ->join('channel p5','p5.id = p4.isp_manager','left')
             ->where($condition)
             ->order('id', 'desc')
@@ -94,7 +95,18 @@ class Crj extends Base
         $buildingList = Db::name('building')->field('id,name')->select();
         $ispList = Db::name('channel')->field('id,isp_sales')->select();
         $threeList = Db::name('isp')->field('id,name')->where('deleted','0')->select();
-	
+        /**
+         * 业务员列表
+         */
+        $saleList = Db::name('user')
+            ->field('p1.id,p1.name')
+            ->alias('p1')
+            ->join('user_role p2','p2.user_id=p1.id','left')
+            ->join('role p3','p2.role_id = p3.id','left')
+            ->where('p3.name','=','业务员')
+            ->select();
+
+
         $count = Db::name('crj')->alias('p1')
             ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
@@ -108,6 +120,7 @@ class Crj extends Base
             'buildingList' => $buildingList,
             'ispList' => $ispList,
             'threeList'=>$threeList,
+            'saleList'   => $saleList,
             'count' => ceil($count / $pagesize)
         );
         $this->ajaxReturnMsg(200, 'success', $res);

@@ -255,7 +255,10 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" >业务员 </label>
                             <div class="col-sm-9">
-                                <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="msg['sales']">
+                                <select class="col-xs-10 col-sm-5"  v-model="msg['sales']">
+                                    <option value="" disabled>请选择业务员</option>
+                                    <option v-for="item in saleList" :value="item.id">{{item.name}}</option>
+                                </select>
                             </div>
                         </div>
 
@@ -438,7 +441,10 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" >业务员 </label>
                                 <div class="col-sm-9">
-                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="editmsg['sales']">
+                                    <select class="col-xs-10 col-sm-5"  v-model="editmsg['sales']">
+                                        <option value="" disabled>请选择业务员</option>
+                                        <option v-for="item in saleList" :value="item.id">{{item.name}}</option>
+                                    </select>
                                 </div>
                             </div>
 

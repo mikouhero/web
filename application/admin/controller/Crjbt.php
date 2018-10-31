@@ -71,7 +71,6 @@ class Crjbt extends Base
                      p1.address,
                      p1.type,
                      p1.demand,
-                     p1.method,
                      p1.isp_method,
                      p1.actual,
                      p1.price,
@@ -167,7 +166,7 @@ class Crjbt extends Base
             'teardown' => $data['teardown'],
             'demand' => $data['demand'],
             'actual' => $data['actual'],
-            'method' => $data['method'],
+//            'method' => $data['method'],
             'isp_method' => $data['isp_method'],
 
             'create_time' => date("Y-m-d H:i:s")
@@ -272,7 +271,8 @@ class Crjbt extends Base
                 'teardown' => $data['teardown'],
                 'demand' => $data['demand'],
                 'actual' => $data['actual'],
-                'method' => $data['method'],
+//                'method' => $data['method'],
+                'isp_method' => $data['isp_method'],
             );
             Db::name('crj')->where('id', $data['id'])->update($param);
 

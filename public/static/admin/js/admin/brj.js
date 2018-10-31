@@ -23,6 +23,7 @@ vm = new Vue({
         bus_status :[{id:1,name:'正常'},{id:2,name:'过期'}],
         companyList:{},
         buildingList:{},
+        saleList:{},
         brjCode:'',
     },
     methods: {
@@ -51,6 +52,7 @@ vm = new Vue({
                 this.typeList = res.data.data['typeList'];
                 this.companyList = res.data.data['companyList'];
                 this.buildingList = res.data.data['buildingList'];
+                this.saleList = res.data.data['saleList'];
                 this.pages = res.data.data['count'];
             }, function (res) {
                 alert("程序崩掉了");

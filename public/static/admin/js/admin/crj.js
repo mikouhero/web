@@ -25,6 +25,7 @@ vm = new Vue({
         buildingList:{},
         ispList:{},
         crjCode:'',
+        saleList:{},
     },
     methods: {
         getList: function () {
@@ -52,6 +53,8 @@ vm = new Vue({
                 this.buildingList = res.data.data['buildingList'];
                 this.ispList = res.data.data['ispList'];
                 this.threelist = res.data.data['threeList'];
+                this.saleList = res.data.data['saleList'];
+
 
                 this.pages = res.data.data['count'];
             }, function (res) {

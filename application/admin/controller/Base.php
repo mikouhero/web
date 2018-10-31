@@ -56,7 +56,7 @@ class Base extends Controller
         }
 
         if (preg_match('/^update/',$action)) {
-            $action = 'update';
+            $action = 'edit';
         }
         $path = "admin/" . $controller . '/' . $action;
 

@@ -117,6 +117,7 @@
                         <th>带宽</th>
                         <th>销售价</th>
                         <th>联系人</th>
+                        <th>业务员</th>
                         <th>联系方式</th>
                         <th>业务状态</th>
                         <th>所属楼宇</th>
@@ -137,6 +138,7 @@
                         <td>{{item.speed}}</td>
                         <td>&yen;:{{item.s_price}}</td>
                         <td>{{item.contact}}</td>
+                        <td>{{item.sale}}</td>
                         <td>{{item.phone}}</td>
                         <td v-show="item.status == 1" ><span class="label label-sm label-success">正常</span></td>
                         <td v-show="item.status == 2" ><span class="label label-sm label-warning">过期</span></td>
@@ -218,6 +220,16 @@
                                 <select class="col-xs-10 col-sm-5"  v-model="msg['type']">
                                     <option value="" disabled>请选择业务类型</option>
                                     <option v-for="item in typeList" :value="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" >业务员 </label>
+
+                            <div class="col-sm-9">
+                                <select class="col-xs-10 col-sm-5"  v-model="msg['sale']">
+                                    <option value="" disabled>请选择业务员</option>
+                                    <option v-for="item in saleList" :value="item.id">{{item.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -365,6 +377,18 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" >业务员 </label>
+
+                                <div class="col-sm-9">
+                                    <select class="col-xs-10 col-sm-5"  v-model="editmsg['sale']">
+                                        <option value="" disabled>请选择业务员</option>
+                                        <option v-for="item in saleList" :value="item.id">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" >带宽 </label>

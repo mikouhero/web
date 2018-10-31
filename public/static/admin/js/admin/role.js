@@ -50,7 +50,7 @@ vm = new Vue({
                 this.roleList.push(this.msg);
                 this.msg = {};
                 this.msg.status = 1;
-
+                this.getRoleList();
             }, function (res) {
                 alert("程序崩掉了");
             });

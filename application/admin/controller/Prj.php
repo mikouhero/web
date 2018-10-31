@@ -32,7 +32,7 @@ class Prj extends Base
         }
 
         if (isset($data['s_prj_user']) && !empty($data['s_prj_user'])) {
-            $condition['p1.prj_user'] = ['=', $data['s_prj_user']];
+            $condition['p3.name'] = ['=', $data['s_prj_user']];
         }
 
         if (isset($data['s_prj_manger']) && !empty($data['s_prj_manger'])) {
@@ -52,21 +52,35 @@ class Prj extends Base
             p1.address,
             p1.pro_name,
             p1.team,
-            p1.prj_user,
+            p3.name as prj_user,
             p1.prj_manger,
             p1.final_cost,
             p1.fj')
             ->join('company p2', 'p2.id = p1.cid', 'left')
+            ->join('user p3', 'p3.id = p1.prj_user', 'left')
+
             ->where($condition)
             ->order('id', 'desc')
             ->limit($start, $pagesize)
             ->select();
         $companyList = Db::name('company')->field('id,name')->select();
-
-        $count = Db::name('prj')->alias('p1')->where($condition)->count();
+        /**
+         * 业务员列表
+         */
+        $saleList = Db::name('user')
+            ->field('p1.id,p1.name')
+            ->alias('p1')
+            ->join('user_role p2','p2.user_id=p1.id','left')
+            ->join('role p3','p2.role_id = p3.id','left')
+            ->where('p3.name','=','业务员')
+            ->select();
+        $count = Db::name('prj')->alias('p1')
+            ->join('user p3', 'p3.id = p1.prj_user', 'left')
+            ->where($condition)->count();
         $res = array(
             'list' => $list,
             'companyList' => $companyList,
+            'saleList'   => $saleList,
             'count' => ceil($count / $pagesize)
         );
         $this->ajaxReturnMsg(200, 'success', $res);
