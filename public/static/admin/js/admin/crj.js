@@ -4,7 +4,7 @@ vm = new Vue({
         pageNo: 1,   // 当前页数
         pages: 0,    //  多少页
         List: {},
-        msg: {},
+        msg:{'status':1},
         editid: '',
         editmsg: {},
         delid: '',
@@ -18,7 +18,7 @@ vm = new Vue({
         s_out:'',
         // s_isp_manager:'',
         typeList :{},
-        bus_status :[{id:1,name:'正常'},{id:2,name:'过期'}],
+        bus_status :[{id:1,name:'正常'},{id:2,name:'过期'},{id:3,name:'拆机'}],
         threelist :{},
         methodlist :[{'id':1,'name':'月结'},{'id':2,'name':'季度结'},{'id':3,'name':'年结'}],
         companyList:{},
@@ -78,8 +78,8 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-               this.msg={};
-               this.getList();
+                this.msg={'status':1};
+                this.getList();
 
             }, function (res) {
                 alert("程序崩掉了");

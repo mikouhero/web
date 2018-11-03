@@ -75,6 +75,10 @@ var ajaxUrl = {
     delPrjbt:adminUrl+"/prjbt/delete",
     uploadPrjbt:adminUrl+"/prjbt/updatefj",
 
+
+    getPrjpayList:adminUrl+"/prjpay/getList",
+
+
     getBrjopList:adminUrl+"/brjop/getList",
     addBrjop:adminUrl+"/brjop/insert",
     editBrjop:adminUrl+"/brjop/update",         // brjop
@@ -92,6 +96,7 @@ var ajaxUrl = {
     editCrjbt:adminUrl+"/crjbt/update",         // crjbt
     delCrjbt:adminUrl+"/crjbt/delete",
 
+    getCrjpayList:adminUrl+"/crjpay/getList",
 
 
     getCrjopList:adminUrl+"/crjop/getList",

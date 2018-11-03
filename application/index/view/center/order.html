@@ -55,26 +55,34 @@
         <table class="vip-dingzhi">
             <thead>
             <tr class="ordercenter">
-                <th>订单编号</th>
+                <th>业务编号</th>
+                <th>安装地址</th>
                 <th>业务类型</th>
                 <th>带宽</th>
                 <th>业务状态</th>
                 <th>价格</th>
                 <!--<th>联系人</th>-->
-                <th>安装地址</th>
                 <th>开通时间</th>
+                <th>到期时间</th>
+                <th>拆机时间</th>
+
             </tr>
             </thead>
             <tbody>
             <tr v-for="item in msg" v-cloak>
                 <td>{{item.crj}}</td>
+                <td>{{item.address}} </td>
                 <td>{{item.type_name}}</td>
                 <td>{{item.actual}}</td>
-                <td v-show="item.status == b.id" v-for="b in statuslist">{{b.name}}</td>
+                <td v-show="item.status == 1" ><span class="label label-sm label-success">正常</span></td>
+                <td v-show="item.status == 2" ><span class="label label-sm label-warning">过期</span></td>
+                <td v-show="item.status == 3 || item.status == 4 " ><span class="label label-sm label-error">拆机</span></td>
                 <td>&yen;:{{item.price}}</td>
                 <!--<td>{{item.contact}}</td>-->
-                <td>{{item.address}} </td>
                 <td>{{item.start_time}}</td>
+                <td>{{item.end_time}}</td>
+                <td>{{item.tesrdown}}</td>
+
             </tr>
             </tbody>
         </table>

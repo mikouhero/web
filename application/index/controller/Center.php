@@ -141,48 +141,62 @@ class Center extends  Controller
 
         $condition['p1.deleted'] = ['=', '0'];
         if (isset($data['s_brj']) && !empty($data['s_brj'])) {
-            $condition['p3.brj'] = ['=', $data['s_brj']];
+            $condition['p4.brj'] = ['=', $data['s_brj']];
         }
 
         if (isset($data['s_type']) && !empty($data['s_type'])) {
-            $condition['p3.type'] = ['=', $data['s_type']];
+            $condition['p4.type'] = ['=', $data['s_type']];
         }
 
         if (isset($data['s_address']) && !empty($data['s_address'])) {
-            $condition['p3.address'] = ['like', '%'.$data['s_address'].'%'];
+            $condition['p4.address'] = ['like', '%'.$data['s_address'].'%'];
         }
 
         if (isset($data['s_status']) && !empty($data['s_status'])) {
-            $condition['p3.status'] = ['=', $data['s_status']];
+            $condition['p4.status'] = ['=', $data['s_status']];
+        }
+        if(isset($data['s_status']) && !empty($data['s_status'])){
+            if($data['s_status']==3){
+                unset($condition['p4.status']);
+                $condition['p4.deleted'] = ['=', 1];
+            }
         }
 
         if (isset($data['s_time']) && !empty($data['s_time'])) {
-            $condition['p3.start_time'] = ['>=', $data['s_time']];
+            $condition['p4.start_time'] = ['>=', $data['s_time']];
         }
 
         $condition['p1.id'] = ['=', Session::get('member_user.id')];
         $list = Db::name('member')
             ->alias('p1')
             ->field('
-            p3.crj,
-            p3.type,
-            p4.name as type_name,
-            p3.actual,
-            p3.status,
-            p3.address,
-            p3.price,
-            p3.start_time')
+            p4.crj,
+            p4.type,
+            p5.name as type_name,
+            p6.actual,
+            p4.status,
+            p4.address,
+            p4.price,
+                 DATE_FORMAT(p4.start_time,"%Y-%m-%d") as start_time,
+                     DATE_FORMAT(p4.end_time,"%Y-%m-%d") as end_time,
+                     DATE_FORMAT(p4.teardown,"%Y-%m-%d") as teardown')
             ->join('company p2', 'p2.id = p1.cid', 'left')
-            ->join('crj p3' ,'p3.cid = p2.id','left')
-            ->join('service_type p4','p4.id = p3.type' ,'left')
+            ->join('crj_code p3','p3.cid=p2.id','left')
+            ->join('crj p4','p4.crj=p3.crj_code','left')
+            ->join('service_type p5','p5.id = p4.type' ,'left')
+            ->join('crj_bt p6','p6.crj_id=p4.id','left')
+
             ->where($condition)
-            ->order('p3.id', 'desc')
+            ->order('p4.id', 'desc')
             ->limit($start, $pagesize)
             ->select();
         $count =  Db::name('member')
             ->alias('p1')
             ->join('company p2', 'p2.id = p1.cid', 'left')
-            ->join('crj p3' ,'p3.cid = p2.id','left')
+            ->join('crj_code p3','p3.cid=p2.id','left')
+            ->join('crj p4','p4.crj=p3.crj_code','left')
+            ->join('service_type p5','p5.id = p4.type' ,'left')
+            ->join('crj_bt p6','p6.crj_id=p4.id','left')
             ->where($condition)
             ->order('p3.id', 'desc')
             ->count();

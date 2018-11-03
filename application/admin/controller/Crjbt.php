@@ -26,17 +26,23 @@ class Crjbt extends Base
         $current_page = $data['current_page'];
         $pagesize = 10;
         $start = ($current_page - 1) * $pagesize;
-        $condition['p1.deleted'] = ['=', '0'];
+        $condition['p4.deleted'] = ['=', '0'];
+
+        if (isset($data['s_status']) && !empty($data['s_status'])) {
+//            $condition['p1.status'] = ['=', $data['s_status']];
+            if($data['s_status'] ==4){
+                $condition['p4.deleted'] = ['=', 1];
+            }
+        }
+
         if (isset($data['s_crj']) && !empty($data['s_crj'])) {
             $condition['p3.crj_code'] = ['=', $data['s_crj']];
         }
 
         if (isset($data['s_cid']) && !empty($data['s_cid'])) {
-            $condition['p1.cid'] = ['=', $data['s_cid']];
+            $condition['p3.cid'] = ['=', $data['s_cid']];
         }
-//        if (isset($data['s_isp']) && !empty($data['s_isp'])) {
-//            $condition['p1.isp'] = ['=', $data['s_isp']];
-//        }
+
 
         if (isset($data['s_type']) && !empty($data['s_type'])) {
             $condition['p1.type'] = ['=', $data['s_type']];
@@ -65,30 +71,33 @@ class Crjbt extends Base
         $list = Db::name('crj')
             ->alias('p1')
             ->field('p1.id,
-                     p1.cid,
                      p2.name as company_name,
                      p3.crj_code as crj,
                      p1.address,
                      p1.type,
                      p1.demand,
-                     p1.isp_method,
-                     p1.actual,
-                     p1.price,
                      p1.status,
                      DATE_FORMAT(p1.start_time,"%Y-%m-%d") as start_time,
                      DATE_FORMAT(p1.end_time,"%Y-%m-%d") as end_time,
                      DATE_FORMAT(p1.teardown,"%Y-%m-%d") as teardown,
+                     p4.isp_method,
+                     p4.actual,
                      p4.sales,
                      p4.isp_manager,
-                     p5.phone,
+                     p4.deleted,
+                     p4.price as s_price,
                      p5.isp_sales,
-                     p4.price as s_price
+                     p5.phone,
+                     p7.name as sales,
+                     p7.id as sales_id
                      '
                     )
-            ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('crj_code p3', 'p1.crj = p3.crj_code', 'left')
+            ->join('company p2', 'p2.id = p3.cid', 'left')
             ->join('crj_bt p4','p4.crj_id = p1.id','left')
             ->join('channel p5','p5.id = p4.isp_manager','left')
+            ->join('user p7','p7.id=p4.sales','left')
+
             ->where($condition)
             ->order('id', 'desc')
             ->limit($start, $pagesize)
@@ -98,10 +107,21 @@ class Crjbt extends Base
         $buildingList = Db::name('building')->field('id,name')->select();
         $ispList = Db::name('channel')->field('id,concat(isp_sales,"(",isp,")") as isp_sales')->select();
         $threeList = Db::name('isp')->field('id,name')->where('deleted','0')->select();
-	
+
+        /**
+         * 业务员列表
+         */
+        $saleList = Db::name('user')
+            ->field('p1.id,p1.name')
+            ->alias('p1')
+            ->join('user_role p2','p2.user_id=p1.id','left')
+            ->join('role p3','p2.role_id = p3.id','left')
+            ->where('p3.name','=','业务员')
+            ->select();
         $count = Db::name('crj')->alias('p1')
-            ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
+            ->join('crj_code p6', 'p6.crj_code = p1.crj', 'left')
+            ->join('company p2', 'p2.id = p6.cid', 'left')
             ->join('crj_bt p4','p4.crj_id = p1.id','left')
             ->join('channel p5','p5.id = p4.isp_manager','left')
             ->where($condition)->count();
@@ -112,6 +132,7 @@ class Crjbt extends Base
             'buildingList' => $buildingList,
             'ispList' => $ispList,
             'threeList'=>$threeList,
+            'saleList'   => $saleList,
             'count' => ceil($count / $pagesize)
         );
         $this->ajaxReturnMsg(200, 'success', $res);
@@ -122,8 +143,8 @@ class Crjbt extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['cid']) || empty($data['cid'])
-            || !isset($data['crj']) || empty($data['crj'])
+        if (
+            !isset($data['crj']) || empty($data['crj'])
             || !isset($data['address']) || empty($data['address'])
             || !isset($data['isp_method']) || empty($data['isp_method'])
             || !isset($data['s_price']) || empty($data['s_price'])
@@ -153,7 +174,6 @@ class Crjbt extends Base
        Db::startTrans();
        try{
         $param = array(
-            'cid' => $data['cid'],
             'crj' => $data['crj'],
             'type' => $data['type'],
             'address' => $data['address'],
@@ -259,7 +279,7 @@ class Crjbt extends Base
         Db::startTrans();
         try {
             $param = array(
-                'cid' => $data['cid'],
+//                'cid' => $data['cid'],
 //                'crj' => $data['crj'],
                 'type' => $data['type'],
                 'address' => $data['address'],
@@ -269,18 +289,18 @@ class Crjbt extends Base
                 'start_time' => $data['start_time'],
                 'end_time' => $data['end_time'],
                 'status' => $data['status'],
-                'teardown' => $data['teardown'],
+//                'teardown' => $data['teardown'],
                 'demand' => $data['demand'],
-                'actual' => $data['actual'],
 //                'method' => $data['method'],
-                'isp_method' => $data['isp_method'],
             );
             Db::name('crj')->where('id', $data['id'])->update($param);
 
 
             $param3 = array(
                 'isp_manager'=> $data['isp_manager'],
-                'sales' =>$data['sales'],
+                'sales' =>$data['sales_id'],
+                'actual' => $data['actual'],
+                'isp_method' => $data['isp_method'],
                 'price' => $data['s_price'],
             );
 
@@ -308,11 +328,17 @@ class Crjbt extends Base
         }
         $param = array(
             'deleted' => 1,
+            'status' =>4,
+            'teardown' =>date("Y-m-d H:i:s"),
             'delete_time' => date("Y-m-d H:i:s")
         );
         Db::name('crj')->where('id', $data['id'])->update($param);
 
-        $flag = Db::name('crj_bt')->where('crj_id', $data['id'])->update($param);
+        $param2 = array(
+            'deleted' => 1,
+            'delete_time' => date("Y-m-d H:i:s")
+        );
+        $flag = Db::name('crj_bt')->where('crj_id', $data['id'])->update($param2);
 
         if (!$flag) $this->ajaxReturnMsg(202, '', '');
         $this->ajaxReturnMsg(200, 'success', '');

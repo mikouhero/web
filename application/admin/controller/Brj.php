@@ -38,6 +38,13 @@ class Brj extends Base
             $condition['p1.type'] = ['=', $data['s_type']];
         }
 
+        if (isset($data['s_status']) && !empty($data['s_status'])) {
+//            $condition['p1.status'] = ['=', $data['s_status']];
+            if($data['s_status'] ==3){
+                $condition['p1.deleted'] = ['=', 1];
+            }
+        }
+
         if (isset($data['s_cid']) && !empty($data['s_cid'])) {
             $condition['p1.cid'] = ['=', $data['s_cid']];
         }
@@ -97,6 +104,7 @@ class Brj extends Base
             p1.speed,
             p1.s_price,
             p1.contact,
+            p1.deleted,
             p5.name as sale,
             p1.phone,
             p1.status,
@@ -148,16 +156,14 @@ class Brj extends Base
         if (!isset($data['cid']) || empty($data['cid']) || !isset($data['brj']) || empty($data['brj']) || !isset($data['address']) || empty($data['address']) || !isset($data['type']) || empty($data['type']) || !isset($data['speed']) || empty($data['speed']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['contact']) || empty($data['contact']) || !isset($data['phone']) || empty($data['phone']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
-
-        if (empty($data['end_time'])) {
-            $data['end_time'] = NUll;
+        if(empty($data['start_time'])){
+            $data['start_time'] = date("Y-m-d");
         }
-
-        if (empty($data['start_time'])) {
-            $data['start_time'] = NUll;
+        if(empty($data['end_time'])){
+            $data['end_time'] = date("Y-m-d",strtotime('1 years',strtotime($data['start_time'])));
         }
-
-        if (empty($data['teardown'])) {
+//
+        if(empty($data['teardown'])){
             $data['teardown'] = NUll;
         }
 
@@ -221,9 +227,9 @@ class Brj extends Base
         $code = Db::name('brj')->field('brj')->limit(1)->order('id','desc')->find();
 
         if(empty($code['brj'])){
-            $brj = "brj" . "10001";
+            $brj = "BRJ" . "10001";
         }else{
-            $brj = "brj" . (intval( substr($code['brj'],3)) + 1);
+            $brj = "BRJ" . (intval( substr($code['brj'],3)) + 1);
         }
         return $brj;
     }
@@ -300,6 +306,8 @@ class Brj extends Base
         }
         $param = array(
             'deleted' => 1,
+            'status' =>3,
+            'teardown' => date("Y-m-d H:i:s"),
             'delete_time' => date("Y-m-d H:i:s")
         );
         $flag = Db::name('brj')->where('id', $data['id'])->update($param);

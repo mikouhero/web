@@ -1,27 +1,34 @@
 vm = new Vue({
-    el: '.vipRight',
+    el: '.page-content',
     data: {
-        msg:{},
         pageNo: 1,   // 当前页数
         pages: 0,    //  多少页
-        s_brj:'',
-        s_address:'',
-        s_time:'',
-        s_type:'',
-        statuslist :[{id:1,name:'正常'},{id:2,name:'过期'},{id:3,name:'拆机'}],
-        s_status:'',
-        typelist:{}
-
+        List: {},
+        msg: {},
+        editid: '',
+        editmsg: {},
+        delid: '',
+        delkey: '',
+        s_prj :'',
+        s_cid:'',
+        s_prj_user:'',
+        s_prj_manger:'',
+        typeList :{},
+        companyList:{},
+        buildingList:{},
+        prjCode:'',
+        upath: '',
+        fjid:'',
     },
     methods: {
         getList: function () {
-            this.$http.post("/index/center/getOrder", {
+            this.$http.post(ajaxUrl.getPrjpayList, {
                 current_page: this.pageNo,
-                s_brj:this.s_brj,
-                s_address:this.s_address,
-                s_status:this.s_status,
-                s_time:$('#s_time').val(),
-                s_type:this.s_type
+                s_prj:this.s_prj,
+                s_cid:this.s_cid,
+                s_prj_user:this.s_prj_user,
+                s_prj_manger:this.s_prj_manger,
+
             }, {
                 emulateJSON: true
             }).then(function (res) {
@@ -29,10 +36,11 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-                this.msg = res.data.data['list'];
+                this.List = res.data.data['list'];
+                this.typeList = res.data.data['typeList'];
+                this.companyList = res.data.data['companyList'];
+                this.buildingList = res.data.data['buildingList'];
                 this.pages = res.data.data['count'];
-                this.typelist = res.data.data['typelist'];
-                
             }, function (res) {
                 alert("程序崩掉了");
             });
@@ -45,12 +53,14 @@ vm = new Vue({
             // console.log("当前页：" + this.pageNo);
         },
 
+
+
     },
     mounted: function () {
         this.$nextTick(function () {
             this.getList();
         });
     }
-
 });
+
 

@@ -1,0 +1,163 @@
+{extend name="index/index" /}
+<!--###############################################################################################################-->
+<!--################################################# 单独 ########################################################-->
+<!--###############################################################################################################-->
+{block name="header"}
+<script src="<?= $js?>/pagination.js"></script>
+<script src="<?= $js ?>/plugins/My97DatePicker/WdatePicker.js"></script>
+<style>
+    [v-cloak] {
+        display: none !important;
+    }
+</style>
+{/block}
+{block name="main"}
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            CRJ财务列表
+            <small>
+                <i class="icon-double-angle-right"></i>
+            </small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div id='SearchForm'>
+                <div class="row ">
+                    <div class="col-xs-2 input-group-s" >
+                        <input type="text" class="form-control"   placeholder="请输入业务编号" v-model="s_crj">
+                    </div>
+
+
+                    <div class="col-xs-2 input-group-s">
+                        <select  class="form-control "  v-model="s_status">
+                            <option value="">请选择业务状态</option>
+                            <option v-for="item in bus_status" :value="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-xs-2 input-group-s">
+                        <select  class="form-control "  v-model="s_isp_manager">
+                            <option value="">请选择运营商经理</option>
+                            <option v-for="item in ispList" :value="item.id">{{item.isp_sales}}</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-2 input-group-s">
+                        <select  class="form-control "  v-model="s_type">
+                            <option value="">请选择业务类型</option>
+                            <option v-for="item in typeList" :value="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="row" style="margin-top: 20px">
+
+                    <div class="col-xs-2 input-group-s">
+                        <select  class="form-control "  v-model="s_cid">
+                            <option value="">请选择公司</option>
+                            <option v-for="item in companyList" :value="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="col-xs-2 input-group-s">
+                        <select  class="form-control "  v-model="s_time">
+                            <option value="">请选择即将到期用户</option>
+                            <option v-for="item in 30" v-if ="item % 5 ==0" :value="item">{{item}}天以内</option>
+                        </select>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <div class="form-group">
+                            <span class="btn btn-primary btn-sm " @click = "getList()">搜索</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="sample-table-2" class="table table-bordered  solidTab ">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>公司名</th>
+                        <th>业务编号</th>
+                        <th>安装地址</th>
+                        <th>业务类型</th>
+                        <th>运营商经理</th>
+                        <th>运营商经理电话</th>
+                        <th>业务员</th>
+                        <th>客户需求</th>
+                        <th>实际套餐</th>
+                        <th>套餐资费</th>
+                        <th>销售价</th>
+                        <th>客户结算</th>
+                        <th>运营商结算</th>
+                        <th>业务状态</th>
+                        <th>开通时间</th>
+                        <th>到期时间</th>
+                        <th>拆机时间</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,key) in List" v-cloak>
+                        <td>{{item.id}}</td>
+                        <td>{{item.company_name}}</td>
+                        <td>{{item.crj}}</td>
+                        <td>{{item.address}}</td>
+                        <td v-show="item.type == i.id" v-for="i in typeList">{{i.name}}</td>
+                        <td>{{item.isp_sales}}</td>
+                        <td>{{item.phone}}</td>
+                        <td>{{item.sales}}</td>
+                        <td>{{item.demand}}</td>
+                        <td>{{item.actual}}</td>
+                        <td>{{item.s_price}}</td>
+                        <td>{{item.price}}</td>
+                        <!--<td>{{item.price}}</td>-->
+                        <!--<td v-show="item.method == m.id" v-for="m in methodlist">{{m.name}}</td>-->
+                        <td v-show="item.method == 1" ><span >月结</span></td>
+                        <td v-show="item.method == 2" ><span >季度结</span></td>
+                        <td v-show="item.method == 3" ><span >年结</span></td>
+                        <td v-show="item.method == null " ><span ></span></td>
+
+                        <td v-show="item.isp_method == 1" ><span >月结</span></td>
+                        <td v-show="item.isp_method == 2" ><span >季度结</span></td>
+                        <td v-show="item.isp_method == 3" ><span >年结</span></td>
+                        <td v-show="item.isp_method == null " ><span ></span></td>
+
+
+                        <td v-if="item.status == 1" ><span class="label label-sm label-success">正常</span></td>
+                        <td v-if="item.status == 2" ><span class="label label-sm label-warning">过期</span></td>
+                        <td v-show="item.status == 3" ><span class="label label-sm label-danger">申请拆机</span></td>
+                        <td v-show="item.status == 4" ><span class="label label-sm ">拆机</span></td>
+
+                        <td v-if="item.status == null " ><span class="label label-sm label-warning"></span></td>
+
+                        <td>{{item.start_time}}</td>
+                        <td>{{item.end_time}}</td>
+                        <td>{{item.teardown}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="box-footer clearfix" v-show="pages>0">
+                    <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+{/block}
+{block name="footer"}
+<script src="<?= $js?>/admin/crjpay.js"></script>
+
+{/block}

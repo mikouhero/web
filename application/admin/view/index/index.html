@@ -142,106 +142,182 @@
                     </a>
                 </li>
 
-                <li v-show="this.menu.indexOf('admin/member/index') != -1">
-                    <a href="/admin/member/index">
-                        <i class="icon-text-width"></i>
-                        <span class="menu-text"> 会员管理 </span>
-                    </a>
-                </li>
-                <li v-show="this.menu.indexOf('admin/company/index') != -1" >
-                    <a href="/admin/company/index">
-                        <i class="icon-gift"></i>
-                        <span class="menu-text"> 公司管理 </span>
-                    </a>
-                </li>
-                <li v-show="this.menu.indexOf('admin/brj/index') != -1" >
-                    <a href="/admin/brj/index">
-                        <i class="icon-edit"></i>
-                        <span class="menu-text"> BRJ管理 </span>
-                    </a>
-                </li>
+                <li >
+                    <a href="#" class="dropdown-toggle">
+                        <i class=" icon-globe"></i>
+                        <span class="menu-text"> 商务管理 </span>
 
-                <li v-show="this.menu.indexOf('admin/brjop/index') != -1" >
-                    <a href="/admin/brjop/index">
-                        <i class="icon-edit"></i>
-                        <span class="menu-text"> BRJ_OP管理 </span>
+                        <b class="arrow icon-angle-down"></b>
                     </a>
-                </li>
-                <li v-show="this.menu.indexOf('admin/crj/index') != -1" >
-                    <a href="/admin/crj/index">
-                        <i class="icon-list"></i>
-                        <span class="menu-text"> CRJ管理 </span>
-                    </a>
-                </li>
 
-                <li v-show="this.menu.indexOf('admin/crjop/index') != -1" >
-                    <a href="/admin/crjop/index">
-                        <i class="icon-list"></i>
-                        <span class="menu-text"> CRJ_OP管理 </span>
-                    </a>
-                </li>
+                    <ul class="submenu">
 
-                <li v-show="this.menu.indexOf('admin/crjcode/index') != -1" >
-                    <a href="/admin/crjcode/index">
-                        <i class="icon-list"></i>
-                        <span class="menu-text"> CRJ业务编号管理 </span>
-                    </a>
-                </li>
+                        <li v-show="this.menu.indexOf('admin/company/index') != -1" >
+                            <a href="/admin/company/index">
+                                <i class="icon-double-angle-right"></i>
+                                <span class="menu-text"> 公司管理 </span>
+                            </a>
+                        </li>
 
-                <li v-show="this.menu.indexOf('admin/crjbt/index') != -1" >
-                    <a href="/admin/crjbt/index">
-                        <i class="icon-list"></i>
-                        <span class="menu-text"> CRJ_BD管理 </span>
-                    </a>
-                </li>
-                <li v-show="this.menu.indexOf('admin/prj/index') != -1" >
-                    <a href="/admin/prj/index">
-                        <i class="icon-list-alt"></i>
-                        <span class="menu-text">PRJ管理 </span>
-                    </a>
-                </li>
+                        <li v-show="this.menu.indexOf('admin/member/index') != -1">
+                            <a href="/admin/member/index">
+                                <i class="icon-double-angle-right"></i>
+                                <span class="menu-text"> 会员管理 </span>
+                            </a>
+                        </li>
 
-                <li v-show="this.menu.indexOf('admin/prjbt/index') != -1" >
-                    <a href="/admin/prjbt/index">
-                        <i class="icon-list-alt"></i>
-                        <span class="menu-text">PRJ成本管理 </span>
-                    </a>
-                </li>
+                        <li v-show="this.menu.indexOf('admin/note/index') != -1">
+                            <a href="/admin/note/index">
+                                <i class="icon-double-angle-right"></i>
+                                <span class="menu-text"> 留言管理 </span>
+                            </a>
+                        </li>
 
-                <li v-show="this.menu.indexOf('admin/building/index') != -1" >
-                    <a href="/admin/building/index">
-                        <i class=" icon-flag"></i>
-                        <span class="menu-text"> 楼宇管理 </span>
-                    </a>
-                </li>
 
-                <li v-show="this.menu.indexOf('admin/servicetype/index') != -1" >
-                    <a href="/admin/servicetype/index">
-                        <i class="icon-key"></i>
-                        <span class="menu-text"> 业务类型管理 </span>
-                    </a>
-                </li>
 
-                <!--<li v-show="this.menu.indexOf('admin/isp2/index') != -1">-->
-                    <!--<a href="/admin/isp2/index">-->
-                        <!--<i class="icon-folder-open"></i>-->
-                        <!--<span class="menu-text"> 运营商管理 </span>-->
-                    <!--</a>-->
-                <!--</li>-->
-                <li v-show="this.menu.indexOf('admin/isp/index') != -1">
-                    <a href="/admin/isp/index">
-                        <i class="icon-folder-open"></i>
-                        <span class="menu-text"> 运营商经理管理 </span>
-                    </a>
+                    </ul>
                 </li>
+                <li >
+                    <a href="#" class="dropdown-toggle">
+                        <i class=" icon-home"></i>
+                        <span class="menu-text"> 楼内业务 </span>
 
-                <li v-show="this.menu.indexOf('admin/note/index') != -1">
-                    <a href="/admin/note/index">
-                        <i class="icon-comment"></i>
-                        <span class="menu-text"> 留言管理 </span>
+                        <b class="arrow icon-angle-down"></b>
                     </a>
-                </li>
 
+                    <ul class="submenu">
+
+                        <li v-show="this.menu.indexOf('admin/brj/index') != -1" >
+                            <a href="/admin/brj/index">
+                                <i class="icon-edit"></i>
+                                <span class="menu-text"> BRJ管理 </span>
+                            </a>
+                        </li>
+
+                        <li v-show="this.menu.indexOf('admin/brjop/index') != -1" >
+                            <a href="/admin/brjop/index">
+                                <i class="icon-edit"></i>
+                                <span class="menu-text"> BRJ_OP管理 </span>
+                            </a>
+                        </li>
+
+
+                        <li v-show="this.menu.indexOf('admin/building/index') != -1" >
+                            <a href="/admin/building/index">
+                                <i class=" icon-flag"></i>
+                                <span class="menu-text"> 楼宇管理 </span>
+                            </a>
+                        </li>
+
+                        <li v-show="this.menu.indexOf('admin/servicetype/index') != -1" >
+                            <a href="/admin/servicetype/index">
+                                <i class="icon-key"></i>
+                                <span class="menu-text"> 业务类型管理 </span>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </li>
+                <li >
+                    <a href="#" class="dropdown-toggle">
+                        <i class="icon-fighter-jet"></i>
+                        <span class="menu-text"> 楼外业务 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+
+                    <ul class="submenu">
+
+                        <li v-show="this.menu.indexOf('admin/crj/index') != -1" >
+                            <a href="/admin/crj/index">
+                                <i class="icon-list"></i>
+                                <span class="menu-text"> CRJ管理 </span>
+                            </a>
+                        </li>
+
+                        <li v-show="this.menu.indexOf('admin/crjop/index') != -1" >
+                            <a href="/admin/crjop/index">
+                                <i class="icon-list"></i>
+                                <span class="menu-text"> CRJ_OP管理 </span>
+                            </a>
+                        </li>
+
+                        <li v-show="this.menu.indexOf('admin/crjcode/index') != -1" >
+                            <a href="/admin/crjcode/index">
+                                <i class="icon-list"></i>
+                                <span class="menu-text"> CRJ业务编号管理 </span>
+                            </a>
+                        </li>
+
+                        <li v-show="this.menu.indexOf('admin/crjbt/index') != -1" >
+                            <a href="/admin/crjbt/index">
+                                <i class="icon-list"></i>
+                                <span class="menu-text"> CRJ_BD管理 </span>
+                            </a>
+                        </li>
+
+
+
+                        <li v-show="this.menu.indexOf('admin/isp/index') != -1">
+                            <a href="/admin/isp/index">
+                                <i class="icon-folder-open"></i>
+                                <span class="menu-text"> 运营商经理管理 </span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+                </li>
+                <li >
+                    <a href="#" class="dropdown-toggle">
+                        <i class=" icon-folder-open-alt"></i>
+                        <span class="menu-text"> 项目管理 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+
+                    <ul class="submenu">
+
+                        <li v-show="this.menu.indexOf('admin/prj/index') != -1" >
+                            <a href="/admin/prj/index">
+                                <i class="icon-list-alt"></i>
+                                <span class="menu-text">PRJ管理 </span>
+                            </a>
+                        </li>
+
+                        <li v-show="this.menu.indexOf('admin/prjbt/index') != -1" >
+                            <a href="/admin/prjbt/index">
+                                <i class="icon-list-alt"></i>
+                                <span class="menu-text">PRJ成本管理 </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li >
+                    <a href="#" class="dropdown-toggle">
+                        <i class="icon-bar-chart"></i>
+                        <span class="menu-text"> 财务模块 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+
+                    <ul class="submenu">
+                        <li v-show="this.menu.indexOf('admin/prjpay/index') != -1" >
+                            <a href="/admin/prjpay/index">
+                                <i class="icon-double-angle-right"></i>
+                                PRJ财务列表
+                            </a>
+                        </li>
+                        <li v-show="this.menu.indexOf('admin/crjpay/index') != -1" >
+                            <a href="/admin/crjpay/index">
+                                <i class="icon-double-angle-right"></i>
+                                CRJ财务列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li >
                     <a href="#" class="dropdown-toggle">
                         <i class="icon-desktop"></i>
@@ -281,6 +357,8 @@
 
                     </ul>
                 </li>
+
+
 
             </ul><!-- /.nav-list -->
 

@@ -18,12 +18,13 @@ vm = new Vue({
         s_out:'',
         s_isp_manager:'',
         typeList :{},
-        bus_status :[{id:1,name:'正常'},{id:2,name:'过期'}],
+        bus_status :[{id:1,name:'正常'},{id:2,name:'过期'},{id:3,name:'申请拆机'},{id:4,name:'拆机'}],
         threelist :{},
         methodlist :[{'id':1,'name':'月结'},{'id':2,'name':'季度结'},{'id':3,'name':'年结'}],
         companyList:{},
         buildingList:{},
         ispList:{},
+        saleList:{},
         crjCode:'',
     },
     methods: {
@@ -52,7 +53,7 @@ vm = new Vue({
                 this.buildingList = res.data.data['buildingList'];
                 this.ispList = res.data.data['ispList'];
                 this.threelist = res.data.data['threeList'];
-
+                this.saleList = res.data.data['saleList'];
                 this.pages = res.data.data['count'];
             }, function (res) {
                 alert("程序崩掉了");

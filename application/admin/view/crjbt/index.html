@@ -109,15 +109,12 @@
                         <th>业务编号</th>
                         <th>安装地址</th>
                         <th>业务类型</th>
-                        <!--<th>运营商</th>-->
                         <th>运营商经理</th>
                         <th>运营商经理电话</th>
                         <th>业务员</th>
                         <th>客户需求</th>
                         <th>实际套餐</th>
                         <th>套餐资费</th>
-                        <!--<th>销售价</th>-->
-                        <!--<th>客户结算</th>-->
                         <th>运营商结算</th>
                         <th>业务状态</th>
                         <th>开通时间</th>
@@ -134,7 +131,6 @@
                         <td>{{item.crj}}</td>
                         <td>{{item.address}}</td>
                         <td v-show="item.type == i.id" v-for="i in typeList">{{i.name}}</td>
-                        <!--<td>{{item.isp}}</td>-->
                         <td>{{item.isp_sales}}</td>
                         <td>{{item.phone}}</td>
                         <td>{{item.sales}}</td>
@@ -143,14 +139,24 @@
                         <td>{{item.s_price}}</td>
                         <!--<td>{{item.price}}</td>-->
                         <!--<td v-show="item.method == m.id" v-for="m in methodlist">{{m.name}}</td>-->
-                        <td v-show="item.isp_method == m.id" v-for="m in methodlist">{{m.name}}</td>
-                        <td v-show="item.status == 1" ><span class="label label-sm label-success">正常</span></td>
-                        <td v-show="item.status == 2" ><span class="label label-sm label-warning">过期</span></td>
+                        <td v-show="item.isp_method == 1" ><span class="label label-sm label-success">月结</span></td>
+                        <td v-show="item.isp_method == 2" ><span class="label label-sm label-success">季度结</span></td>
+                        <td v-show="item.isp_method == 3" ><span class="label label-sm label-success">年结</span></td>
+                        <td v-show="item.isp_method == null " ><span class="label label-sm label-success"></span></td>
+
+
+                        <td v-if="item.status == 1" ><span class="label label-sm label-success">正常</span></td>
+                        <td v-if="item.status == 2" ><span class="label label-sm label-warning">过期</span></td>
+                        <td v-show="item.status == 3" ><span class="label label-sm label-danger">申请拆机</span></td>
+                        <td v-show="item.status == 4" ><span class="label label-sm ">拆机</span></td>
+
+                        <td v-if="item.status == null " ><span class="label label-sm label-warning"></span></td>
+
                         <td>{{item.start_time}}</td>
                         <td>{{item.end_time}}</td>
                         <td>{{item.teardown}}</td>
                         <td>
-                            <div class="action-buttons">
+                            <div class="action-buttons" v-show="item.deleted==0">
 
                                 <a class="green"  @click="edittmpid(item.id,key)" data-toggle="modal" data-target="#edit">
                                     <i class="icon-pencil bigger-130"></i>
@@ -397,7 +403,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right"> 安装地址 </label>
                                 <div class="col-sm-9">
-                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5" readonly
                                            v-model="editmsg['address']">
                                 </div>
                             </div>
@@ -406,7 +412,7 @@
                                 <label class="col-sm-3 control-label no-padding-right" >业务类型 </label>
 
                                 <div class="col-sm-9">
-                                    <select class="col-xs-10 col-sm-5"  v-model="editmsg['type']">
+                                    <select class="col-xs-10 col-sm-5"  v-model="editmsg['type']" readonly>
                                         <option value="" disabled>请选择业务类型</option>
                                         <option v-for="item in typeList" :value="item.id">{{item.name}}</option>
                                     </select>
@@ -434,18 +440,20 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" >业务员 </label>
                                 <div class="col-sm-9">
-                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5" v-model="editmsg['sales']">
+                                    <select class="col-xs-10 col-sm-5"  v-model="editmsg['sales_id']" readonly >
+                                        <option value="" disabled>请选择业务员</option>
+                                        <option v-for="item in saleList" :value="item.id">{{item.name}}</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right"> 客户需求 </label>
                                 <div class="col-sm-9">
-                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5"
+                                    <input type="text"  placeholder="" class="col-xs-10 col-sm-5" readonly
                                            v-model="editmsg['demand']">
                                 </div>
                             </div>
@@ -526,13 +534,13 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" >拆机时间 </label>
-                                <div class="col-sm-9 ">
-                                    <input type="text" id ="edit_teardowm"  class="col-xs-10 col-sm-5"
-                                           placeholder="请输入拆机时间" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">
-                                </div>
-                            </div>
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-3 control-label no-padding-right" >拆机时间 </label>-->
+                                <!--<div class="col-sm-9 ">-->
+                                    <!--<input type="text" id ="edit_teardowm"  class="col-xs-10 col-sm-5"-->
+                                           <!--placeholder="请输入拆机时间" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">-->
+                                <!--</div>-->
+                            <!--</div>-->
 
                         </form>
                     </div>

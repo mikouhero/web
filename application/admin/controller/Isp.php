@@ -38,7 +38,7 @@ class Isp extends Base
 
         $list = Db::name('channel')
             ->alias('p1')
-            ->field('p1.id,p1.isp,p1.isp_sales,p1.phone,p1.create_time')
+            ->field('p1.id,p1.isp,p1.isp_sales,p1.phone')
             ->where($condition)
             ->limit($start, $pagesize)
             ->select();

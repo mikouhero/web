@@ -79,7 +79,7 @@ class Crjcode extends Base
        try{
         $param = array(
             'cid' => $data['cid'],
-            'crj_code' => $data['crj_code'],
+            'crj_code' => strtoupper($data['crj_code']),
             'create_time' => date("Y-m-d H:i:s")
 
         );
@@ -115,7 +115,7 @@ class Crjcode extends Base
         try {
             $param = array(
                 'cid' => $data['cid'],
-                'crj_code' => $data['crj_code'],
+                'crj_code' => strtoupper($data['crj_code']),
 
             );
             Db::name('crj_code')->where('id', $data['id'])->update($param);

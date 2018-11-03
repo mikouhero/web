@@ -190,9 +190,9 @@ class Prj extends Base
         $code = Db::name('prj')->field('prj')->limit(1)->order('id','desc')->find();
 
         if(empty($code['prj'])){
-            $prj = "prj" . "10001";
+            $prj = "PRJ" . "10001";
         }else{
-            $prj = "prj" . (intval( substr($code['prj'],3)) + 1);
+            $prj = "PRJ" . (intval( substr($code['PRJ'],3)) + 1);
         }
         return $prj;
     }

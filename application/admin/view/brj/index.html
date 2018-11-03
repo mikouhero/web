@@ -75,13 +75,15 @@
                         </select>
                     </div>
 
-                    <div class="col-xs-2 input-group-s">
-                        <select  class="form-control "  v-model="s_out">
-                            <option value="">请选择是用户否过期</option>
-                            <option  :value=1>正常</option>
-                            <option :value=2>过期</option>
-                        </select>
-                    </div>
+                    <!--<div class="col-xs-2 input-group-s">-->
+                        <!--<select  class="form-control "  v-model="s_out">-->
+                            <!--<option value="">请选择是用户否过期</option>-->
+                            <!--<option  :value=1>正常</option>-->
+                            <!--<option :value=2>过期</option>-->
+                            <!--<option :value=3>拆机</option>-->
+
+                        <!--</select>-->
+                    <!--</div>-->
 
                     <div class="col-xs-2 input-group-s">
                         <select  class="form-control "  v-model="s_time">
@@ -117,13 +119,13 @@
                         <th>带宽</th>
                         <th>销售价</th>
                         <th>联系人</th>
-                        <th>业务员</th>
                         <th>联系方式</th>
                         <th>业务状态</th>
                         <th>所属楼宇</th>
                         <th>开通时间</th>
                         <th>到期时间</th>
                         <th>拆机时间</th>
+                        <th>业务员</th>
                         <th>操作</th>
 
                     </tr>
@@ -138,16 +140,18 @@
                         <td>{{item.speed}}</td>
                         <td>&yen;:{{item.s_price}}</td>
                         <td>{{item.contact}}</td>
-                        <td>{{item.sale}}</td>
                         <td>{{item.phone}}</td>
                         <td v-show="item.status == 1" ><span class="label label-sm label-success">正常</span></td>
                         <td v-show="item.status == 2" ><span class="label label-sm label-warning">过期</span></td>
+                        <td v-show="item.status == 3" ><span class="label label-sm label-warning">拆机</span></td>
                         <td>{{item.building}}</td>
                         <td>{{item.start_time}}</td>
                         <td>{{item.end_time}}</td>
                         <td>{{item.teardown}}</td>
+                        <td>{{item.sale}}</td>
+
                         <td>
-                            <div class="action-buttons">
+                            <div class="action-buttons" v-show="item.deleted == 0">
 
                                 <a class="green"  @click="edittmpid(item.id,key)" data-toggle="modal" data-target="#edit">
                                     <i class="icon-pencil bigger-130"></i>
@@ -307,13 +311,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" >拆机时间 </label>
-                            <div class="col-sm-9 ">
-                                <input type="text" id ="add_teardowm"  class="col-xs-10 col-sm-5"
-                                       placeholder="请输入拆机时间" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">
-                            </div>
-                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-3 control-label no-padding-right" >拆机时间 </label>-->
+                            <!--<div class="col-sm-9 ">-->
+                                <!--<input type="text" id ="add_teardowm"  class="col-xs-10 col-sm-5"-->
+                                       <!--placeholder="请输入拆机时间" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">-->
+                            <!--</div>-->
+                        <!--</div>-->
 
                     </form>
                 </div>
@@ -463,13 +467,13 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" >拆机时间 </label>
-                                <div class="col-sm-9 ">
-                                    <input type="text" id ="edit_teardowm"  class="col-xs-10 col-sm-5"
-                                           placeholder="请输入拆机时间" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">
-                                </div>
-                            </div>
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-3 control-label no-padding-right" >拆机时间 </label>-->
+                                <!--<div class="col-sm-9 ">-->
+                                    <!--<input type="text" id ="edit_teardowm"  class="col-xs-10 col-sm-5"-->
+                                           <!--placeholder="请输入拆机时间" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">-->
+                                <!--</div>-->
+                            <!--</div>-->
 
                         </form>
                     </div>

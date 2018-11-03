@@ -4,44 +4,41 @@ vm = new Vue({
         pageNo: 1,   // 当前页数
         pages: 0,    //  多少页
         List: {},
-        msg:{'status':1},
-
+        msg: {},
         editid: '',
         editmsg: {},
         delid: '',
         delkey: '',
-        s_brj :'',
-        s_type:'',
+        s_crj :'',
+        s_isp:'',
         s_cid:'',
-        s_bid:'',
-        s_speed:'',
-        s_contact:'',
-        s_phone:'',
+        s_type:'',
         s_status:'',
         s_time:'',
         s_out:'',
+        s_isp_manager:'',
         typeList :{},
-        bus_status :[{id:1,name:'正常'},{id:2,name:'过期'},{id:3,name:'拆机'}],
-
+        bus_status :[{id:1,name:'正常'},{id:2,name:'过期'},{id:3,name:'申请拆机'},{id:4,name:'拆机'}],
+        threelist :{},
+        methodlist :[{'id':1,'name':'月结'},{'id':2,'name':'季度结'},{'id':3,'name':'年结'}],
         companyList:{},
         buildingList:{},
+        ispList:{},
         saleList:{},
-        brjCode:'',
+        crjCode:'',
     },
     methods: {
         getList: function () {
-            this.$http.post(ajaxUrl.getBrjList, {
+            this.$http.post(ajaxUrl.getCrjpayList, {
                 current_page: this.pageNo,
-                s_brj:this.s_brj,
-                s_type:this.s_type,
+                s_crj:this.s_crj,
+                s_isp:this.s_isp,
                 s_cid:this.s_cid,
-                s_bid:this.s_bid,
-                s_speed:this.s_speed,
-                s_contact:this.s_contact,
-                s_phone:this.s_phone,
                 s_status:this.s_status,
                 s_time:this.s_time,
                 s_out:this.s_out,
+                s_type:this.s_type,
+                s_isp_manager:this.s_isp_manager,
 
             }, {
                 emulateJSON: true
@@ -54,23 +51,10 @@ vm = new Vue({
                 this.typeList = res.data.data['typeList'];
                 this.companyList = res.data.data['companyList'];
                 this.buildingList = res.data.data['buildingList'];
+                this.ispList = res.data.data['ispList'];
+                this.threelist = res.data.data['threeList'];
                 this.saleList = res.data.data['saleList'];
                 this.pages = res.data.data['count'];
-            }, function (res) {
-                alert("程序崩掉了");
-            });
-        },
-        getCode:function () {
-            this.$http.post(ajaxUrl.getBrjCode, {
-            }, {
-                emulateJSON: true
-            }).then(function (res) {
-                if (res.data.code != 200) {
-                    alert(res.data.msg);
-                    return false;
-                }
-                this.brjCode = res.data.data;
-
             }, function (res) {
                 alert("程序崩掉了");
             });
@@ -83,7 +67,7 @@ vm = new Vue({
             this.msg['end_time'] = end;
             this.msg['teardown'] = teardown;
 
-            this.$http.post(ajaxUrl.addBrj, {
+            this.$http.post(ajaxUrl.addCrjbt, {
                 'msg': JSON.stringify(this.msg)
             }, {
                 emulateJSON: true
@@ -92,14 +76,28 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-               this.msg={'status':1};
+               this.msg={};
                this.getList();
 
             }, function (res) {
                 alert("程序崩掉了");
             });
         },
+        getCode:function () {
+            this.$http.post(ajaxUrl.getCrjbtCode, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.crjCode = res.data.data;
 
+            }, function (res) {
+                alert("程序崩掉了");
+            });
+        },
         edittmpid: function (id, key) {
             this.editid = id;
             this.editmsg = this.List[key];
@@ -114,7 +112,8 @@ vm = new Vue({
             this.editmsg['start_time'] = start;
             this.editmsg['end_time'] = end;
             this.editmsg['teardown'] = teardown;
-            this.$http.post(ajaxUrl.editBrj, {
+            console.log(this.editmsg);
+            this.$http.post(ajaxUrl.editCrjbt, {
                 msg: JSON.stringify(this.editmsg)
             }, {
                 emulateJSON: true
@@ -137,7 +136,7 @@ vm = new Vue({
             this.delkey = key;
         },
         del: function (id) {
-            this.$http.post(ajaxUrl.delBrj, {
+            this.$http.post(ajaxUrl.delCrjbt, {
                 id: id
             }, {
                 emulateJSON: true

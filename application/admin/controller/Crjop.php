@@ -64,7 +64,6 @@ class Crjop extends Base
         $list = Db::name('crj')
             ->alias('p1')
             ->field('p1.id,
-                     p1.cid,
                      p2.name as company_name,
                      p1.crj,
                      p1.address,
@@ -77,7 +76,8 @@ class Crjop extends Base
                      p5.isp_sales
                      '
                     )
-            ->join('company p2', 'p2.id = p1.cid', 'left')
+            ->join('crj_code p6','p6.crj_code=p1.crj','left')
+            ->join('company p2', 'p2.id = p6.cid', 'left')
             ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
             ->join('crj_bt p4','p4.crj_id = p1.id','left')
             ->join('channel p5','p5.id = p4.isp_manager','left')
@@ -98,7 +98,8 @@ class Crjop extends Base
             ->where('p1.deleted',0)
             ->select();
         $count = Db::name('crj')->alias('p1')
-            ->join('company p2', 'p2.id = p1.cid', 'left')
+            ->join('crj_code p6','p6.crj_code=p1.crj','left')
+            ->join('company p2', 'p2.id = p6.cid', 'left')
             ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
             ->where($condition)->count();
         $res = array(
