@@ -108,7 +108,7 @@ class Crjpay extends Base
         $companyList = Db::name('company')->field('id,name')->select();
         $buildingList = Db::name('building')->field('id,name')->select();
         $ispList = Db::name('channel')->field('id,concat(isp_sales,"(",isp,")") as isp_sales')->select();
-        $threeList = Db::name('isp')->field('id,name')->where('deleted','0')->select();
+//        $threeList = Db::name('isp')->field('id,name')->where('deleted','0')->select();
 
         /**
          * 业务员列表
@@ -133,7 +133,7 @@ class Crjpay extends Base
             'companyList' => $companyList,
             'buildingList' => $buildingList,
             'ispList' => $ispList,
-            'threeList'=>$threeList,
+//            'threeList'=>$threeList,
             'saleList'   => $saleList,
             'count' => ceil($count / $pagesize)
         );

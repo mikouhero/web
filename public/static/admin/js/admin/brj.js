@@ -27,6 +27,18 @@ vm = new Vue({
         buildingList:{},
         saleList:{},
         brjCode:'',
+        s_cname:'',
+
+        myData:[],
+        t1:'',
+        now:-1,
+        show:true,
+
+        myData1:[],
+        t11:'',
+        now1:-1,
+        show1:true,
+
     },
     methods: {
         getList: function () {
@@ -60,6 +72,86 @@ vm = new Vue({
                 alert("程序崩掉了");
             });
         },
+        getCompany(ev){
+            this.show = true;
+
+            if(ev.keyCode==38 || ev.keyCode==40)return;
+
+            // if(ev.keyCode==13){
+            //     window.open('https://www.baidu.com/s?wd='+this.t1);
+            //     this.t1='';
+            // }
+
+            this.$http.post(ajaxUrl.getBrjCompany,{
+                s_cname:this.t1
+            },{
+                emulateJSON: true
+            }).then(function(res){
+                this.myData=res.data.data;
+            },function(){
+
+            });
+        },
+        changeDown:function(){
+            this.now++;
+            if(this.now==this.myData.length)this.now=-1;
+            if(this.now!=-1) {
+                this.t1 = this.myData[this.now].name;
+                this.s_cid = this.myData[this.now].id;
+            }
+        },
+        changeUp:function(){
+            this.now--;
+            if(this.now==-2)this.now=this.myData.length-1;
+            if(this.now !=-1){
+                this.t1=this.myData[this.now].name;
+                this.s_cid=this.myData[this.now].id;
+            }
+        },
+        ulisshow:function () {
+          this.show = false;
+        },
+
+        getCompany1(ev){
+            this.show1 = true;
+
+            if(ev.keyCode==38 || ev.keyCode==40)return;
+
+            // if(ev.keyCode==13){
+            //     window.open('https://www.baidu.com/s?wd='+this.t1);
+            //     this.t1='';
+            // }
+
+            this.$http.post(ajaxUrl.getBrjCompany,{
+                s_cname:this.t11
+            },{
+                emulateJSON: true
+            }).then(function(res){
+                this.myData1=res.data.data;
+            },function(){
+
+            });
+        },
+        changeDown1:function(){
+            this.now1++;
+            if(this.now1==this.myData1.length)this.now1=-1;
+            if(this.now1!=-1) {
+                this.t11 = this.myData1[this.now1].name;
+                this.msg.cid = this.myData1[this.now1].id;
+            }
+        },
+        changeUp1:function(){
+            this.now1--;
+            if(this.now1==-2)this.now1=this.myData1.length-1;
+            if(this.now1 !=-1){
+                this.t11=this.myData1[this.now1].name;
+                this.msg.cid=this.myData1[this.now1].id;
+            }
+        },
+        ulisshow1:function () {
+            this.show1 = false;
+        },
+
         getCode:function () {
             this.$http.post(ajaxUrl.getBrjCode, {
             }, {

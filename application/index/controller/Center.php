@@ -141,7 +141,7 @@ class Center extends  Controller
 
         $condition['p1.deleted'] = ['=', '0'];
         if (isset($data['s_brj']) && !empty($data['s_brj'])) {
-            $condition['p4.brj'] = ['=', $data['s_brj']];
+            $condition['p4.crj'] = ['=', $data['s_brj']];
         }
 
         if (isset($data['s_type']) && !empty($data['s_type'])) {

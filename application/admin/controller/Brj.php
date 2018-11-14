@@ -40,7 +40,7 @@ class Brj extends Base
 
         if (isset($data['s_status']) && !empty($data['s_status'])) {
 //            $condition['p1.status'] = ['=', $data['s_status']];
-            if($data['s_status'] ==3){
+            if ($data['s_status'] == 3) {
                 $condition['p1.deleted'] = ['=', 1];
             }
         }
@@ -85,12 +85,12 @@ class Brj extends Base
          */
         $limit = Db::name('user')
             ->alias('p1')
-            ->join('user_role p2','p2.user_id=p1.id','left')
-            ->join('role p3','p2.role_id = p3.id','left')
-            ->where('p3.name','=','业务员')
-            ->where('p1.id','=',$user['id'])
+            ->join('user_role p2', 'p2.user_id=p1.id', 'left')
+            ->join('role p3', 'p2.role_id = p3.id', 'left')
+            ->where('p3.name', '=', '业务员')
+            ->where('p1.id', '=', $user['id'])
             ->count();
-        if($limit){
+        if ($limit) {
             $condition['p1.sale'] = ['=', $user['id']];
         }
 
@@ -115,7 +115,7 @@ class Brj extends Base
             p1.bid')
             ->join('company p2', 'p2.id = p1.cid', 'left')
             ->join('building p4', 'p4.id = p1.bid', 'left')
-            ->join('user p5','p5.id=p1.sale','left')
+            ->join('user p5', 'p5.id=p1.sale', 'left')
             ->where($condition)
             ->order('id', 'desc')
             ->limit($start, $pagesize)
@@ -128,12 +128,12 @@ class Brj extends Base
          * 业务员列表
          */
         $saleList = Db::name('user')
-                    ->field('p1.id,p1.name')
-                    ->alias('p1')
-                    ->join('user_role p2','p2.user_id=p1.id','left')
-                    ->join('role p3','p2.role_id = p3.id','left')
-                    ->where('p3.name','=','业务员')
-                    ->select();
+            ->field('p1.id,p1.name')
+            ->alias('p1')
+            ->join('user_role p2', 'p2.user_id=p1.id', 'left')
+            ->join('role p3', 'p2.role_id = p3.id', 'left')
+            ->where('p3.name', '=', '业务员')
+            ->select();
 
 
         $count = Db::name('brj')->alias('p1')->where($condition)->count();
@@ -142,10 +142,23 @@ class Brj extends Base
             'typeList' => $typeList,
             'companyList' => $companyList,
             'buildingList' => $buildingList,
-            'saleList'   => $saleList,
+            'saleList' => $saleList,
             'count' => ceil($count / $pagesize)
         );
         $this->ajaxReturnMsg(200, 'success', $res);
+    }
+
+    public function get(Request $request)
+    {
+        $data = $request->post();
+        $condition['p1.deleted'] = ['=', '0'];
+        if (!isset($data['s_cname']) && empty($data['s_cname'])) {
+            $this->ajaxReturnMsg(200, 'success', []);
+        }
+        $companyList = Db::name('company')->field('id,name')->where('name','like','%'.$data['s_cname'].'%')->select();
+
+        $this->ajaxReturnMsg(200, 'success', $companyList);
+
     }
 
     public function insert(Request $request)
@@ -156,14 +169,14 @@ class Brj extends Base
         if (!isset($data['cid']) || empty($data['cid']) || !isset($data['brj']) || empty($data['brj']) || !isset($data['address']) || empty($data['address']) || !isset($data['type']) || empty($data['type']) || !isset($data['speed']) || empty($data['speed']) || !isset($data['s_price']) || empty($data['s_price']) || !isset($data['contact']) || empty($data['contact']) || !isset($data['phone']) || empty($data['phone']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
-        if(empty($data['start_time'])){
+        if (empty($data['start_time'])) {
             $data['start_time'] = date("Y-m-d");
         }
-        if(empty($data['end_time'])){
-            $data['end_time'] = date("Y-m-d",strtotime('1 years',strtotime($data['start_time'])));
+        if (empty($data['end_time'])) {
+            $data['end_time'] = date("Y-m-d", strtotime('1 years', strtotime($data['start_time'])));
         }
 //
-        if(empty($data['teardown'])){
+        if (empty($data['teardown'])) {
             $data['teardown'] = NUll;
         }
 
@@ -222,14 +235,14 @@ class Brj extends Base
         $this->ajaxReturnMsg(200, 'success', $brj);
     }
 
-    private  function getCode()
+    private function getCode()
     {
-        $code = Db::name('brj')->field('brj')->limit(1)->order('id','desc')->find();
+        $code = Db::name('brj')->field('brj')->limit(1)->order('id', 'desc')->find();
 
-        if(empty($code['brj'])){
+        if (empty($code['brj'])) {
             $brj = "BRJ" . "10001";
-        }else{
-            $brj = "BRJ" . (intval( substr($code['brj'],3)) + 1);
+        } else {
+            $brj = "BRJ" . (intval(substr($code['brj'], 3)) + 1);
         }
         return $brj;
     }
@@ -306,7 +319,7 @@ class Brj extends Base
         }
         $param = array(
             'deleted' => 1,
-            'status' =>3,
+            'status' => 3,
             'teardown' => date("Y-m-d H:i:s"),
             'delete_time' => date("Y-m-d H:i:s")
         );

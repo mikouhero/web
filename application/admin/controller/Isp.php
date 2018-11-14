@@ -67,9 +67,9 @@ class Isp extends Base
         }
 
         // 判断用户是否存在
-        if (Db::name('channel')->where('isp_sales', $data['isp_sales'])->count()) {
-            $this->ajaxReturnMsg(203, '运营商经理已存在', '');
-        }
+//        if (Db::name('channel')->where('isp_sales', $data['isp_sales'])->count()) {
+ //           $this->ajaxReturnMsg(203, '运营商经理已存在', '');
+  //      }
 
 
         $param = array(
@@ -98,9 +98,9 @@ class Isp extends Base
         }
 
         // 判断用户是否存在
-        if (Db::name('channel')->where('id','<>',$data['id'])->where('isp_sales', $data['isp_sales'])->count()) {
-            $this->ajaxReturnMsg(203, '运营商经理已存在', '');
-        }
+//        if (Db::name('channel')->where('id','<>',$data['id'])->where('isp_sales', $data['isp_sales'])->count()) {
+//            $this->ajaxReturnMsg(203, '运营商经理已存在', '');
+//        }
         $param = array(
             'isp' =>$data['isp'],
             'isp_sales' =>$data['isp_sales'],
