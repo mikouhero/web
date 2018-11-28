@@ -3,6 +3,7 @@ namespace app\admin\controller;
 
 
 use think\Controller;
+use think\Db;
 
 class Crontab extends Controller
 {
@@ -82,6 +83,24 @@ class Crontab extends Controller
             }
         }
         closedir($handle);
+
+    }
+    // crj 过其
+    public function updateCrj(){
+        $timeout = Db::name('crj')
+            ->field('p1.id')
+            ->alias('p1')
+            ->where('status',1)
+            ->where('end_time', '<', date("Y-m-d H:i:s"))
+            ->select();
+        if($timeout){
+            foreach ($timeout as $k=>$v){
+               $tmp[] = $v['id'];
+            }
+
+            Db::name('crj')->whereIn('id',$tmp)->update(['status'=>2]);
+        }
+        echo "ok";
 
     }
 
