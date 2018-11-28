@@ -157,7 +157,7 @@ class Crjop extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['Iid']) || empty($data['Iid']) || !isset($data['crj']) || empty($data['crj']) || !isset($data['port']) || empty($data['port']) || !isset($data['ip']) || empty($data['ip']) || !isset($data['account']) || empty($data['account']) || !isset($data['password']) || empty($data['password'])) {
+        if (!isset($data['id']) || empty($data['id']) || !isset($data['crj']) || empty($data['crj']) || !isset($data['port']) || empty($data['port']) || !isset($data['ip']) || empty($data['ip']) || !isset($data['account']) || empty($data['account']) || !isset($data['password']) || empty($data['password'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
@@ -176,7 +176,7 @@ class Crjop extends Base
                 'password' => $data['password'],
             );
 
-            Db::name('crj_op')->where('crj_id', $data['Iid'])->update($param2);
+            Db::name('crj_op')->where('crj_id', $data['id'])->update($param2);
 
             Db::commit();
             $this->ajaxReturnMsg(200, 'success', '');

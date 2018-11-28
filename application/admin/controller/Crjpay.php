@@ -90,6 +90,7 @@ class Crjpay extends Base
                      p4.price as s_price,
                      p5.isp_sales,
                      p5.phone,
+                     p5.isp,
                      p7.name as sales,
                      p7.id as sales_id
                      '
@@ -107,7 +108,8 @@ class Crjpay extends Base
         $typeList = Db::name('service_type')->field('id,name,status')->select();
         $companyList = Db::name('company')->field('id,name')->select();
         $buildingList = Db::name('building')->field('id,name')->select();
-        $ispList = Db::name('channel')->field('id,concat(isp_sales,"(",isp,")") as isp_sales')->select();
+        $ispList = Db::name('channel')->field('id,concat(isp,"(",isp_sales,")") as isp_sales')->select();
+
 //        $threeList = Db::name('isp')->field('id,name')->where('deleted','0')->select();
 
         /**
@@ -121,9 +123,9 @@ class Crjpay extends Base
             ->where('p3.name','=','业务员')
             ->select();
         $count = Db::name('crj')->alias('p1')
-            ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
-            ->join('crj_code p6', 'p6.crj_code = p1.crj', 'left')
-            ->join('company p2', 'p2.id = p6.cid', 'left')
+//            ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
+            ->join('crj_code p3', 'p3.crj_code = p1.crj', 'left')
+            ->join('company p2', 'p2.id = p3.cid', 'left')
             ->join('crj_bt p4','p4.crj_id = p1.id','left')
             ->join('channel p5','p5.id = p4.isp_manager','left')
             ->where($condition)->count();

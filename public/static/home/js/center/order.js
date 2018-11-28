@@ -9,7 +9,10 @@ vm = new Vue({
         s_time:'',
         s_type:'',
         statuslist :[{id:1,name:'正常'},{id:2,name:'过期'},{id:3,name:'拆机'}],
+        methodlist :[{'id':1,'name':'月结'},{'id':2,'name':'季度结'},{'id':3,'name':'年结'}],
         s_status:'',
+        s_method:'',
+
         typelist:{}
 
     },
@@ -18,6 +21,7 @@ vm = new Vue({
             this.$http.post("/index/center/getOrder", {
                 current_page: this.pageNo,
                 s_brj:this.s_brj,
+                s_method:this.s_method,
                 s_address:this.s_address,
                 s_status:this.s_status,
                 s_time:$('#s_time').val(),

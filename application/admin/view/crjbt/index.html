@@ -47,7 +47,7 @@
 
                     <div class="col-xs-2 input-group-s">
                         <select  class="form-control "  v-model="s_isp_manager">
-                            <option value="">请选择运营商经理</option>
+                            <option value="">请选择运营商</option>
                             <option v-for="item in ispList" :value="item.id">{{item.isp_sales}}</option>
                         </select>
                     </div>
@@ -109,8 +109,9 @@
                         <th>业务编号</th>
                         <th>安装地址</th>
                         <th>业务类型</th>
-                        <th>运营商经理</th>
-                        <th>运营商经理电话</th>
+                        <th>所属运营商</th>
+                        <!--<th>运营商经理</th>-->
+                        <!--<th>运营商经理电话</th>-->
                         <th>业务员</th>
                         <th>客户需求</th>
                         <th>实际套餐</th>
@@ -131,8 +132,9 @@
                         <td>{{item.crj}}</td>
                         <td>{{item.address}}</td>
                         <td v-show="item.type == i.id" v-for="i in typeList">{{i.name}}</td>
-                        <td>{{item.isp_sales}}</td>
-                        <td>{{item.phone}}</td>
+                        <td>{{item.isp}}</td>
+                        <!--<td>{{item.isp_sales}}</td>-->
+                        <!--<td>{{item.phone}}</td>-->
                         <td>{{item.sales}}</td>
                         <td>{{item.demand}}</td>
                         <td>{{item.actual}}</td>
@@ -252,7 +254,7 @@
                             <div class="col-sm-9">
                                 <select class="col-xs-10 col-sm-5"  v-model="msg['isp_manager']">
                                     <option value="" disabled>请选择运营商经理</option>
-                                    <option v-for="item in ispList " :value="item.id">{{item.isp_sales}}</option>
+                                    <option v-for="item in ispList " :value="item.id">{{item.isp}}</option>
                                 </select>
                             </div>
                         </div>
@@ -431,11 +433,11 @@
                             <!--</div>-->
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" >运营商经理</label>
+                                <label class="col-sm-3 control-label no-padding-right" >所属运营商</label>
 
                                 <div class="col-sm-9">
                                     <select class="col-xs-10 col-sm-5"  v-model="editmsg['isp_manager']">
-                                        <option value="" disabled>请选择运营商经理</option>
+                                        <option value="" disabled>请选择运营商</option>
                                         <option v-for="item in ispList " :value="item.id">{{item.isp_sales}}</option>
                                     </select>
                                 </div>

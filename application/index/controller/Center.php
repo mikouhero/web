@@ -148,6 +148,11 @@ class Center extends  Controller
             $condition['p4.type'] = ['=', $data['s_type']];
         }
 
+        if (isset($data['s_method']) && !empty($data['s_method'])) {
+            $condition['p4.method'] = ['=', $data['s_method']];
+        }
+
+
         if (isset($data['s_address']) && !empty($data['s_address'])) {
             $condition['p4.address'] = ['like', '%'.$data['s_address'].'%'];
         }
@@ -176,6 +181,7 @@ class Center extends  Controller
             p6.actual,
             p4.status,
             p4.address,
+            p4.method,
             p4.price,
                  DATE_FORMAT(p4.start_time,"%Y-%m-%d") as start_time,
                      DATE_FORMAT(p4.end_time,"%Y-%m-%d") as end_time,
