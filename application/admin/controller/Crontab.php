@@ -24,12 +24,14 @@ class Crontab extends Controller
                 }
               }
           }
+	  echo "ok";
     }
 
     public function deleteCache()
     {
         $dir = '../runtime/cache/';
         $this->del($dir);
+	 echo "ok";
     }
 
     public function deleteErrorLog()
@@ -56,6 +58,7 @@ class Crontab extends Controller
                 }
             }
         }
+	 echo "ok";
 
     }
 
