@@ -20,6 +20,7 @@ vm = new Vue({
         s_status:'',
         s_time:'',
         s_out:'',
+        s_address:'',
         typeList :{},
         bus_status :[{id:1,name:'正常'},{id:2,name:'过期'},{id:3,name:'拆机'}],
 
@@ -42,6 +43,7 @@ vm = new Vue({
                 s_status:this.s_status,
                 s_time:this.s_time,
                 s_out:this.s_out,
+                s_address:this.s_address,
 
             }, {
                 emulateJSON: true

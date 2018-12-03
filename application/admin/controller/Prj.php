@@ -40,6 +40,10 @@ class Prj extends Base
             $condition['p1.prj_manger'] = ['=', $data['s_prj_manger']];
         }
 
+        if (isset($data['s_address']) && !empty($data['s_address'])) {
+            $condition['p1.address'] = ['like', '%'.$data['s_address'].'%'];
+        }
+
         if (isset($data['s_cid']) && !empty($data['s_cid'])) {
             $condition['p1.cid'] = ['=', $data['s_cid']];
         }

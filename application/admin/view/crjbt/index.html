@@ -30,6 +30,9 @@
                         <input type="text" class="form-control"   placeholder="请输入业务编号" v-model="s_crj">
                     </div>
 
+                    <div class="col-xs-2 input-group-s" >
+                        <input type="text" class="form-control"   placeholder="请输入安装地址" v-model="s_address">
+                    </div>
 
                     <!--<div class="col-xs-2 input-group-s">-->
                         <!--<select  class="form-control "  v-model="s_isp">-->
@@ -51,15 +54,17 @@
                             <option v-for="item in ispList" :value="item.id">{{item.isp_sales}}</option>
                         </select>
                     </div>
+
+
+                </div>
+                <div class="row" style="margin-top: 20px">
+
                     <div class="col-xs-2 input-group-s">
                         <select  class="form-control "  v-model="s_type">
                             <option value="">请选择业务类型</option>
                             <option v-for="item in typeList" :value="item.id">{{item.name}}</option>
                         </select>
                     </div>
-
-                </div>
-                <div class="row" style="margin-top: 20px">
 
                     <div class="col-xs-2 input-group-s">
                         <select  class="form-control "  v-model="s_cid">

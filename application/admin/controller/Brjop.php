@@ -48,6 +48,9 @@ class Brjop extends Base
         if (isset($data['s_contact']) && !empty($data['s_contact'])) {
             $condition['p1.contact'] = ['=', $data['s_contact']];
         }
+        if (isset($data['s_address']) && !empty($data['s_address'])) {
+            $condition['p1.address'] = ['like', '%'.$data['s_address'].'%'];
+        }
 
         if (isset($data['s_phone']) && !empty($data['s_phone'])) {
             $condition['p1.phone'] = ['=', $data['s_phone']];

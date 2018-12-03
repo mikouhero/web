@@ -16,6 +16,7 @@ vm = new Vue({
         s_status:'',
         s_time:'',
         s_out:'',
+        s_address:'',
         s_isp_manager:'',
         typeList :{},
         bus_status :[{id:1,name:'正常'},{id:2,name:'过期'},{id:3,name:'申请拆机'},{id:4,name:'拆机'}],
@@ -39,6 +40,7 @@ vm = new Vue({
                 s_out:this.s_out,
                 s_type:this.s_type,
                 s_isp_manager:this.s_isp_manager,
+                s_address:this.s_address,
 
             }, {
                 emulateJSON: true

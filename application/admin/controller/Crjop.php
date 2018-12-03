@@ -42,6 +42,10 @@ class Crjop extends Base
             $condition['p1.speed'] = ['=', $data['s_speed']];
         }
 
+        if (isset($data['s_address']) && !empty($data['s_address'])) {
+            $condition['p1.address'] = ['like', '%'.$data['s_address'].'%'];
+        }
+
         if (isset($data['s_status']) && !empty($data['s_status'])) {
             $condition['p1.status'] = ['=', $data['s_status']];
         }
@@ -101,6 +105,9 @@ class Crjop extends Base
             ->join('crj_code p6','p6.crj_code=p1.crj','left')
             ->join('company p2', 'p2.id = p6.cid', 'left')
             ->join('crj_op p3', 'p3.crj_id = p1.id', 'left')
+            ->join('crj_bt p4','p4.crj_id = p1.id','left')
+            ->join('channel p5','p5.id = p4.isp_manager','left')
+            ->where('p3.crj_id is not null ')
             ->where($condition)->count();
         $res = array(
             'list' => $list,

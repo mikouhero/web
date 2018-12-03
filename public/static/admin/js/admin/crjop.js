@@ -11,6 +11,7 @@ vm = new Vue({
         delkey: '',
         s_crj :'',
         s_cid:'',
+        s_address:'',
         typeList :{},
         speedList :[{id:1,name:'10M'},{id:2,name:'20M'},{id:3,name:'50M'},{id:4,name:'100M'},{id:5,name:'200M'}],
         bus_status :[{id:1,name:'潜在'},{id:2,name:'正式'},{id:3,name:'过期'}],
@@ -28,6 +29,7 @@ vm = new Vue({
                 current_page: this.pageNo,
                 s_crj:this.s_crj,
                 s_cid:this.s_cid,
+                s_address:this.s_address,
 
             }, {
                 emulateJSON: true

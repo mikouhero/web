@@ -19,6 +19,8 @@ vm = new Vue({
         prjCode:'',
         upath: '',
         fjid:'',
+        s_address:'',
+
     },
     methods: {
         getList: function () {
@@ -28,6 +30,7 @@ vm = new Vue({
                 s_cid:this.s_cid,
                 s_prj_user:this.s_prj_user,
                 s_prj_manger:this.s_prj_manger,
+                s_address:this.s_address,
 
             }, {
                 emulateJSON: true

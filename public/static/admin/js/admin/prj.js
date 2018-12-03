@@ -20,6 +20,7 @@ vm = new Vue({
         upath: '',
         fjid:'',
         saleList:{},
+        s_address:'',
 
     },
     methods: {
@@ -30,6 +31,7 @@ vm = new Vue({
                 s_cid:this.s_cid,
                 s_prj_user:this.s_prj_user,
                 s_prj_manger:this.s_prj_manger,
+                s_address:this.s_address,
 
             }, {
                 emulateJSON: true

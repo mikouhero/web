@@ -47,7 +47,9 @@ class Crjpay extends Base
         if (isset($data['s_type']) && !empty($data['s_type'])) {
             $condition['p1.type'] = ['=', $data['s_type']];
         }
-
+        if (isset($data['s_address']) && !empty($data['s_address'])) {
+            $condition['p1.address'] = ['like', '%'.$data['s_address'].'%'];
+        }
 
         if (isset($data['s_status']) && !empty($data['s_status'])) {
             $condition['p1.status'] = ['=', $data['s_status']];

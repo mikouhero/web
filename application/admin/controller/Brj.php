@@ -63,6 +63,10 @@ class Brj extends Base
             $condition['p1.phone'] = ['=', $data['s_phone']];
         }
 
+        if (isset($data['s_address']) && !empty($data['s_address'])) {
+            $condition['p1.address'] = ['like', '%'.$data['s_address'].'%'];
+        }
+
         if (isset($data['s_status']) && !empty($data['s_status'])) {
             $condition['p1.status'] = ['=', $data['s_status']];
         }
