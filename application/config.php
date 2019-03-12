@@ -282,6 +282,22 @@ return [
         'admin_js_path'  => '/static/admin/js',
         'admin_img_path'  => '/static/admin/img',
         'admin_picture_path'  => '/static/admin/avatars',
+    ],
+
+    // 邮箱设置
+    'mail_conf' =>[
+        // 配置信息
+        'MAIL_HOST' => 'smtp.qq.com',   // smtp服务器
+        'MAIL_PORT' => 587,    // 邮件发送端口  25/587
+        'MAIL_SMTPAUTH' => true , // stmp认证
+        'MAIL_CHARSET' => 'utf-8',  // 编码
+        'MAIL_ENCODING' => 'base64',  // 编码方法
+        // 邮件发神设置
+        'MAIL_NAME' => '468094404@qq.com',   //  发送邮箱
+        'MAIL_PWD' => 'dxirkzismxgpbhig',   // 密码 注意用163邮箱这里填写的是“客户端授权密码”而不是邮箱的登录密码！
+        'MAIL_FROMNAME' => '系统提示',  //发送人
+
     ]
+
 
 ];

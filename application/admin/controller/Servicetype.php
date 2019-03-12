@@ -57,7 +57,7 @@ class Servicetype extends Base
         }
 
         // 判断用户是否存在
-        if (Db::name('company')->where('name', $data['name'])->count()) {
+        if (Db::name('service_type')->where('name', $data['name'])->count()) {
             $this->ajaxReturnMsg(202, '类型已存在', '');
         }
 

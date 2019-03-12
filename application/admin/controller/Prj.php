@@ -60,7 +60,7 @@ class Prj extends Base
             ->where('p1.id','=',$user['id'])
             ->count();
         if($limit){
-            $condition['p1.sales'] = ['=', $user['id']];
+            $condition['p1.prj_user'] = ['=', $user['id']];
         }
         $list = Db::name('prj')
             ->alias('p1')
@@ -71,7 +71,8 @@ class Prj extends Base
             p1.address,
             p1.pro_name,
             p1.team,
-            p3.name as prj_user,
+            p3.id as prj_user,
+            p3.name as prj_user_name,
             p1.prj_manger,
             p1.final_cost,
             p1.fj')
@@ -196,7 +197,7 @@ class Prj extends Base
         if(empty($code['prj'])){
             $prj = "PRJ" . "10001";
         }else{
-            $prj = "PRJ" . (intval( substr($code['PRJ'],3)) + 1);
+            $prj = "PRJ" . (intval( substr($code['prj'],3)) + 1);
         }
         return $prj;
     }

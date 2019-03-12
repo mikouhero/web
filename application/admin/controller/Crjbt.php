@@ -58,15 +58,14 @@ class Crjbt extends Base
         if (isset($data['s_isp_manager']) && !empty($data['s_isp_manager'])) {
             $condition['p5.id'] = ['=', $data['s_isp_manager']];
         }
-        if (isset($data['s_out']) && !empty($data['s_out'])) {
-            if ($data['s_out'] == 1) {
-                $condition['p1.end_time'] = array(['<>',null],['>=', date('Y-m-d')]);
+        if (isset($data['s_status']) && !empty($data['s_status'])) {
+            if ($data['s_status'] == 1) {
+                $condition['p1.end_time'] = ['>=', date('Y-m-d')];
             }
-            if ($data['s_out'] == 2) {
-                $condition['p1.end_time'] = array(['<>',null],['<', date('Y-m-d')]);
+            if ($data['s_status'] == 2) {
+                $condition['p1.end_time'] = ['<', date('Y-m-d')];
             }
         }
-
         if (isset($data['s_time']) && !empty($data['s_time'])) {
             $condition['p1.end_time'] = array(['>=', date("Y-m-d")], ['<=', date("Y-m-d", strtotime('+' . $data['s_time'] . 'days'))]);
         }

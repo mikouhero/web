@@ -60,10 +60,10 @@ class Crj extends Base
         }
         if (isset($data['s_status']) && !empty($data['s_status'])) {
             if ($data['s_status'] == 1) {
-                $condition['p1.end_time'] = array(['<>',null],['>=', date('Y-m-d')]);
+                $condition['p1.end_time'] = ['>=', date('Y-m-d')];
             }
             if ($data['s_status'] == 2) {
-                $condition['p1.end_time'] = array(['<>',null],['<', date('Y-m-d')]);
+                $condition['p1.end_time'] = ['<', date('Y-m-d')];
             }
         }
 

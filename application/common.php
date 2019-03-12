@@ -1,4 +1,6 @@
 <?php
+
+use app\demo\PhpMailer;
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
@@ -66,4 +68,76 @@ function formatDate($datetime = '')
         }
     }
     return $result;
+}
+
+
+function mailSend($mailInfo){
+    //date_default_timezone_set('Asia/Shanghai');//设置时区
+    $mail =  new PhpMailer();
+    echo "<pre>";
+    $mailConfig = config('MAIL_CONF');//获取mail配置
+    //dump($mailConfig);exit;
+    //配置项
+    $mail->isSMTP();
+    $mail->Host = $mailConfig['MAIL_HOST'];
+    $mail->Port = $mailConfig['MAIL_PORT'];//端口
+    $mail->SMTPAuth = $mailConfig['MAIL_SMTPAUTH'];//启用SMTP认证
+    $mail->CharSet = $mailConfig['MAIL_CHARSET'];
+    $mail->Encoding = $mailConfig['MAIL_ENCODING'];
+    $mail->Username = $mailConfig['MAIL_NAME']; //发送邮箱
+    $mail->Password = $mailConfig['MAIL_PWD'];
+    $mail->FromName = $mailConfig['MAIL_FROMNAME']; //发件人名字
+    //内容
+    $mail->addAddress($mailInfo['address']);//收件人邮箱
+    $mail->Subject = $mailInfo['subject']; //邮件主题
+    //图片以及附件
+    $mail->isHTML(true); //支持html格式内容
+
+    //最后一个参数可不写,默认为原文件名
+//    $mail->addEmbeddedImage($mailInfo['img']['path'],$mailInfo['img']['cid'],$mailInfo['img']['name']);//图片路径,图片cid，图片名称
+//    $mail->addAttachment($mailInfo['attachment']['path'],$mailInfo['attachment']['name']);//添加附件,并指定名称
+    //邮件主体
+    $mail->Body = $mailInfo['body'];//发送
+    $mail->send();
+     echo "错误原因: " . $mail->ErrorInfo;
+die;
+    return $mail->send()?true:false;
+}
+
+function sendMail($usermail,$code)
+{
+    $mail = new PhpMailer(); //建立邮件发送类
+    $mail->CharSet = "UTF-8";
+    $address ="290468335@qq.com";
+    $mail->IsSMTP(); // 使用SMTP方式发送
+    $mail->Host = "smtp.qq.com"; // 您的企业邮局域名
+    $mail->SMTPAuth = true; // 启用SMTP验证功能
+    $mail->Username = "290468335@qq.com"; // 邮局用户名(请填写完整的email地址)
+    $mail->Password = "syaeymabqsfgbijj"; // 邮局密码
+    $mail->Port=587;
+    $mail->From = "290468335@qq.com"; //邮件发送者email地址
+    $mail->FromName = "小钉铛ASK";
+    $mail->AddAddress($usermail, "title");//收件人地址，可以替换成任何想要接收邮件的email信箱,格式是AddAddress("收件人email","收件人姓名")
+    //$mail->AddReplyTo("", "");
+
+    //$mail->AddAttachment("/var/tmp/file.tar.gz"); // 添加附件
+    $mail->IsHTML(true); // set email format to HTML //是否使用HTML格式
+
+    $mail->Subject = "您的验证码是:"; //邮件标题
+    $mail->Body =  "<h2>你好</h2> 这是一个邮件,
+             <a href='#'>http://www.test.com</a>
+            <hr><img alt='这是一张图片' src='cid:test_id1'>"; //邮件内容，上面设置HTML，则可以是HTML
+
+    if(!$mail->Send())
+    {
+        // echo "邮件发送失败. <p>";
+        // echo "错误原因: " . $mail->ErrorInfo;
+        return false;
+        exit;
+    }else{
+
+        // echo '邮箱发送成功';
+        return '邮箱发送成功';
+    }
+
 }

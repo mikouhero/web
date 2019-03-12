@@ -115,6 +115,12 @@ var ajaxUrl = {
     delCrjcode:adminUrl+"/crjcode/delete",
 
 
+    getCrjnoticeList:adminUrl+"/crjnotice/getList",
+    editCrjnotice:adminUrl+"/crjnotice/update",         // crjnotice
+    updatestatusCrjnotice:adminUrl+"/crjnotice/updatestatus",
+
+
+
     getServicetypeList:adminUrl+"/servicetype/getList",
     addServicetype:adminUrl+"/servicetype/insert",
     editServicetype:adminUrl+"/servicetype/update",         //type
